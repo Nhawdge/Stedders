@@ -15,8 +15,11 @@ namespace Stedders.Systems
         public override void UpdateNoCamera()
         {
             var state = Engine.Singleton.GetComponent<GameState>();
+            
             if (state.State == States.MainMenu)
             {
+                Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
+
                 var width = 60;
                 var height = 30;
                 var positionWidth = Raylib.GetScreenWidth() / 2 - width / 2;
@@ -67,6 +70,7 @@ namespace Stedders.Systems
                 if (RayGui.GuiButton(rect, "Play"))
                 {
                     state.State = States.Start;
+                    Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
                 }
             }
             else if (state.State == States.Game)

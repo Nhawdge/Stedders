@@ -1,7 +1,7 @@
 ﻿using Stedders.Components;
 using System.Numerics;
 using static Raylib_CsLo.Raylib;
-using static Stedders.Components.Render;
+using static Stedders.Components.Sprite;
 
 namespace Stedders.Systems
 {
@@ -30,7 +30,7 @@ namespace Stedders.Systems
                 {
                     return;
                 }
-                var playerRenderTorso = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                var playerRenderTorso = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
 
 
                 if (playerRenderTorso != null)

@@ -6,6 +6,7 @@ namespace Stedders.Systems
     public class InputSystem : GameSystem
     {
         public Dictionary<KeyboardKey, Action> KeyboardMapping = new Dictionary<KeyboardKey, Action>();
+        public Dictionary<MouseButton, Action> MouseMapping = new Dictionary<MouseButton, Action>();
         public InputSystem(GameEngine gameEngine) : base(gameEngine)
         {
             KeyboardMapping.Add(KeyboardKey.KEY_D, () =>
@@ -16,7 +17,7 @@ namespace Stedders.Systems
                     return;
                 }
 
-                var playerRenderLegs = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == Render.MechPieces.Legs);
+                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Legs);
                 playerRenderLegs!.Rotation += 1f;
             });
 
@@ -28,7 +29,7 @@ namespace Stedders.Systems
                     return;
                 }
 
-                var playerRenderLegs = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == Render.MechPieces.Legs);
+                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Legs);
                 playerRenderLegs!.Rotation -= 1f;
             });
             KeyboardMapping.Add(KeyboardKey.KEY_W, () =>
@@ -38,8 +39,9 @@ namespace Stedders.Systems
                 {
                     return;
                 }
-                playerMech.GetComponent<Player>().Throttle += 0.1f;
+                var player = playerMech.GetComponent<Player>();
 
+                player.Throttle = Math.Min(player.Throttle + 0.1f, player.MaxThrottle);
             });
             KeyboardMapping.Add(KeyboardKey.KEY_S, () =>
             {
@@ -48,9 +50,36 @@ namespace Stedders.Systems
                 {
                     return;
                 }
-                playerMech.GetComponent<Player>().Throttle -= 0.1f;
+                var player = playerMech.GetComponent<Player>();
+
+                player.Throttle = Math.Max(player.Throttle - 0.1f, player.MinThrottle);
             });
+            KeyboardMapping.Add(KeyboardKey.KEY_SPACE, () =>
+            {
+                var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
+                if (playerMech is null)
+                {
+                    return;
+                }
+                var player = playerMech.GetComponent<Player>();
+
+                player.Throttle = 0f;
+            });
+
             KeyboardMapping.Add(KeyboardKey.KEY_ONE, () => { Console.WriteLine("1 Pressed"); });
+
+
+            MouseMapping.Add(MouseButton.MOUSE_BUTTON_LEFT, () =>
+            {
+                var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
+                if (playerMech is null)
+                {
+                    return;
+                }
+                var player = playerMech.GetComponent<Player>();
+                var weapon1 = playerMech.GetComponent<Equipment>();
+                weapon1.IsFiring = true;
+            });
         }
 
         public override void Update()
@@ -62,19 +91,35 @@ namespace Stedders.Systems
                     mapping.Value();
                 }
             }
-            var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
-            if (playerMech is null)
+
+            foreach (var mapping in MouseMapping)
             {
-                return;
+                if (Raylib.IsMouseButtonDown(mapping.Key))
+                {
+                    mapping.Value();
+                }
             }
 
-            var playerRenderTorso = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == Render.MechPieces.Torso);
+            var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
+            if (playerMech is not null)
+            {
 
-            var mousePos = Raylib.GetMousePosition();
-            var mouseWorldPos = Raylib.GetScreenToWorld2D(mousePos, Engine.Camera);
-            var difference = mouseWorldPos - playerRenderTorso.Position;
-            var angle = Math.Atan2(difference.Y, difference.X);
-            playerRenderTorso.Rotation = (float)(angle * 180 / Math.PI) + 90;
+                var playerRenderTorso = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Torso);
+
+                var mousePos = Raylib.GetMousePosition();
+                var mouseWorldPos = Raylib.GetScreenToWorld2D(mousePos, Engine.Camera);
+                var difference = mouseWorldPos - playerRenderTorso.Position;
+                var angle = Math.Atan2(difference.Y, difference.X);
+                playerRenderTorso.Rotation = (float)(angle * 180 / Math.PI) + 90;
+            }
+            if (Raylib.GetMouseWheelMove() > 0)
+            {
+                this.Engine.Camera.zoom += .01f;
+            }
+            else if (Raylib.GetMouseWheelMove() < 0)
+            {
+                this.Engine.Camera.zoom -= .01f;
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Stedders.Systems
                 {
                     var myHq = entityBase.GetComponent<Headquarters>();
                     var myAi = entityBase.GetComponent<NpcAi>();
-                    var myRender = entityBase.GetComponent<Render>();
+                    var myRender = entityBase.GetComponent<Sprite>();
                     var myTeam = entityBase.GetComponent<Faction>();
 
                     //if (myHq.Wealth >= UnitsManager.Stats[Units.Bob].Cost * 2)

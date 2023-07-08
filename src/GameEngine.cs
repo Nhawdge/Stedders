@@ -34,6 +34,9 @@ namespace Stedders
                 new HealthSystem(this),
                 new CameraSystem(this),
                 new MechMovementSystem(this),
+                new MechUISystem(this),
+                new EquipmentSystem(this),
+                new MunitionsSystem(this),
             };
 
             Camera = new Camera2D();
@@ -55,6 +58,7 @@ namespace Stedders
             Singleton.Components.Add(new GameState());
             TextureManager = new TextureManager();
             TextureManager.LoadTextures();
+            RayGui.GuiLoadStyle("Assets/cyber.rgs");
         }
 
         public void GameLoop()

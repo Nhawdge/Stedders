@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Stedders.Components
 {
-    public class Render : Component
+    public class Sprite : Component
     {
         public Texture Texture;
         public bool IsFlipped = false;
@@ -28,8 +28,6 @@ namespace Stedders.Components
                 if (IsCentered)
                     return new Vector2(SpriteWidth / 2 * Scale, SpriteHeight / 2 * Scale);
                 return Vector2.Zero;
-                //    return new Vector2(SpriteWidth / 2 + (Column * SpriteHeight), SpriteHeight / 2 + (Row * SpriteWidth));
-                //return new Vector2(Column * SpriteWidth, SpriteHeight * Row);
             }
         }
 
@@ -52,7 +50,7 @@ namespace Stedders.Components
                     SpriteHeight * Scale);
         }
 
-        public Render(Texture texture, int col = 0, int row = 0, float scale = 1, bool isCentered = true)
+        public Sprite(Texture texture, int col = 0, int row = 0, float scale = 1, bool isCentered = true)
         {
             Texture = texture;
             Position = Vector2.Zero;
@@ -61,10 +59,13 @@ namespace Stedders.Components
             IsCentered = isCentered;
             Column = col;
             Row = row;
+            SpriteWidth = texture.width;
+            SpriteHeight = texture.height;
         }
 
         public enum MechPieces
         {
+            None,
             Torso,
             Legs
         }

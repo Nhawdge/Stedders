@@ -15,10 +15,10 @@ namespace Stedders.Systems
         public override void Update()
         {
             Raylib.DrawTextureEx(BackgroundTexture, Vector2.Zero, 0f,100, Raylib.WHITE);
-            foreach (var entity in Engine.Entities.OrderBy(x => x.GetComponent<Render>().Position.Y))
+            foreach (var entity in Engine.Entities.OrderBy(x => x.GetComponent<Sprite>().Position.Y))
             {
                 //Console.WriteLine("Rendered" + entity.ShortId());
-                var myRenders = entity.GetComponents<Render>();
+                var myRenders = entity.GetComponents<Sprite>();
                 foreach (var myRender in myRenders)
                     Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.Rotation, myRender.Color);
 

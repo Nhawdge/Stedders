@@ -1,0 +1,22 @@
+﻿using Raylib_CsLo;
+
+namespace Stedders.Components
+{
+    internal class Equipment : Component
+    {
+        public string Name { get; set; }
+        public Sprite Sprite { get; set; }
+        public KeyboardKey Key { get; set; }
+        public float Ammo { get; set; } = 100;
+        public float MaxAmmo { get; set; } = 100;
+        public float Damage { get; set; }
+        public float MaxRange { get; set; } = 1500;
+        public float Range { get; set; } = 1;
+        public float Heat { get; set; }
+        public float MaxHeat { get; set; }
+        public float HeatPerShot { get; set; }
+        public bool IsFiring { get; set; }
+        public bool IsOverheated { get; set; }
+
+    }
+}

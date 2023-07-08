@@ -18,7 +18,7 @@ namespace Stedders.Systems
                 foreach (var unit in unitsToMove)
                 {
 
-                    var myRender = unit.GetComponent<Render>();
+                    var myRender = unit.GetComponent<Sprite>();
                     var myMove = unit.GetComponent<MoveableUnit>();
                     var myTeam = unit.GetComponent<Faction>();
 

@@ -18,8 +18,8 @@ namespace Stedders.Systems
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
                 if (playerMech is not null)
                 {
-                    var legs = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == Render.MechPieces.Legs);
-                    var torso = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == Render.MechPieces.Torso);
+                    var legs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Legs);
+                    var torso = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Torso);
 
                     var newPosition = new Vector2(legs.Position.X, legs.Position.Y);
                     
