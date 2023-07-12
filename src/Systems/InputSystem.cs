@@ -66,13 +66,11 @@ namespace Stedders.Systems
                 player.Throttle = 0f;
             });
 
-            KeyboardMapping.Add(KeyboardKey.KEY_ONE, () => { Console.WriteLine("1 Pressed");
-                var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
-                var legs = playerMech.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Legs);
-                legs.Play("WalkR");
-
+            KeyboardMapping.Add(KeyboardKey.KEY_ONE, () =>
+            {
+                Console.WriteLine("1 Pressed");
+                Console.WriteLine(Raylib.GetMousePosition());
             });
-
 
             MouseMapping.Add(MouseButton.MOUSE_BUTTON_LEFT, () =>
             {

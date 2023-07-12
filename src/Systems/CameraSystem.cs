@@ -1,8 +1,6 @@
-﻿using Raylib_CsLo;
-using Stedders.Components;
+﻿using Stedders.Components;
 using System.Numerics;
 using static Raylib_CsLo.Raylib;
-using static Stedders.Components.Sprite;
 
 namespace Stedders.Systems
 {
@@ -19,10 +17,11 @@ namespace Stedders.Systems
 
             if (state.State == States.Game)
             {
+                //<1070, 294>
                 float LeftEdge = 0 + GetScreenWidth() / 2;
-                float RightEdge = 14096 - GetScreenWidth() / 2;
+                float RightEdge = 1440 - GetScreenWidth() / 2;
                 float TopEdge = 0 + GetScreenHeight() / 2;
-                float BottomEdge = 14096 - GetScreenHeight() / 2;
+                float BottomEdge = 960 - GetScreenHeight() / 2;
                 var mousePos = GetScreenToWorld2D(GetMousePosition(), Engine.Camera);
 
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();

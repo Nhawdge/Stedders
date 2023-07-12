@@ -10,7 +10,7 @@ namespace Stedders.Components
         public float Ammo { get; set; } = 100;
         public float MaxAmmo { get; set; } = 100;
         public float Damage { get; set; }
-        public float MaxRange { get; set; } = 1500;
+        public float MaxRange { get; set; } = 150;
         public float Range { get; set; } = 1;
         public float Heat { get; set; }
         public float MaxHeat { get; set; }

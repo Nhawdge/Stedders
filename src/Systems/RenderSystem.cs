@@ -9,16 +9,16 @@ namespace Stedders.Systems
         public Texture BackgroundTexture { get; private set; }
         public RenderSystem(GameEngine gameEngine) : base(gameEngine)
         {
-            this.BackgroundTexture = Raylib.LoadTexture("Assets/background.png");
+            this.BackgroundTexture = Raylib.LoadTexture("Assets/FreestyleRanchBackground.png");
         }
 
         public override void Update()
         {
-            Raylib.DrawTextureEx(BackgroundTexture, Vector2.Zero, 0f,100, Raylib.WHITE);
-            foreach (var entity in Engine.Entities.OrderBy(x => x.GetComponent<Sprite>().Position.Y))
+            Raylib.DrawTextureEx(BackgroundTexture, Vector2.Zero, 0f, 3, Raylib.WHITE);
+            foreach (var entity in Engine.Entities.OrderBy(x => x.GetComponent<Render>().Position.Y))
             {
                 //Console.WriteLine("Rendered" + entity.ShortId());
-                var myRenders = entity.GetComponents<Sprite>();
+                var myRenders = entity.GetComponents<Render>();
                 foreach (var myRender in myRenders)
                     Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
 

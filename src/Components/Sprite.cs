@@ -27,13 +27,16 @@ namespace Stedders.Components
                 json.frames.Where(f => f.filename.StartsWith(x.name)).Select(z => new Frame(z.frame.x, z.frame.y, z.frame.w, z.frame.h, z.duration)).ToList()));
 
             Console.WriteLine(Animations.Count);
+            CurrentAnimation = Animations.First().Value;
         }
 
         public override Rectangle Source
         {
             get
             {
-                var frame = CurrentAnimation.Frames[CurrentFrameIndex];
+                var frame = CurrentAnimation?.Frames[CurrentFrameIndex];
+                if (frame == null)
+                    return new Rectangle();
                 FrameCounter += Raylib.GetFrameTime();
                 if (FrameCounter > frame.Duration / 1000)
                 {

@@ -1,106 +1,91 @@
 { "frames": [
    {
-    "filename": "IdleD-0",
+    "filename": "Grow1-0",
     "frame": { "x": 1, "y": 1, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 250
    },
    {
-    "filename": "IdleD-1",
+    "filename": "Grow2-0",
     "frame": { "x": 19, "y": 1, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 250
    },
    {
-    "filename": "IdleD-2",
-    "frame": { "x": 1, "y": 1, "w": 16, "h": 16 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-    "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
-   },
-   {
-    "filename": "IdleD-3",
+    "filename": "Grow3-0",
     "frame": { "x": 37, "y": 1, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 250
    },
    {
-    "filename": "IdleU-0",
+    "filename": "Grow4-0",
     "frame": { "x": 1, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 250
    },
    {
-    "filename": "IdleU-1",
+    "filename": "Grow5-0",
     "frame": { "x": 19, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 250
    },
    {
-    "filename": "IdleU-2",
-    "frame": { "x": 1, "y": 19, "w": 16, "h": 16 },
+    "filename": "Mature-0",
+    "frame": { "x": 19, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 1000
    },
    {
-    "filename": "IdleU-3",
+    "filename": "Mature-1",
     "frame": { "x": 37, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 1000
    },
    {
-    "filename": "IdleR-0",
+    "filename": "Mature-2",
     "frame": { "x": 1, "y": 37, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
-   },
-   {
-    "filename": "IdleR-1",
-    "frame": { "x": 19, "y": 37, "w": 16, "h": 16 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
-    "sourceSize": { "w": 16, "h": 16 },
-    "duration": 100
+    "duration": 1000
    }
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
   "version": "1.2.40-x64",
-  "image": "Mech2Top.png",
+  "image": "Plant1.png",
   "format": "RGBA8888",
   "size": { "w": 54, "h": 54 },
   "scale": "1",
   "frameTags": [
-   { "name": "IdleD", "from": 0, "to": 3, "direction": "forward" },
-   { "name": "IdleU", "from": 4, "to": 7, "direction": "forward" },
-   { "name": "IdleR", "from": 8, "to": 9, "direction": "forward" }
+   { "name": "Grow1", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "Grow2", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "Grow3", "from": 2, "to": 2, "direction": "forward" },
+   { "name": "Grow4", "from": 3, "to": 3, "direction": "forward" },
+   { "name": "Grow5", "from": 4, "to": 4, "direction": "forward" },
+   { "name": "Mature", "from": 5, "to": 7, "direction": "pingpong" }
   ]
  }
 }

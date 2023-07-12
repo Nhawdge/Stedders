@@ -37,10 +37,12 @@ namespace Stedders
                 new MechUISystem(this),
                 new EquipmentSystem(this),
                 new MunitionsSystem(this),
+                new PlantGrowthSystem(this),
+                new TimeKeeperSystem(this),
             };
 
             Camera = new Camera2D();
-            Camera.zoom = 0.1f;
+            Camera.zoom = 1f;
             //Camera.target.X = -(Raylib.GetScreenWidth() / 2);
             //Camera.target.Y = -(Raylib.GetScreenHeight() / 2);
 

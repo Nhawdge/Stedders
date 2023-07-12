@@ -27,10 +27,28 @@ namespace Stedders.Systems
                     Raylib_CsLo.Raylib.DrawLine(
                         (int)newPosition.X,
                         (int)newPosition.Y,
-                        (int)(newPosition.X + Math.Cos(legs.RotationAsRadians) * 1000),
-                        (int)(newPosition.Y + Math.Sin(legs.RotationAsRadians) * 1000),
+                        (int)(newPosition.X + Math.Cos(legs.RotationAsRadians) * 100),
+                        (int)(newPosition.Y + Math.Sin(legs.RotationAsRadians) * 100),
                         Raylib.RED);
                     var throttle = playerMech.GetComponent<Player>().Throttle;
+
+                    switch (torso.Rotation)
+                    {
+                        case > 45 and < 135:
+                            torso.Play("IdleR");
+                            torso.IsFlipped = false;
+                            break;
+                        case > 135 and < 225:
+                            torso.Play("IdleD");
+                            break;
+                        case > 225 and < 315:
+                            torso.Play("IdleR");
+                            torso.IsFlipped = true;
+                            break;
+                        default:
+                            torso.Play("IdleU");
+                            break;
+                    }
                     if (throttle != 0)
                     {
                         switch (legs.Rotation)
@@ -38,38 +56,28 @@ namespace Stedders.Systems
                             case > 45 and < 135:
                                 legs.Play("WalkR");
                                 legs.IsFlipped = false;
-                                torso.Play("IdleR");
-                                torso.IsFlipped = false;
                                 break;
                             case > 135 and < 225:
                                 legs.Play("WalkD");
-                                torso.Play("Idle");
                                 break;
                             case > 225 and < 315:
                                 legs.Play("WalkR");
                                 legs.IsFlipped = true;
-                                torso.Play("IdleR");
-                                torso.IsFlipped = true;
                                 break;
                             default:
                                 legs.Play("WalkD");
-                                torso.Play("Idle");
-
                                 break;
                         }
-
-
                     }
                     else
                     {
                         legs.Play("Idle");
-                    }
+                    } 
 
                     var directionAsVector = new Vector2((float)Math.Cos(legs.RotationAsRadians), (float)Math.Sin(legs.RotationAsRadians));
                     newPosition += directionAsVector * throttle;
                     legs.Position = newPosition;
-                    torso.Position = newPosition with { Y = newPosition.Y - 350 };
-
+                    torso.Position = newPosition with { Y = newPosition.Y - 30 * torso.Scale };
                 }
             }
 
