@@ -13,4 +13,5 @@ The basic gist is that you've got a mech to do farming during the day, and at ni
 
 
 ## Credits
-* Nhawdge 
+* Nhawdge - Programming probably
+* Adam Yosef - Audio

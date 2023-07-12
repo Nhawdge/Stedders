@@ -5,7 +5,7 @@ namespace Stedders.Components
     internal class Equipment : Component
     {
         public string Name { get; set; }
-        public Sprite Sprite { get; set; }
+        public Render Sprite { get; set; }
         public KeyboardKey Key { get; set; }
         public float Ammo { get; set; } = 100;
         public float MaxAmmo { get; set; } = 100;

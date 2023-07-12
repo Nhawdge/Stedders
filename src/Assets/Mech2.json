@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "Mech2 #WalkD 0",
+    "filename": "Idle-0",
     "frame": { "x": 1, "y": 1, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -9,7 +9,7 @@
     "duration": 100
    },
    {
-    "filename": "Mech2 #WalkD 1",
+    "filename": "Idle-1",
     "frame": { "x": 19, "y": 1, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -18,7 +18,7 @@
     "duration": 100
    },
    {
-    "filename": "Mech2 #WalkD 2",
+    "filename": "WalkD-0",
     "frame": { "x": 1, "y": 1, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -27,7 +27,7 @@
     "duration": 100
    },
    {
-    "filename": "Mech2 #WalkD 3",
+    "filename": "WalkD-1",
     "frame": { "x": 37, "y": 1, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -36,16 +36,25 @@
     "duration": 100
    },
    {
-    "filename": "Mech2 #WalkR 0",
+    "filename": "WalkD-2",
+    "frame": { "x": 1, "y": 1, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 100
+   },
+   {
+    "filename": "WalkD-3",
     "frame": { "x": 1, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
-    "duration": 250
+    "duration": 100
    },
    {
-    "filename": "Mech2 #WalkR 1",
+    "filename": "WalkR-0",
     "frame": { "x": 19, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -54,8 +63,8 @@
     "duration": 250
    },
    {
-    "filename": "Mech2 #WalkR 2",
-    "frame": { "x": 1, "y": 19, "w": 16, "h": 16 },
+    "filename": "WalkR-1",
+    "frame": { "x": 37, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
@@ -63,8 +72,17 @@
     "duration": 250
    },
    {
-    "filename": "Mech2 #WalkR 3",
+    "filename": "WalkR-2",
     "frame": { "x": 19, "y": 19, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 250
+   },
+   {
+    "filename": "WalkR-3",
+    "frame": { "x": 37, "y": 19, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
@@ -80,8 +98,9 @@
   "size": { "w": 54, "h": 36 },
   "scale": "1",
   "frameTags": [
-   { "name": "WalkD", "from": 0, "to": 3, "direction": "forward" },
-   { "name": "WalkR", "from": 4, "to": 7, "direction": "forward" }
+   { "name": "Idle", "from": 0, "to": 1, "direction": "forward" },
+   { "name": "WalkD", "from": 2, "to": 5, "direction": "forward" },
+   { "name": "WalkR", "from": 6, "to": 9, "direction": "forward" }
   ]
  }
 }

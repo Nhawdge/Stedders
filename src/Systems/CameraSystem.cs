@@ -1,4 +1,5 @@
-﻿using Stedders.Components;
+﻿using Raylib_CsLo;
+using Stedders.Components;
 using System.Numerics;
 using static Raylib_CsLo.Raylib;
 using static Stedders.Components.Sprite;
@@ -14,7 +15,6 @@ namespace Stedders.Systems
 
         public override void Update()
         {
-
             var state = Engine.Singleton.GetComponent<GameState>();
 
             if (state.State == States.Game)
@@ -30,8 +30,7 @@ namespace Stedders.Systems
                 {
                     return;
                 }
-                var playerRenderTorso = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
-
+                var playerRenderTorso = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
 
                 if (playerRenderTorso != null)
                 {

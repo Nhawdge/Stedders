@@ -20,7 +20,7 @@ namespace Stedders.Systems
                 //Console.WriteLine("Rendered" + entity.ShortId());
                 var myRenders = entity.GetComponents<Sprite>();
                 foreach (var myRender in myRenders)
-                    Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.Rotation, myRender.Color);
+                    Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
 
                 //Raylib.DrawRectangleLines((int)myRender.Position.X,(int) myRender.Position.Y,(int) myRender.Destination.width, (int)myRender.Destination.height,Raylib.BLACK);
                 //Raylib.DrawCircleLines((int)(myRender.Position.X + myRender.Origin.X),(int) (myRender.Position.Y + myRender.Origin.Y), 10f, Raylib.BLACK);

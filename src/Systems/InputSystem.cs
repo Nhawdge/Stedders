@@ -17,7 +17,7 @@ namespace Stedders.Systems
                     return;
                 }
 
-                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Legs);
+                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
                 playerRenderLegs!.Rotation += 1f;
             });
 
@@ -29,7 +29,7 @@ namespace Stedders.Systems
                     return;
                 }
 
-                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Legs);
+                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
                 playerRenderLegs!.Rotation -= 1f;
             });
             KeyboardMapping.Add(KeyboardKey.KEY_W, () =>
@@ -66,7 +66,12 @@ namespace Stedders.Systems
                 player.Throttle = 0f;
             });
 
-            KeyboardMapping.Add(KeyboardKey.KEY_ONE, () => { Console.WriteLine("1 Pressed"); });
+            KeyboardMapping.Add(KeyboardKey.KEY_ONE, () => { Console.WriteLine("1 Pressed");
+                var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
+                var legs = playerMech.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Legs);
+                legs.Play("WalkR");
+
+            });
 
 
             MouseMapping.Add(MouseButton.MOUSE_BUTTON_LEFT, () =>
@@ -104,7 +109,7 @@ namespace Stedders.Systems
             if (playerMech is not null)
             {
 
-                var playerRenderTorso = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == Sprite.MechPieces.Torso);
+                var playerRenderTorso = playerMech.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
 
                 var mousePos = Raylib.GetMousePosition();
                 var mouseWorldPos = Raylib.GetScreenToWorld2D(mousePos, Engine.Camera);

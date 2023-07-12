@@ -17,9 +17,9 @@ namespace Stedders
 
         public void RunGame()
         {
-            // Load systems
-
             Raylib.InitWindow(1380, 768, "Stedders");
+
+            Raylib.SetWindowPosition(-1652, 110);
             Raylib.SetTargetFPS(60);
 
             Systems = new List<GameSystem>

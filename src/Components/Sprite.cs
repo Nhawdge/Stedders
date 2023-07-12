@@ -1,73 +1,80 @@
 using Raylib_CsLo;
-using System.Net.Security;
+using Stedders.Utilities;
+using System.IO;
 using System.Numerics;
+using System.Text.Json;
 
 namespace Stedders.Components
 {
-    public class Sprite : Component
+    public class Sprite : Render
     {
-        public Texture Texture;
-        public bool IsFlipped = false;
-        public bool IsCentered = true;
-        public int Column = 0;
-        public int Row = 0;
-        public int SpriteWidth = 0;
-        public int SpriteHeight = 0;
-        public float Scale = 1f;
-        public float Rotation = 0f;
-        public float RotationAsRadians => (Rotation - 90) * (float)(Math.PI / 180);
-        public Vector2 Position;
-        public Color Color;
-        public int FrameCounter = 0;
-        public MechPieces MechPiece;
+        public Dictionary<string, AnimationSets> Animations = new();
+        public string AnimationDataPath = string.Empty;
+        public float FrameCounter = 0;
+        public int CurrentFrameIndex = 0;
+        public AnimationSets CurrentAnimation;
 
-        public Vector2 Origin
+        //public Sprite(Texture texture, int col = 0, int row = 0, float scale = 1, bool isCentered = true) : base(texture, col, row, scale, isCentered)
+        //{
+        //}
+
+        public Sprite(Texture texture, string animationDataPath, float scale = 1, bool isCentered = true) : base(texture, 0, 0, scale, isCentered)
+        {
+            AnimationDataPath = animationDataPath;
+            var data = File.ReadAllText(animationDataPath + ".json");
+            var json = JsonSerializer.Deserialize<AsepriteData>(data);
+
+            Animations = json.meta.frameTags.ToDictionary(x => (string)x.name,
+                x => new AnimationSets(x.name, x.from, x.to, Enum.Parse<Direction>(x.direction),
+                json.frames.Where(f => f.filename.StartsWith(x.name)).Select(z => new Frame(z.frame.x, z.frame.y, z.frame.w, z.frame.h, z.duration)).ToList()));
+
+            Console.WriteLine(Animations.Count);
+        }
+
+        public override Rectangle Source
         {
             get
             {
-                if (IsCentered)
-                    return new Vector2(SpriteWidth / 2 * Scale, SpriteHeight / 2 * Scale);
-                return Vector2.Zero;
+                var frame = CurrentAnimation.Frames[CurrentFrameIndex];
+                FrameCounter += Raylib.GetFrameTime();
+                if (FrameCounter > frame.Duration / 1000)
+                {
+                    FrameCounter -= frame.Duration / 1000;
+                    var totalFrames = CurrentAnimation.To - CurrentAnimation.From + 1;
+                    CurrentFrameIndex = (CurrentFrameIndex + 1) % totalFrames;
+                }
+                return new Rectangle(
+                       frame.X,
+                       frame.Y,
+                       frame.W * (IsFlipped ? -1 : 1),
+                       frame.H
+                       );
             }
         }
 
-        public Rectangle Source
+        public void Play(string animationName, bool forceStart = false)
         {
-            get => new Rectangle(
-                    Column * SpriteWidth,
-                    Row * SpriteHeight,
-                    SpriteWidth * (IsFlipped ? -1 : 1),
-                    SpriteHeight
-                    );
+            if (CurrentAnimation?.Name == animationName && forceStart == false)
+                return;
+            if (Animations.TryGetValue(animationName, out var animations))
+            {
+                this.CurrentAnimation = animations;
+                CurrentFrameIndex = 0;
+            }
+            else
+                throw new ArgumentException($"Invalid Animation name '{animationName}' for '{AnimationDataPath}'");
         }
 
-        public Rectangle Destination
+        public record AnimationSets(string Name, int From, int To, Direction direction, List<Frame> Frames);
+        //{ "name": "WalkD", "from": 0, "to": 3, "direction": "forward" },
+        public record Frame(int X, int Y, int W, int H, float Duration);
+
+        public enum Direction
         {
-            get => new Rectangle(
-                    Position.X,
-                    Position.Y,
-                    SpriteWidth * Scale,
-                    SpriteHeight * Scale);
+            forward,
+            backward,
+            pingpong
         }
 
-        public Sprite(Texture texture, int col = 0, int row = 0, float scale = 1, bool isCentered = true)
-        {
-            Texture = texture;
-            Position = Vector2.Zero;
-            Scale = scale;
-            Color = Raylib.WHITE;
-            IsCentered = isCentered;
-            Column = col;
-            Row = row;
-            SpriteWidth = texture.width;
-            SpriteHeight = texture.height;
-        }
-
-        public enum MechPieces
-        {
-            None,
-            Torso,
-            Legs
-        }
     }
 }
