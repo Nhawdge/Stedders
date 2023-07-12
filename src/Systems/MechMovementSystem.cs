@@ -20,9 +20,9 @@ namespace Stedders.Systems
                 if (playerMech is not null)
                 {
                     var legs = playerMech.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Legs);
-                    var torso = playerMech.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
+                    var torso = playerMech.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Torso);
 
-                    legs.Rotation = (legs.Rotation +360) % 360;
+                    legs.Rotation = (legs.Rotation + 360) % 360;
                     var newPosition = new Vector2(legs.Position.X, legs.Position.Y);
                     Raylib_CsLo.Raylib.DrawLine(
                         (int)newPosition.X,
@@ -38,16 +38,23 @@ namespace Stedders.Systems
                             case > 45 and < 135:
                                 legs.Play("WalkR");
                                 legs.IsFlipped = false;
+                                torso.Play("IdleR");
+                                torso.IsFlipped = false;
                                 break;
                             case > 135 and < 225:
                                 legs.Play("WalkD");
+                                torso.Play("Idle");
                                 break;
                             case > 225 and < 315:
                                 legs.Play("WalkR");
                                 legs.IsFlipped = true;
+                                torso.Play("IdleR");
+                                torso.IsFlipped = true;
                                 break;
                             default:
                                 legs.Play("WalkD");
+                                torso.Play("Idle");
+
                                 break;
                         }
 
@@ -61,7 +68,7 @@ namespace Stedders.Systems
                     var directionAsVector = new Vector2((float)Math.Cos(legs.RotationAsRadians), (float)Math.Sin(legs.RotationAsRadians));
                     newPosition += directionAsVector * throttle;
                     legs.Position = newPosition;
-                    torso.Position = newPosition;
+                    torso.Position = newPosition with { Y = newPosition.Y - 350 };
 
                 }
             }

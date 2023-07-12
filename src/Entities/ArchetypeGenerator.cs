@@ -13,8 +13,12 @@ namespace Stedders.Entities
 
             var legs = new Sprite(engine.TextureManager.TextureStore[Utilities.TextureKey.Mech2], "Assets/Mech2", 10, true) { MechPiece = MechPieces.Legs, CanRotate = false };
             player.Components.Add(legs);
-            player.Components.Add(new Render(Raylib.LoadTexture("Assets/Mech1.png"), 0, 1, 2, true) { SpriteWidth = 192, SpriteHeight = 192, MechPiece = MechPieces.Torso });
+            var torso = new Sprite(engine.TextureManager.TextureStore[Utilities.TextureKey.Mech2Top], "Assets/Mech2Top", 10, true) { MechPiece = MechPieces.Torso, CanRotate = false };
+            player.Components.Add(torso);
             legs.Play("Idle");
+            torso.Play("Idle");
+
+            //player.Components.Add(new Render(Raylib.LoadTexture("Assets/Mech1.png"), 0, 1, 2, true) { SpriteWidth = 192, SpriteHeight = 192, MechPiece = MechPieces.Torso });
             //player.Components.Add(new Sprite(engine.TextureManager.TextureStore[Utilities.TextureKey.Mech2], "Assets/Mech2.json", 10, true) { MechPiece = MechPieces.Torso });
 
             player.Components.Add(new Equipment { Name = "Water Gun", MaxAmmo = 100, Sprite = new Render(Raylib.LoadTexture("Assets/waterbeam.png"), 0, 0, 10, false) });

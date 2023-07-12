@@ -10,6 +10,7 @@ namespace Stedders.Utilities
         {
             TextureStore.Add(TextureKey.Mech1, Raylib.LoadTexture("Assets/Mech1.png"));
             TextureStore.Add(TextureKey.Mech2, Raylib.LoadTexture("Assets/Mech2.png"));
+            TextureStore.Add(TextureKey.Mech2Top, Raylib.LoadTexture("Assets/Mech2Top.png"));
             TextureStore.Add(TextureKey.Background, Raylib.LoadTexture("Assets/background.png"));
             TextureStore.Add(TextureKey.Plant1, Raylib.LoadTexture("Assets/Plant1.png"));
             TextureStore.Add(TextureKey.Waterbeam, Raylib.LoadTexture("Assets/waterbeam.png"));
@@ -24,6 +25,7 @@ namespace Stedders.Utilities
     {
         Mech1,
         Mech2,
+        Mech2Top,
         Background,
         Waterbeam,
         Plant1
