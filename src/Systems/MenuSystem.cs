@@ -14,8 +14,10 @@ namespace Stedders.Systems
 
         public override void UpdateNoCamera()
         {
+
+            Raylib.DrawText(Raylib.GetFPS().ToString(), Raylib.GetScreenWidth() - 50, 20, 20, Raylib.WHITE);
             var state = Engine.Singleton.GetComponent<GameState>();
-            
+
             if (state.State == States.MainMenu)
             {
                 Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);

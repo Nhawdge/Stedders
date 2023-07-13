@@ -68,8 +68,9 @@ namespace Stedders.Systems
 
             KeyboardMapping.Add(KeyboardKey.KEY_ONE, () =>
             {
-                Console.WriteLine("1 Pressed");
-                Console.WriteLine(Raylib.GetMousePosition());
+                var mousePos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), Engine.Camera);
+                Console.WriteLine($"Screen: {Raylib.GetMousePosition()}, World: {mousePos}");
+
             });
 
             MouseMapping.Add(MouseButton.MOUSE_BUTTON_LEFT, () =>
@@ -115,14 +116,14 @@ namespace Stedders.Systems
                 var angle = Math.Atan2(difference.Y, difference.X);
                 playerRenderTorso.Rotation = (float)(angle * 180 / Math.PI) + 90;
             }
-            if (Raylib.GetMouseWheelMove() > 0)
-            {
-                this.Engine.Camera.zoom += .01f;
-            }
-            else if (Raylib.GetMouseWheelMove() < 0)
-            {
-                this.Engine.Camera.zoom -= .01f;
-            }
+            //if (Raylib.GetMouseWheelMove() > 0)
+            //{
+            //    this.Engine.Camera.zoom += .01f;
+            //}
+            //else if (Raylib.GetMouseWheelMove() < 0)
+            //{
+            //    this.Engine.Camera.zoom -= .01f;
+            //}
         }
     }
 }

@@ -19,9 +19,9 @@ namespace Stedders.Systems
             {
                 //<1070, 294>
                 float LeftEdge = 0 + GetScreenWidth() / 2;
-                float RightEdge = 1440 - GetScreenWidth() / 2;
+                float RightEdge = 5667 - GetScreenWidth() / 2;
                 float TopEdge = 0 + GetScreenHeight() / 2;
-                float BottomEdge = 960 - GetScreenHeight() / 2;
+                float BottomEdge = 3939 - GetScreenHeight() / 2;
                 var mousePos = GetScreenToWorld2D(GetMousePosition(), Engine.Camera);
 
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();

@@ -20,6 +20,7 @@ namespace Stedders.Components
     {
         MainMenu,
         Start,
+        Dialogue,
         Game,
         GameOver
     }

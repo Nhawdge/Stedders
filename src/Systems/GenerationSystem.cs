@@ -18,10 +18,14 @@ namespace Stedders.Systems
             if (state.State == States.Start)
             {
                 Engine.Entities.Add(ArchetypeGenerator.BuildPlayerMech(this.Engine));
-                var y = 430;
+
+                var startX = 1940;
+                var startY = 1490;
+
+                var y = startY;
                 for (var j = 0; j < 5; j++)
                 {
-                    var x = 595;
+                    var x = startX;
                     for (var i = 0; i < 3; i++)
                     {
                         Engine.Entities.Add(ArchetypeGenerator.GeneratePlant(this.Engine, new Vector2(x, y)));
@@ -30,10 +34,10 @@ namespace Stedders.Systems
                     y += 30;
                 }
 
-                y = 430;
+                y = startY;
                 for (var j = 0; j < 5; j++)
                 {
-                    var x = 740;
+                    var x = startX + 145;
                     for (var i = 0; i < 3; i++)
                     {
                         Engine.Entities.Add(ArchetypeGenerator.GeneratePlant(this.Engine, new Vector2(x, y)));
@@ -42,10 +46,10 @@ namespace Stedders.Systems
                     y += 30;
                 }
 
-                y = 430;
+                y = startY;
                 for (var j = 0; j < 5; j++)
                 {
-                    var x = 885;
+                    var x = startX + 145 + 145;
                     for (var i = 0; i < 3; i++)
                     {
                         Engine.Entities.Add(ArchetypeGenerator.GeneratePlant(this.Engine, new Vector2(x, y)));
@@ -54,9 +58,10 @@ namespace Stedders.Systems
                     y += 30;
                 }
 
-                //Engine.Entities.Add(ArchetypeGenerator.GenerateBase(Engine.TextureManager, Data.Factions.Enemy1));
 
-                state.State = States.Game;
+                Engine.Entities.Add(ArchetypeGenerator.BuildEnemy(Engine, new Vector2(100, 100)));
+
+                state.State = States.Dialogue;
             }
 
             else if (state.State == States.Game)

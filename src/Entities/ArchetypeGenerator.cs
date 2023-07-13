@@ -17,13 +17,27 @@ namespace Stedders.Entities
             player.Components.Add(legs);
             var torso = new Sprite(engine.TextureManager.TextureStore[TextureKey.Mech2Top], "Assets/Mech2Top", 1, true) { MechPiece = MechPieces.Torso, CanRotate = false };
             player.Components.Add(torso);
-            legs.Position = new Vector2(637, 396);
+            var startPos = new Vector2(637, 396);
+            legs.Position = startPos;
+            torso.Position = startPos with { Y = startPos.Y - 30 * torso.Scale };
 
             //player.Components.Add(new Render(Raylib.LoadTexture("Assets/Mech1.png"), 0, 1, 2, true) { SpriteWidth = 192, SpriteHeight = 192, MechPiece = MechPieces.Torso });
             //player.Components.Add(new Sprite(engine.TextureManager.TextureStore[Utilities.TextureKey.Mech2], "Assets/Mech2.json", 10, true) { MechPiece = MechPieces.Torso });
 
             player.Components.Add(new Equipment { Name = "Water Gun", MaxAmmo = 100, Sprite = new Render(Raylib.LoadTexture("Assets/waterbeam.png"), 0, 0, 1, false) });
             return player;
+        }
+
+        public static Entity BuildEnemy(GameEngine engine, Vector2 position)
+        {
+            var enemy = new Entity();
+            var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Enemy1), "Assets/Enemy1", 1, true)
+            {
+                CanRotate = false,
+                Position = position
+            };
+            enemy.Components.Add(sprite);
+            return enemy;
         }
 
         public static Entity GeneratePlant(GameEngine engine, Vector2 position)

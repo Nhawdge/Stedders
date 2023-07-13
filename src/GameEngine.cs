@@ -18,8 +18,8 @@ namespace Stedders
         public void RunGame()
         {
             Raylib.InitWindow(1380, 768, "Stedders");
-
-            Raylib.SetWindowPosition(-1652, 110);
+            //Raylib.SetWindowPosition(-1652, 110);
+            Raylib.SetWindowPosition( 200, 110);
             Raylib.SetTargetFPS(60);
 
             Systems = new List<GameSystem>
@@ -39,12 +39,11 @@ namespace Stedders
                 new MunitionsSystem(this),
                 new PlantGrowthSystem(this),
                 new TimeKeeperSystem(this),
+                new DialogueSystem(this),
             };
 
             Camera = new Camera2D();
             Camera.zoom = 1f;
-            //Camera.target.X = -(Raylib.GetScreenWidth() / 2);
-            //Camera.target.Y = -(Raylib.GetScreenHeight() / 2);
 
             Load();
 

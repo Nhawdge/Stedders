@@ -10,6 +10,9 @@
         "": {
             "scaleInDock": 1
         },
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
         "FreestyleRanch.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
