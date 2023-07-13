@@ -61,6 +61,7 @@ namespace Stedders
             Singleton.Components.Add(new GameState());
             Entities.Add(Singleton);
             RayGui.GuiLoadStyle("Assets/cyber.rgs");
+            RayGui.GuiSetFont(Raylib.LoadFont("Assets/Roboto-Black.ttf"));
         }
 
         public void GameLoop()

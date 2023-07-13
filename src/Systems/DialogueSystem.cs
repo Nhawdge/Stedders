@@ -1,7 +1,9 @@
-﻿using Raylib_CsLo;
+﻿using CsvHelper.Configuration.Attributes;
+using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Utilities;
 using System.Numerics;
+using System.Text.RegularExpressions;
 
 namespace Stedders.Systems
 {
@@ -27,11 +29,17 @@ namespace Stedders.Systems
                     new Rectangle(10, Raylib.GetScreenHeight() - 210, 200, 200), Vector2.Zero, 0f, Raylib.WHITE);
 
 
-                RayGui.GuiLabel(
-                    new Rectangle(220, Raylib.GetScreenHeight() - 190, Raylib.GetScreenWidth() - 230, 150),
-                    TranslationManager.GetTranslation("intro-1"));
+                var text = TranslationManager.GetTranslation("intro-1");
 
-                var nextClicked = RayGui.GuiButton(new Rectangle(Raylib.GetScreenWidth() - 200, Raylib.GetScreenHeight() - 50, 190, 40),
+                var rect = new Rectangle(220, Raylib.GetScreenHeight() - 190, Raylib.GetScreenWidth() - 230 - 15, 150);
+
+                RayGui.GuiTextBoxMulti(rect, text, 12, false);
+                 
+                var nextClicked = RayGui.GuiButton(
+                    new Rectangle(Raylib.GetScreenWidth() - 230,
+                                    Raylib.GetScreenHeight() - 60, 
+                                    190, 
+                                    40),
                                    TranslationManager.GetTranslation("next"));
 
                 if (nextClicked)

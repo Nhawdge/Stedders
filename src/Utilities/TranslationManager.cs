@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Stedders.Utilities
 {
@@ -10,7 +11,7 @@ namespace Stedders.Utilities
         public static string GetTranslation(string key, string language = "en-US")
         {
             if (Translations.TryGetValue(key, out var value))
-                return value;
+                return Regex.Unescape(value);
             return $"{key} has no valid translations for {language}";
         }
 

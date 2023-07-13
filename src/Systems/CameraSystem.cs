@@ -15,9 +15,16 @@ namespace Stedders.Systems
         {
             var state = Engine.Singleton.GetComponent<GameState>();
 
+            if (state.State is States.MainMenu or States.Dialogue)
+            {
+                Engine.Camera = Engine.Camera with
+                {
+                    target = new Vector2(2074, 899),
+                    offset = new Vector2(GetScreenWidth() / 2, GetScreenHeight() / 2)
+                };
+            }
             if (state.State == States.Game)
             {
-                //<1070, 294>
                 float LeftEdge = 0 + GetScreenWidth() / 2;
                 float RightEdge = 5667 - GetScreenWidth() / 2;
                 float TopEdge = 0 + GetScreenHeight() / 2;

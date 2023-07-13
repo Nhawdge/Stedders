@@ -10,7 +10,7 @@ namespace Stedders.Components
         public MouseButton Button { get; set; }
         public float Ammo { get; set; } = 100;
         public float MaxAmmo { get; set; } = 100;
-        public float Damage { get; set; }
+        public float Damage { get; set; } = 10;
         public float MaxRange { get; set; } = 150;
         public float Range { get; set; } = 1;
         public float Heat { get; set; }

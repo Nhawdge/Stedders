@@ -1,8 +1,5 @@
-using Raylib_CsLo;
-using Stedders;
 using Stedders.Components;
 using Stedders.Entities;
-using Stedders.Utilities;
 using System.Numerics;
 
 namespace Stedders.Systems
@@ -52,16 +49,16 @@ namespace Stedders.Systems
                 for (var j = 0; j < 5; j++)
                 {
                     var x = startX + 145 + 145;
-                    for (var i = 0; i < 3; i++)
+                    for (var i = 0; i < 3; i++) 
                     {
                         Engine.Entities.Add(ArchetypeGenerator.GeneratePlant(this.Engine, new Vector2(x, y)));
                         x += 30;
                     }
                     y += 30;
                 }
+                 
 
-
-                Engine.Entities.Add(ArchetypeGenerator.BuildEnemy(Engine, new Vector2(100, 100)));
+                Engine.Entities.Add(ArchetypeGenerator.BuildEnemy(Engine, new Vector2(200, 200)));
 
                 state.State = States.Dialogue;
             }

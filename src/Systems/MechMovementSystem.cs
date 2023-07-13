@@ -24,7 +24,7 @@ namespace Stedders.Systems
 
                     legs.Rotation = (legs.Rotation + 360) % 360;
                     var newPosition = new Vector2(legs.Position.X, legs.Position.Y);
-                    Raylib_CsLo.Raylib.DrawLine(
+                    Raylib.DrawLine(
                         (int)newPosition.X,
                         (int)newPosition.Y,
                         (int)(newPosition.X + Math.Cos(legs.RotationAsRadians) * 100),
@@ -45,6 +45,7 @@ namespace Stedders.Systems
                             torso.Play("IdleR");
                             torso.IsFlipped = true;
                             break;
+                        case < -45:
                         default:
                             torso.Play("IdleD");
                             break;
