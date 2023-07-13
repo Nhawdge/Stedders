@@ -24,7 +24,8 @@ namespace Stedders.Systems
                 foreach (var entity in allEntities)
                 {
                     var plant = entity.GetComponent<Plant>();
-                    plant.Growth += Raylib.GetFrameTime() * plant.GrowthRate * (state.TimeOfDay == TimeOfDay.Day ? 1 : 0.5f);
+
+                    plant.Growth += Raylib.GetFrameTime() * plant.GrowthRate * (state.TimeOfDay == TimeOfDay.Day ? plant.DayGrowthModifier : plant.NightGrowthModifier);
 
                     if (plant.Growth > plant.GrowthRequired)
                     {
@@ -33,6 +34,8 @@ namespace Stedders.Systems
                         {
                             mySprite.Play($"Mature");
                             entity.Components.Add(new SoundAction(SoundKey.FlowerGrowth));
+                            plant.Growth = 0;
+                            plant.GrowthRate = 0f;
                         }
                         else
                         {

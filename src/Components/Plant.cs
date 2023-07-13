@@ -12,5 +12,7 @@
         public float GrowthRequired = 30f; //30 seconds
         public float Growth = 0f;
         public float GrowthRate = 1f; //1 per second
+        public float DayGrowthModifier = 1f;
+        public float NightGrowthModifier = 0.5f;
     }
 }

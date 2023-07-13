@@ -15,7 +15,6 @@ namespace Stedders.Systems
             var state = Engine.Singleton.GetComponent<GameState>();
             if (state.State == States.Game)
             {
-                Raylib.DrawText($"Time: {state.CurrentTime.ToString("#")}", 10, 70, 12, Raylib.BLUE);
                 state.CurrentTime += Raylib.GetFrameTime();
                 if (state.TimeOfDay == TimeOfDay.Day)
                 {
@@ -32,6 +31,7 @@ namespace Stedders.Systems
                     {
                         state.TimeOfDay = TimeOfDay.Day;
                         state.CurrentTime = 0;
+                        state.Day++;
                     }
                 }
             }

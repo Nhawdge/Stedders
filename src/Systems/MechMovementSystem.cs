@@ -45,9 +45,8 @@ namespace Stedders.Systems
                             torso.Play("IdleR");
                             torso.IsFlipped = true;
                             break;
-                        case > 315 or < 45:
                         default:
-                            torso.Play("IdleU");
+                            torso.Play("IdleD");
                             break;
                     }
                     if (throttle != 0)

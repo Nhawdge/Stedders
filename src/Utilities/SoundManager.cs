@@ -5,15 +5,13 @@ namespace Stedders.Utilities
     public class SoundManager
     {
         public Dictionary<SoundKey, Sound> SoundStore { get; set; } = new();
-        public Dictionary<SoundKey, Music> MusicStore { get; set; } = new();
+        public Dictionary<MusicKey, Music> MusicStore { get; set; } = new();
 
         public void LoadSounds()
         {
-            SoundStore.Add(SoundKey.Ambiance, Raylib.LoadSound("Assets/Sound/Stedders_Day_Map_Ambience.wav"));
             SoundStore.Add(SoundKey.FlowerGrowth, Raylib.LoadSound("Assets/Sound/Stedders_Flower_Growing.wav"));
             
-            MusicStore.Add(SoundKey.Ambiance, Raylib.LoadMusicStream("Assets/Sound/Stedders_Day_Map_Ambience.wav"));
-            MusicStore.Add(SoundKey.FlowerGrowth, Raylib.LoadMusicStream("Assets/Sound/Stedders_Flower_Growing.wav"));
+            MusicStore.Add(MusicKey.Ambiance, Raylib.LoadMusicStream("Assets/Sound/Stedders_Day_Map_Ambience.wav"));
         }
         public Sound GetSound(SoundKey key)
         {
@@ -23,7 +21,7 @@ namespace Stedders.Utilities
             }
             return SoundStore[key];
         }
-        public Music GetMusic(SoundKey key)
+        public Music GetMusic(MusicKey key)
         {
             if (MusicStore.Count <= 0)
             {
@@ -35,7 +33,10 @@ namespace Stedders.Utilities
 
     public enum SoundKey
     {
-        Ambiance,
         FlowerGrowth,
+    }
+    public enum MusicKey // probably C# (Get it??)
+    {
+        Ambiance,
     }
 }

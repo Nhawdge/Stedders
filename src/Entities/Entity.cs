@@ -1,3 +1,4 @@
+using Raylib_CsLo;
 using Stedders.Components;
 
 namespace Stedders.Entities
@@ -10,6 +11,8 @@ namespace Stedders.Entities
             Id = Guid.NewGuid();
         }
         public Guid Id { get; init; }
+        public Music CurrentMusic { get; internal set; }
+        public bool MusicIsPlaying { get; internal set; }
 
         public string ShortId() => Id.ToString().Substring(0, 4);
         public T GetComponent<T>() where T : Component

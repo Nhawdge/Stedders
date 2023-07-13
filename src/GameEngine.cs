@@ -18,8 +18,8 @@ namespace Stedders
         public void RunGame()
         {
             Raylib.InitWindow(1380, 768, "Stedders");
-            //Raylib.SetWindowPosition(-1652, 110);
-            Raylib.SetWindowPosition(200, 110);
+            Raylib.SetWindowPosition(-1652, 110);
+            //Raylib.SetWindowPosition(200, 110);
             Raylib.SetTargetFPS(60);
             Raylib.InitAudioDevice();
             Raylib.SetExitKey(0);

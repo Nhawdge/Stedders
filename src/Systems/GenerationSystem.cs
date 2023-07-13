@@ -20,7 +20,6 @@ namespace Stedders.Systems
             if (state.State == States.Start)
             {
                 Engine.Entities.Add(ArchetypeGenerator.BuildPlayerMech(this.Engine));
-                Engine.Singleton.Components.Add(new SoundAction(SoundKey.Ambiance));
 
                 var startX = 1940;
                 var startY = 1490;
