@@ -17,6 +17,7 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </None>
   </ItemGroup>
+  
   <ItemGroup>
     <None Update="Assets/**/*.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

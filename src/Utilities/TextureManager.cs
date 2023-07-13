@@ -16,9 +16,14 @@ namespace Stedders.Utilities
             TextureStore.Add(TextureKey.Waterbeam, Raylib.LoadTexture("Assets/waterbeam.png"));
             TextureStore.Add(TextureKey.Enemy1, Raylib.LoadTexture("Assets/Enemy1.png"));
             TextureStore.Add(TextureKey.Person1, Raylib.LoadTexture("Assets/Person1.png"));
+            TextureStore.Add(TextureKey.Laser, Raylib.LoadTexture("Assets/Laser.png"));
         }
         public Texture GetTexture(TextureKey key)
         {
+            if (TextureStore.Count <= 0)
+            {
+                LoadTextures();
+            }
             return TextureStore[key];
         }
     }
@@ -33,5 +38,6 @@ namespace Stedders.Utilities
         Plant1,
         Enemy1,
         Person1,
+        Laser,
     }
 }

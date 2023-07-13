@@ -2,18 +2,34 @@
 
 namespace Stedders.Utilities
 {
-    internal class SoundManager
+    public class SoundManager
     {
-        public Dictionary<SoundKey, Texture> SoundStore { get; set; } = new();
+        public Dictionary<SoundKey, Sound> SoundStore { get; set; } = new();
+        public Dictionary<SoundKey, Music> MusicStore { get; set; } = new();
 
-        public void LoadTextures()
+        public void LoadSounds()
         {
-            SoundStore.Add(SoundKey.Ambiance, Raylib.LoadTexture("Assets/Sound/Stedders_Day_Map_Ambience.wav"));
-            SoundStore.Add(SoundKey.FlowerGrowth, Raylib.LoadTexture("Assets/Sound/Stedders_Flower_Growing.wav"));
+            SoundStore.Add(SoundKey.Ambiance, Raylib.LoadSound("Assets/Sound/Stedders_Day_Map_Ambience.wav"));
+            SoundStore.Add(SoundKey.FlowerGrowth, Raylib.LoadSound("Assets/Sound/Stedders_Flower_Growing.wav"));
+            
+            MusicStore.Add(SoundKey.Ambiance, Raylib.LoadMusicStream("Assets/Sound/Stedders_Day_Map_Ambience.wav"));
+            MusicStore.Add(SoundKey.FlowerGrowth, Raylib.LoadMusicStream("Assets/Sound/Stedders_Flower_Growing.wav"));
         }
-        public Texture GetTexture(SoundKey key)
+        public Sound GetSound(SoundKey key)
         {
+            if (SoundStore.Count <= 0)
+            {
+                LoadSounds();
+            }
             return SoundStore[key];
+        }
+        public Music GetMusic(SoundKey key)
+        {
+            if (MusicStore.Count <= 0)
+            {
+                LoadSounds();
+            }
+            return MusicStore[key];
         }
     }
 

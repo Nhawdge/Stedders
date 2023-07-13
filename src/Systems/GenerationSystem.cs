@@ -2,6 +2,7 @@ using Raylib_CsLo;
 using Stedders;
 using Stedders.Components;
 using Stedders.Entities;
+using Stedders.Utilities;
 using System.Numerics;
 
 namespace Stedders.Systems
@@ -15,9 +16,11 @@ namespace Stedders.Systems
         public override void Update()
         {
             var state = Engine.Singleton.GetComponent<GameState>();
+
             if (state.State == States.Start)
             {
                 Engine.Entities.Add(ArchetypeGenerator.BuildPlayerMech(this.Engine));
+                Engine.Singleton.Components.Add(new SoundAction(SoundKey.Ambiance));
 
                 var startX = 1940;
                 var startY = 1490;

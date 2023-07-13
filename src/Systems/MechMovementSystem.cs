@@ -45,6 +45,7 @@ namespace Stedders.Systems
                             torso.Play("IdleR");
                             torso.IsFlipped = true;
                             break;
+                        case > 315 or < 45:
                         default:
                             torso.Play("IdleU");
                             break;
@@ -72,7 +73,7 @@ namespace Stedders.Systems
                     else
                     {
                         legs.Play("Idle");
-                    } 
+                    }
 
                     var directionAsVector = new Vector2((float)Math.Cos(legs.RotationAsRadians), (float)Math.Sin(legs.RotationAsRadians));
                     newPosition += directionAsVector * throttle;

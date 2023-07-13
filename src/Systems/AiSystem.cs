@@ -17,15 +17,8 @@ namespace Stedders.Systems
 
                 foreach (var entityBase in enemyBases)
                 {
-                    var myHq = entityBase.GetComponent<Headquarters>();
-                    var myAi = entityBase.GetComponent<NpcAi>();
-                    var myRender = entityBase.GetComponent<Sprite>();
-                    var myTeam = entityBase.GetComponent<Faction>();
 
-                    //if (myHq.Wealth >= UnitsManager.Stats[Units.Bob].Cost * 2)
-                    //{
-                    //    entityBase.Components.Add(new SpawnCommand(Units.Bob));
-                    //}
+                 
                 }
             }
         }

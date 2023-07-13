@@ -20,59 +20,37 @@ namespace Stedders.Systems
 
             if (state.State == States.MainMenu)
             {
+                var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - 200, Raylib.GetScreenHeight() / 2 - 200, 400, 400);
+                RayGui.GuiDummyRec(centerPane, "");
+
+                var title = TranslationManager.GetTranslation("stedders");
+                var fontSize = 80;
+                var titleWidth = Raylib.MeasureText(title, fontSize);
+                Raylib.DrawText(title, Raylib.GetScreenWidth() / 2 - titleWidth / 2, 100, fontSize, Raylib.WHITE);
+
                 Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
 
                 var width = 60;
                 var height = 30;
-                var positionWidth = Raylib.GetScreenWidth() / 2 - width / 2;
-                var positionHeight = Raylib.GetScreenHeight() / 2 - height / 2;
+                var positionX = Raylib.GetScreenWidth() / 2 - width / 2;
+                var positionY = Raylib.GetScreenHeight() / 2 - height / 2;
 
-                var rect = new Rectangle(positionWidth, positionHeight, width, height);
+                var rect = new Rectangle(positionX, positionY, width, height);
 
-                //var key = Raylib.GetKeyPressed_();
-
-                //if (key != KeyboardKey.KEY_NULL)
-                //{
-                //    Console.WriteLine($"Key:{key}, {selectedInput}");
-                //}
-                //if (selectedInput == "a")
-                //{
-                //    if (key != 0)
-                //    {
-                //        holder += ((char)key).ToString();
-                //    }
-                //}
-                //else if (selectedInput == "b")
-                //{
-                //    if (key == KeyboardKey.KEY_BACKSPACE)
-                //    {
-                //        holder2 = holder2.Substring(0, int.Max(0, holder2.Length - 1));
-                //    }
-                //    else if (key != 0)
-                //    {
-                //        holder2 += ((char)key).ToString();
-                //        Console.WriteLine($"Key:{key}");
-                //    }
-                //}
-
-                //var a = RayGui.GuiTextBox(rect, holder, 12, selectedInput == "a");
-                //if (a)
-                //{
-                //    Console.WriteLine($"A:{a}");
-                //    selectedInput = "a";
-                //}
-
-                //var b = RayGui.GuiTextBox(rect with { Y = rect.Y * 2 }, holder2, 12, selectedInput == "b");
-                //if (b)
-                //{
-                //    Console.WriteLine($"B:{b}");
-                //    selectedInput = "b";
-                //}
-
-                if (RayGui.GuiButton(rect, "Play"))
+                if (RayGui.GuiButton(rect, TranslationManager.GetTranslation("play")))
                 {
                     state.State = States.Start;
                     Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
+                }
+                if (RayGui.GuiButton(rect with { y = rect.y + height + 10 }, TranslationManager.GetTranslation("credits")))
+                {
+                    state.State = States.Credits;
+                    Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
+                }
+                if (RayGui.GuiButton(rect with { y = rect.y + (height *4) + 10 }, TranslationManager.GetTranslation("exit")))
+                {
+                    Raylib.CloseWindow();
+                    Environment.Exit(0);
                 }
             }
             else if (state.State == States.Game)
@@ -134,6 +112,43 @@ namespace Stedders.Systems
                 //// Tool tip
                 //var mousePos = Raylib.GetMousePosition();
 
+            }
+            else if (state.State == States.Pause)
+            {
+                Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
+
+                var width = 60;
+                var height = 30;
+                var positionWidth = Raylib.GetScreenWidth() / 2 - width / 2;
+                var positionHeight = Raylib.GetScreenHeight() / 2 - height / 2;
+
+                var rect = new Rectangle(positionWidth, positionHeight, width, height);
+
+                var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - 200, Raylib.GetScreenHeight() / 2 - 200, 400, 400);
+                RayGui.GuiDummyRec(centerPane, "");
+
+                if (RayGui.GuiButton(rect, TranslationManager.GetTranslation("resume")))
+                {
+                    state.State = States.Game;
+                    Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
+                }
+            }
+            else if (state.State == States.Credits)
+            {
+                var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - 200, Raylib.GetScreenHeight() / 2 - 200, 400, 400);
+                RayGui.GuiDummyRec(centerPane, "");
+
+                var title = TranslationManager.GetTranslation("credits-full");
+                var fontSize = 30;
+                var titleWidth = Raylib.MeasureText(title, fontSize);
+                RayGui.GuiTextBox(centerPane, title, fontSize, false);
+
+                var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
+                if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
+                {
+                    state.State = States.MainMenu;
+                    Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
+                }
             }
         }
 

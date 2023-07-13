@@ -21,6 +21,8 @@ namespace Stedders.Components
         MainMenu,
         Start,
         Dialogue,
+        Pause,
+        Credits,
         Game,
         GameOver
     }

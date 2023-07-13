@@ -1,5 +1,6 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
+using Stedders.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,11 @@ namespace Stedders.Systems
                         var mySprite = entity.GetComponents<Sprite>().First();
                         if (plant.GrowthStage >= plant.MaxGrowthStage)
                         {
-                            Console.WriteLine("Growth completed");
                             mySprite.Play($"Mature");
+                            entity.Components.Add(new SoundAction(SoundKey.FlowerGrowth));
                         }
                         else
                         {
-
                             plant.GrowthStage++;
                             plant.Growth = 0;
                             mySprite.Play($"Grow{plant.GrowthStage}");

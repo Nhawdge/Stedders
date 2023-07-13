@@ -1,7 +1,5 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.SymbolStore;
 using System.Globalization;
 
 namespace Stedders.Utilities
@@ -15,6 +13,7 @@ namespace Stedders.Utilities
                 return value;
             return $"{key} has no valid translations for {language}";
         }
+
         static TranslationManager()
         {
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)

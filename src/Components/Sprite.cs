@@ -26,7 +26,6 @@ namespace Stedders.Components
                 x => new AnimationSets(x.name, x.from, x.to, Enum.Parse<Direction>(x.direction),
                 json.frames.Where(f => f.filename.StartsWith(x.name)).Select(z => new Frame(z.frame.x, z.frame.y, z.frame.w, z.frame.h, z.duration)).ToList()));
 
-            Console.WriteLine(Animations.Count);
             CurrentAnimation = Animations.First().Value;
         }
 

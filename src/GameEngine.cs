@@ -8,20 +8,35 @@ namespace Stedders
 {
     public class GameEngine
     {
-
         public List<Entity> Entities { get; set; } = new();
         public List<GameSystem> Systems { get; set; } = new();
         public Camera2D Camera;
         public Entity Singleton = new();
         public TextureManager TextureManager = new();
+        public SoundManager SoundManager = new();
 
         public void RunGame()
         {
             Raylib.InitWindow(1380, 768, "Stedders");
             //Raylib.SetWindowPosition(-1652, 110);
-            Raylib.SetWindowPosition( 200, 110);
+            Raylib.SetWindowPosition(200, 110);
             Raylib.SetTargetFPS(60);
+            Raylib.InitAudioDevice();
+            Raylib.SetExitKey(0);
 
+            Load();
+
+            Camera = new Camera2D();
+            Camera.zoom = 1f;
+
+            while (!Raylib.WindowShouldClose())
+            {
+                GameLoop();
+            }
+        }
+
+        public void Load()
+        {
             Systems = new List<GameSystem>
             {
                 new RenderSystem(this),
@@ -40,25 +55,11 @@ namespace Stedders
                 new PlantGrowthSystem(this),
                 new TimeKeeperSystem(this),
                 new DialogueSystem(this),
+                new SoundSystem(this),
             };
 
-            Camera = new Camera2D();
-            Camera.zoom = 1f;
-
-            Load();
-
-            while (!Raylib.WindowShouldClose())
-            {
-                GameLoop();
-            }
-
-        }
-
-        public void Load()
-        {
             Singleton.Components.Add(new GameState());
-            TextureManager = new TextureManager();
-            TextureManager.LoadTextures();
+            Entities.Add(Singleton);
             RayGui.GuiLoadStyle("Assets/cyber.rgs");
         }
 
@@ -71,7 +72,7 @@ namespace Stedders
             {
                 system.Update();
             }
-            Raylib.EndMode3D();
+            Raylib.EndMode2D();
             foreach (var system in Systems)
             {
                 system.UpdateNoCamera();

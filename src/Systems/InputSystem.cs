@@ -66,12 +66,26 @@ namespace Stedders.Systems
                 player.Throttle = 0f;
             });
 
+            KeyboardMapping.Add(KeyboardKey.KEY_ESCAPE, () =>
+            {
+                var state = Engine.Singleton.GetComponent<GameState>();
+                if (state.State == States.Game)
+                {
+                    state.State = States.Pause;
+                }
+                //else if (state.State == States.Pause)
+                //{
+                //    state.State = States.Game;
+                //}
+            });
+
             KeyboardMapping.Add(KeyboardKey.KEY_ONE, () =>
             {
                 var mousePos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), Engine.Camera);
                 Console.WriteLine($"Screen: {Raylib.GetMousePosition()}, World: {mousePos}");
-
             });
+
+            /// MOUSE MAP
 
             MouseMapping.Add(MouseButton.MOUSE_BUTTON_LEFT, () =>
             {
@@ -81,8 +95,19 @@ namespace Stedders.Systems
                     return;
                 }
                 var player = playerMech.GetComponent<Player>();
-                var weapon1 = playerMech.GetComponent<Equipment>();
-                weapon1.IsFiring = true;
+                var weapon = playerMech.GetComponents<Equipment>().First(x => x.Button == MouseButton.MOUSE_BUTTON_LEFT);
+                weapon.IsFiring = true;
+            });
+            MouseMapping.Add(MouseButton.MOUSE_BUTTON_RIGHT, () =>
+            {
+                var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
+                if (playerMech is null)
+                {
+                    return;
+                }
+                var player = playerMech.GetComponent<Player>();
+                var weapon = playerMech.GetComponents<Equipment>().First(x => x.Button == MouseButton.MOUSE_BUTTON_RIGHT);
+                weapon.IsFiring = true;
             });
         }
 
