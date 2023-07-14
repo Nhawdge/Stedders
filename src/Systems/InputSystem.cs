@@ -91,23 +91,24 @@ namespace Stedders.Systems
             {
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
                 if (playerMech is null)
-                {
                     return;
-                }
+
                 var player = playerMech.GetComponent<Player>();
-                var weapon = playerMech.GetComponents<Equipment>().First(x => x.Button == MouseButton.MOUSE_BUTTON_LEFT);
-                weapon.IsFiring = true;
+                var weapon = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_LEFT);
+                if (weapon is not null)
+                    weapon.IsFiring = true;
+
             });
             MouseMapping.Add(MouseButton.MOUSE_BUTTON_RIGHT, () =>
             {
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
                 if (playerMech is null)
-                {
                     return;
-                }
+
                 var player = playerMech.GetComponent<Player>();
-                var weapon = playerMech.GetComponents<Equipment>().First(x => x.Button == MouseButton.MOUSE_BUTTON_RIGHT);
-                weapon.IsFiring = true;
+                var weapon = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_RIGHT);
+                if (weapon is not null)
+                    weapon.IsFiring = true;
             });
         }
 
@@ -132,7 +133,6 @@ namespace Stedders.Systems
             var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
             if (playerMech is not null)
             {
-
                 var playerRenderTorso = playerMech.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
 
                 var mousePos = Raylib.GetMousePosition();

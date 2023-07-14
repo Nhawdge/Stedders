@@ -15,6 +15,8 @@ namespace Stedders.Systems
             var state = Engine.Singleton.GetComponent<GameState>();
             if (state.State == States.Game)
             {
+                var shade = 128 / (int)state.TimeOfDay;
+                Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), new Color(0, 0, 0, shade));
                 state.CurrentTime += Raylib.GetFrameTime();
                 if (state.TimeOfDay == TimeOfDay.Day)
                 {
@@ -26,7 +28,6 @@ namespace Stedders.Systems
                 }
                 else
                 {
-                    Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), new Color(0, 0, 0, 128));
                     if (state.CurrentTime > state.NightDuration)
                     {
                         state.TimeOfDay = TimeOfDay.Day;

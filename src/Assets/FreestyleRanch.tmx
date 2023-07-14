@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="90" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="1">
+ <editorsettings>
+  <export target="FreestyleRanch.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" source="FreestyleRanch.tsx"/>
  <layer id="1" name="Ground" width="90" height="60">
   <data encoding="csv">

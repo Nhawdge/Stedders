@@ -21,5 +21,7 @@
         public float PlantBody = 100f;
         public float MaxPlantBody = 100f;
 
+        public float MaxSellValue = 100f;
+
     }
 }

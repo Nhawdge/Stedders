@@ -11,11 +11,15 @@ namespace Stedders.Components
 
         public float TimeSinceLastSpawn = 0f;
         public float SpawnInterval = 15f;
+
+        public float Currency = 0f;
     }
 
     public enum TimeOfDay
     {
+        Dawn,
         Day,
+        Dusk,
         Night
     }
 

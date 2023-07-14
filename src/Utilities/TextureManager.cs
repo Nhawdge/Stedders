@@ -17,6 +17,10 @@ namespace Stedders.Utilities
             TextureStore.Add(TextureKey.Enemy1, Raylib.LoadTexture("Assets/Enemy1.png"));
             TextureStore.Add(TextureKey.Person1, Raylib.LoadTexture("Assets/Person1.png"));
             TextureStore.Add(TextureKey.Laser, Raylib.LoadTexture("Assets/Laser.png"));
+            TextureStore.Add(TextureKey.WaterCannon, Raylib.LoadTexture("Assets/WaterCannon.png"));
+            TextureStore.Add(TextureKey.SeedCannon, Raylib.LoadTexture("Assets/SeedCannon.png"));
+            TextureStore.Add(TextureKey.LaserCannon, Raylib.LoadTexture("Assets/LaserCannon.png"));
+            TextureStore.Add(TextureKey.Harvester, Raylib.LoadTexture("Assets/Harvester.png"));
         }
         public Texture GetTexture(TextureKey key)
         {
@@ -39,5 +43,9 @@ namespace Stedders.Utilities
         Enemy1,
         Person1,
         Laser,
+        LaserCannon,
+        WaterCannon,
+        SeedCannon,
+        Harvester,
     }
 }

@@ -45,6 +45,7 @@ namespace Stedders
             {
                 new RenderSystem(this),
                 new InputSystem(this),
+                new TimeKeeperSystem(this),
                 new GenerationSystem(this),
                 new MenuSystem(this),
                 new UnitCreationSystem(this),
@@ -57,7 +58,6 @@ namespace Stedders
                 new EquipmentSystem(this),
                 new MunitionsSystem(this),
                 new PlantGrowthSystem(this),
-                new TimeKeeperSystem(this),
                 new DialogueSystem(this),
                 new SoundSystem(this),
             };

@@ -1,4 +1,8 @@
 ﻿using Raylib_CsLo;
+using Stedders.Entities;
+using Stedders.Utilities;
+using System;
+using System.Numerics;
 
 namespace Stedders.Components
 {
@@ -18,6 +22,14 @@ namespace Stedders.Components
         public float HeatPerShot { get; set; }
         public bool IsFiring { get; set; }
         public bool IsOverheated { get; set; }
+        public TextureKey IconKey { get; set; }
 
+        internal Action<IEnumerable<Entity>, Entity, Equipment> Fire = (_, _, _) => { };
+
+        // Saw blade - melee - free 
+        // Laser - ranged - 
+        // Rocket - ranged - 
+        // Bomb - dropped
+        // Flamethrower - ranged - "Ultimate"
     }
 }

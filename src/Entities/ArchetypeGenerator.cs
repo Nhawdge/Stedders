@@ -7,7 +7,7 @@ namespace Stedders.Entities
 {
     public static class ArchetypeGenerator
     {
-        public static Entity BuildPlayerMech(GameEngine engine)
+        public static Entity GeneratePlayerMech(GameEngine engine)
         {
             var player = new Entity();
             player.Components.Add(new Player());
@@ -22,25 +22,11 @@ namespace Stedders.Entities
             legs.Position = startPos;
             torso.Position = startPos with { Y = startPos.Y - 30 * torso.Scale };
 
-            player.Components.Add(new Equipment
-            {
-                Name = "Laser 1",
-                MaxAmmo = 100,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
-                Button = MouseButton.MOUSE_BUTTON_LEFT
-            });
-            player.Components.Add(new Equipment
-            {
-                Name = "Laser 2",
-                MaxAmmo = 100,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
-                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
-                Button = MouseButton.MOUSE_BUTTON_RIGHT
-            }); ;
+
             return player;
         }
 
-        public static Entity BuildEnemy(GameEngine engine, Vector2 position)
+        public static Entity GenerateEnemy(GameEngine engine, Vector2 position)
         {
             var enemy = new Entity();
             var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Enemy1), "Assets/Enemy1", 1, true)
@@ -72,7 +58,40 @@ namespace Stedders.Entities
             var barn = new Entity();
 
             var pos = new Position() { Pos = position };
+            var barnComponent = new Barn();
 
+            barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
+
+            barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
+            barnComponent.Equipment.Add(EquipmentManager.GenerateHarvester(engine));
+
+            barnComponent.Equipment.Add(new Equipment
+            {
+                Name = "Seeder",
+                MaxAmmo = 100,
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
+                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
+                IconKey = TextureKey.SeedCannon,
+            });
+            barnComponent.Equipment.Add(new Equipment
+            {
+                Name = "Water",
+                MaxAmmo = 100,
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
+                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
+                IconKey = TextureKey.WaterCannon,
+            });
+            barnComponent.Equipment.Add(new Equipment
+            {
+                Name = "Water",
+                MaxAmmo = 100,
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
+                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
+                IconKey = TextureKey.WaterCannon,
+            });
+
+
+            barn.Components.Add(barnComponent);
             barn.Components.Add(pos);
             return barn;
         }

@@ -2,7 +2,6 @@
 using Stedders.Components;
 using Stedders.Entities;
 using System.Numerics;
-using System.Reflection;
 
 namespace Stedders.Systems
 {
@@ -244,7 +243,7 @@ namespace Stedders.Systems
                         }
 
                         var angle = Math.Atan2(targetDiff.Y, targetDiff.X);
-                        var angleInDegrees = angle * (180 / Math.PI) - 90;
+                        var angleInDegrees = angle * (180 / Math.PI) + 90;
 
                         myPos.Position.X += (float)Math.Cos(angle) * myAi.Speed * Raylib.GetFrameTime();
                         myPos.Position.Y += (float)Math.Sin(angle) * myAi.Speed * Raylib.GetFrameTime();
