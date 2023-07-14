@@ -35,7 +35,7 @@ namespace Stedders.Systems
 
                 Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
 
-                var width = 120;
+                var width = 200;
                 var height = 60;
                 var positionX = Raylib.GetScreenWidth() / 2 - width / 2;
                 var positionY = Raylib.GetScreenHeight() / 2 - height / 2 - 130;
@@ -50,7 +50,10 @@ namespace Stedders.Systems
                 if (RayGui.GuiButton(rect with { y = rect.y + height + 10 }, TranslationManager.GetTranslation("credits")))
                 {
                     state.State = States.Credits;
-                    Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
+                }
+                if (RayGui.GuiButton(rect with { y = rect.y + (height * 2) + 20 }, TranslationManager.GetTranslation("howto")))
+                {
+                    state.State = States.HowTo;
                 }
                 if (RayGui.GuiButton(rect with { y = rect.y + (height * 4) + 10 }, TranslationManager.GetTranslation("exit")))
                 {
@@ -89,9 +92,25 @@ namespace Stedders.Systems
 
                 var text = TranslationManager.GetTranslation("credits-full");
 
-                var fontSize = 30;
+                RayGui.GuiLabel(centerPane with { height = centerPane.height - 200 }, text);
 
-                RayGui.GuiTextBox(centerPane, text, fontSize, false);
+                var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
+                if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
+                {
+                    state.State = States.MainMenu;
+                    Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
+                }
+            }
+            else if (state.State == States.HowTo)
+            {
+                var boxWidth = 650;
+                var boxHeight = 700;
+                var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - boxWidth / 2, Raylib.GetScreenHeight() / 2 - boxHeight / 2, boxWidth, boxHeight);
+                RayGui.GuiDummyRec(centerPane, "");
+
+                var text = TranslationManager.GetTranslation("howto-full");
+
+                RayGui.GuiLabel(centerPane with { height = centerPane.height - 150 }, text);
 
                 var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
                 if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))

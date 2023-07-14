@@ -8,6 +8,9 @@ namespace Stedders.Components
         public float DayDuration = 60f;
         public float NightDuration = 60f;
         public int Day = 0;
+
+        public float TimeSinceLastSpawn = 0f;
+        public float SpawnInterval = 15f;
     }
 
     public enum TimeOfDay
@@ -23,6 +26,7 @@ namespace Stedders.Components
         Dialogue,
         Pause,
         Credits,
+        HowTo,
         Game,
         GameOver
     }

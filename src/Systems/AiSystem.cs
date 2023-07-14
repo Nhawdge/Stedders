@@ -35,7 +35,7 @@ namespace Stedders.Systems
                         {
                             { EnemyAction.Idle, 0 },
                             { EnemyAction.Move, 0 },
-                            { EnemyAction.Attack, 0 },
+                            { EnemyAction.Attack, 0 }, 
                             { EnemyAction.Eat, 0 },
                             { EnemyAction.Flee, 0 }
                         };
