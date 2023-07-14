@@ -23,6 +23,7 @@ namespace Stedders.Systems
                 foreach (var enemy in enemies)
                 {
                     var myPos = enemy.GetComponent<Sprite>();
+                    myPos.Color = Raylib.WHITE;
                     var myAi = enemy.GetComponent<NpcAi>();
                     var nearestPlant = plants.OrderBy(x => (x.GetComponent<Sprite>().Position - myPos.Position).Length()).FirstOrDefault();
                     var plantDistance = float.MaxValue;

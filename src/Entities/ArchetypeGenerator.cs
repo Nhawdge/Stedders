@@ -16,12 +16,11 @@ namespace Stedders.Entities
             player.Components.Add(legs);
             var torso = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2Top), "Assets/Mech2Top", 1, true) { MechPiece = MechPieces.Torso, CanRotate = false };
             player.Components.Add(torso);
-            var startPos = new Vector2(2129, 135);
+            var startPos = new Vector2(2118, 2760);
 
-            legs.Rotation = 180f;
+            legs.Rotation = 0f;
             legs.Position = startPos;
             torso.Position = startPos with { Y = startPos.Y - 30 * torso.Scale };
-
 
             return player;
         }
@@ -94,6 +93,15 @@ namespace Stedders.Entities
             barn.Components.Add(barnComponent);
             barn.Components.Add(pos);
             return barn;
+        }
+
+        public static Entity GenerateSilo(GameEngine engine, Vector2 position)
+        {
+            var silo = new Entity();
+            silo.Components.Add(new Silo());
+            silo.Components.Add(new Position() { Pos = position });
+            return silo;
+
         }
     }
 }

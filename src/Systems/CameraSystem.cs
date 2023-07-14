@@ -19,7 +19,7 @@ namespace Stedders.Systems
             {
                 Engine.Camera = Engine.Camera with
                 {
-                    target = new Vector2(2074, 899),
+                    target = new Vector2(2021, 1712),
                     offset = new Vector2(GetScreenWidth() / 2, GetScreenHeight() / 2)
                 };
             }

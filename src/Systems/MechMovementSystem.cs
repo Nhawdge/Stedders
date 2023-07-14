@@ -29,7 +29,7 @@ namespace Stedders.Systems
                         (int)newPosition.Y,
                         (int)(newPosition.X + Math.Cos(legs.RotationAsRadians) * 100),
                         (int)(newPosition.Y + Math.Sin(legs.RotationAsRadians) * 100),
-                        Raylib.RED);
+                        Raylib.BLACK);
                     var throttle = playerMech.GetComponent<Player>().Throttle;
 
                     switch (torso.Rotation)

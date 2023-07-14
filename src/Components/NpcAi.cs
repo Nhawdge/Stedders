@@ -8,7 +8,7 @@ namespace Stedders.Components
         public float EatingSpeed { get; set; } = 10f;
         public Vector2 TargetPosition { get; set; }
         public EnemyAction Action;
-        public float TimeSinceLastActionChanged;
+        public float TimeSinceLastActionChanged =10f;
         public float ThinkingTime = 10f;
         public float Belly = 0f;
         public float BellyMax = 300f;

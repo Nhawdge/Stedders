@@ -59,9 +59,12 @@ namespace Stedders.Systems
                 }
 
                 Engine.Entities.Add(ArchetypeGenerator.GenerateEnemy(Engine, new Vector2(200, 200)));
-                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1847, 805)));
-                
+                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1706, 1655)));
+                Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1380)));
+
                 state.State = States.Dialogue;
+                state.DialoguePhase = ("intro", 1);
+
             }
 
             else if (state.State == States.Game)

@@ -2,17 +2,24 @@ namespace Stedders.Components
 {
     public class GameState : Component
     {
-        public States State;
+        private States _state;
+        public States State
+        {
+            get => this._state;
+            set { this.LastState = _state; this._state = value; }
+        }
+        public States LastState = States.MainMenu;
         public TimeOfDay TimeOfDay = TimeOfDay.Day;
         public float CurrentTime = 0f;
-        public float DayDuration = 60f;
-        public float NightDuration = 60f;
+        public float DayDuration = 300f;
         public int Day = 0;
 
         public float TimeSinceLastSpawn = 0f;
         public float SpawnInterval = 15f;
 
         public float Currency = 0f;
+
+        public (string, int) DialoguePhase { get; set; }
     }
 
     public enum TimeOfDay

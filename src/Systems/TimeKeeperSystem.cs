@@ -15,26 +15,40 @@ namespace Stedders.Systems
             var state = Engine.Singleton.GetComponent<GameState>();
             if (state.State == States.Game)
             {
-                var shade = 128 / (int)state.TimeOfDay;
-                Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), new Color(0, 0, 0, shade));
                 state.CurrentTime += Raylib.GetFrameTime();
-                if (state.TimeOfDay == TimeOfDay.Day)
+
+                var dawnEnd = state.DayDuration / 4;
+                var noon = state.DayDuration / 2;
+                var duskEnd = noon + dawnEnd;
+                var shade = 0;
+                if (state.CurrentTime > state.DayDuration)
                 {
-                    if (state.CurrentTime > state.DayDuration)
-                    {
-                        state.TimeOfDay = TimeOfDay.Night;
-                        state.CurrentTime = 0;
-                    }
+                    state.CurrentTime = 0;
+                    state.Day++;
+                }
+
+                if (state.CurrentTime < dawnEnd)
+                {
+                    state.TimeOfDay = TimeOfDay.Dawn;
+                    shade = 64;
+                }
+                else if (state.CurrentTime < noon)
+                {
+                    state.TimeOfDay = TimeOfDay.Day;
+                    shade = 0;
+                }
+                else if (state.CurrentTime < duskEnd)
+                {
+                    shade = 64;
+                    state.TimeOfDay = TimeOfDay.Dusk;
                 }
                 else
                 {
-                    if (state.CurrentTime > state.NightDuration)
-                    {
-                        state.TimeOfDay = TimeOfDay.Day;
-                        state.CurrentTime = 0;
-                        state.Day++;
-                    }
+                    shade = 128;
+                    state.TimeOfDay = TimeOfDay.Night;
                 }
+
+                Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), new Color(0, 0, 0, shade));
             }
         }
     }

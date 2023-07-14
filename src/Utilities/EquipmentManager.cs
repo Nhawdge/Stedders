@@ -15,27 +15,25 @@ namespace Stedders.Utilities
                 MaxAmmo = 100,
                 Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
                 IconKey = TextureKey.LaserCannon,
-                Fire = (allEnemies, entity, item) =>
+                Fire = (allEntities, entity, item) =>
                 {
+                    var allEnemies = allEntities.Where(x => x.HasTypes(typeof(NpcAi), typeof(Sprite), typeof(Health)));
+
                     var mySprite = entity.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
 
-                    //Raylib.DrawTexture(equipment.Sprite.Texture, (int)mySprite.Position.X, (int)mySprite.Position.Y, Raylib.WHITE);
                     var dest = mySprite.Destination;
                     dest.width += item.Range;
                     item.Range = Math.Min(item.MaxRange, item.Range + 1000 * Raylib.GetFrameTime());
                     item.Ammo -= 1 * Raylib.GetFrameTime();
                     Raylib.DrawTexturePro(item.Sprite.Texture, item.Sprite.Source, dest, item.Sprite.Origin, mySprite.Rotation - 90, Raylib.WHITE);
+
                     var mousePos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), engine.Camera);
 
                     var mouseDirectionAsRadians = (float)Math.Atan2(mousePos.Y - mySprite.Position.Y, mousePos.X - mySprite.Position.X);
                     var lineStart = mySprite.Position;
-                    var lineEnd = new Vector2( 
+                    var lineEnd = new Vector2(
                         mySprite.Position.X + (float)Math.Cos(mouseDirectionAsRadians) * (item.Range + 50),
                         mySprite.Position.Y + (float)Math.Sin(mouseDirectionAsRadians) * (item.Range + 50));
-
-                    var lineSegmentVector = lineEnd - lineStart;
-                     
-                    ///Raylib.DrawRectangle((int)dest.x, (int)dest.y, (int)dest.width, (int)dest.height, Raylib.RED);
 
                     Raylib.DrawLine((int)lineStart.X, (int)lineStart.Y, (int)lineEnd.X, (int)lineEnd.Y, Raylib.GREEN);
 
@@ -47,19 +45,11 @@ namespace Stedders.Utilities
 
                         var targetVector = enemyPos.Position;
 
-                        float dotProduct = Vector2.Dot(targetVector, lineSegmentVector) / lineSegmentVector.LengthSquared();
-
-                        var nearestPoint = targetVector + dotProduct * lineSegmentVector;
-
-                        //Raylib.DrawCircle((int)targetVector.X, (int)targetVector.Y, 10f, Raylib.BLACK);
-                        //Raylib.DrawCircle((int)nearestPoint.X, (int)nearestPoint.Y, 10f, Raylib.BLUE);
                         enemyPos.Color = Raylib.WHITE;
                         if (Raylib.CheckCollisionPointLine(targetVector, lineStart, lineEnd, 30))
                         {
                             enemyHealth.CurrentHealth -= item.Damage * Raylib.GetFrameTime();
                             enemyPos.Color = Raylib.RED;
-
-                            Console.WriteLine($"{enemyHealth.CurrentHealth}/{enemyHealth.MaxHealth}");
                         }
                     }
                 }
@@ -74,9 +64,30 @@ namespace Stedders.Utilities
                 Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
                 { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
                 IconKey = TextureKey.Harvester,
-                Fire = (allEnemies, player, item) =>
+                Fire = (allEntities, player, item) =>
                 {
-                    Console.WriteLine("Harvesting");
+                    var playerComponent = player.GetComponent<Player>();
+                    var myPos = player.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Torso);
+                    var plants = allEntities.Where(x => x.HasTypes(typeof(Plant), typeof(Sprite)));
+                    var nearestPlant = plants.OrderBy(x => (x.GetComponent<Sprite>().Position - myPos.Position).Length()).FirstOrDefault();
+
+                    if (nearestPlant is not null)
+                    {
+                        var plantPos = nearestPlant.GetComponent<Sprite>();
+                        var plant = nearestPlant.GetComponent<Plant>();
+                        var lineStart = myPos.Position;
+                        var lineEnd = plantPos.Position;
+                        Raylib.DrawLine((int)lineStart.X, (int)lineStart.Y, (int)lineEnd.X, (int)lineEnd.Y, Raylib.GREEN);
+                        if (Raylib.CheckCollisionPointLine(plantPos.Position, lineStart, lineEnd, 30))
+                        {
+                            if (playerComponent.BioMassContainer <= playerComponent.MaxBioMassContainer)
+                            {
+                                plant.PlantBody -= item.Damage * Raylib.GetFrameTime();
+                                playerComponent.BioMassContainer += item.Damage * Raylib.GetFrameTime();
+                            }
+                        }
+                    }
+
                 }
             };
         }

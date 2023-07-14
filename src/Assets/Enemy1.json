@@ -70,6 +70,15 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
+   },
+   {
+    "filename": "Dead-0",
+    "frame": { "x": 19, "y": 37, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 100
    }
  ],
  "meta": {
@@ -83,7 +92,8 @@
    { "name": "IdleD", "from": 0, "to": 1, "direction": "forward" },
    { "name": "IdleR", "from": 2, "to": 3, "direction": "forward" },
    { "name": "IdleU", "from": 4, "to": 5, "direction": "forward" },
-   { "name": "Eating", "from": 6, "to": 7, "direction": "forward" }
+   { "name": "Eating", "from": 6, "to": 7, "direction": "forward" },
+   { "name": "Dead", "from": 8, "to": 8, "direction": "forward" }
   ]
  }
 }

@@ -2,7 +2,6 @@ using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Utilities;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 
 namespace Stedders.Systems
 {
@@ -16,7 +15,9 @@ namespace Stedders.Systems
 
         public override void UpdateNoCamera()
         {
+#if DEBUG
             Raylib.DrawText(Raylib.GetFPS().ToString(), Raylib.GetScreenWidth() - 50, 20, 20, Raylib.WHITE);
+#endif
             var state = Engine.Singleton.GetComponent<GameState>();
 
             if (state.State == States.MainMenu)
@@ -84,6 +85,11 @@ namespace Stedders.Systems
                     state.State = States.Game;
                     Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
                 }
+                if (RayGui.GuiButton(rect with { y = rect.y + (height * 0) + 10 }, TranslationManager.GetTranslation("howto")))
+                {
+                    state.State = States.HowTo;
+                    state.LastState = States.Pause;
+                }
 
                 if (RayGui.GuiButton(rect with { y = rect.y + (height * 2) + 10 }, TranslationManager.GetTranslation("exit")))
                 {
@@ -103,7 +109,7 @@ namespace Stedders.Systems
                 var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
                 if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
                 {
-                    state.State = States.MainMenu;
+                    state.State = state.LastState;
                     Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
                 }
             }
@@ -121,7 +127,7 @@ namespace Stedders.Systems
                 var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
                 if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
                 {
-                    state.State = States.MainMenu;
+                    state.State = state.LastState;
                     Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
                 }
             }

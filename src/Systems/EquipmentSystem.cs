@@ -31,7 +31,7 @@ namespace Stedders.Systems
                         if (item.IsFiring)
                         {
                             item.IsFiring = false;
-                            item.Fire(allEnemies, entity, item);
+                            item.Fire(Engine.Entities, entity, item);
                         }
                         else
                         {
