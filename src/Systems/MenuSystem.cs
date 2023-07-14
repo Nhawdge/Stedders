@@ -2,6 +2,7 @@ using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Utilities;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Stedders.Systems
 {
@@ -31,7 +32,6 @@ namespace Stedders.Systems
                     title,
                     new Vector2(Raylib.GetScreenWidth() / 2 - titleWidth / 2, 100),
                     fontSize, 10f, Raylib.WHITE);
-
 
                 Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
 
@@ -69,8 +69,8 @@ namespace Stedders.Systems
             {
                 Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
 
-                var width = 60;
-                var height = 30;
+                var width = 200;
+                var height = 60;
                 var positionWidth = Raylib.GetScreenWidth() / 2 - width / 2;
                 var positionHeight = Raylib.GetScreenHeight() / 2 - height / 2;
 
@@ -79,10 +79,16 @@ namespace Stedders.Systems
                 var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - 200, Raylib.GetScreenHeight() / 2 - 200, 400, 400);
                 RayGui.GuiDummyRec(centerPane, "");
 
-                if (RayGui.GuiButton(rect, TranslationManager.GetTranslation("resume")))
+                if (RayGui.GuiButton(rect with { y = rect.y - 100 }, TranslationManager.GetTranslation("resume")))
                 {
                     state.State = States.Game;
                     Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_CROSSHAIR);
+                }
+
+                if (RayGui.GuiButton(rect with { y = rect.y + (height * 2) + 10 }, TranslationManager.GetTranslation("exit")))
+                {
+                    Raylib.CloseWindow();
+                    Environment.Exit(0);
                 }
             }
             else if (state.State == States.Credits)
@@ -110,7 +116,7 @@ namespace Stedders.Systems
 
                 var text = TranslationManager.GetTranslation("howto-full");
 
-                RayGui.GuiLabel(centerPane with { height = centerPane.height - 150 }, text);
+                RayGui.GuiLabel(centerPane with { x = centerPane.x + 15, height = centerPane.height - 150 }, text);
 
                 var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
                 if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
@@ -120,6 +126,5 @@ namespace Stedders.Systems
                 }
             }
         }
-
     }
 }

@@ -28,7 +28,7 @@ namespace Stedders.Systems
                 var player = playerMech.GetComponent<Player>();
                 var speed = player.Throttle;
 
-                RayGui.GuiDummyRec(new Rectangle(5,5,200,100), "");
+                RayGui.GuiDummyRec(new Rectangle(5, 5, 210, 100), "");
 
                 var spread = 22;
                 var x = 10;
@@ -43,7 +43,8 @@ namespace Stedders.Systems
                     y += spread;
                 }
 
-                Raylib.DrawText($"Day: {state.Day} Time: {state.CurrentTime.ToString("#")}", x, y, 20, Raylib.BLACK);
+                var dayRect = new Rectangle(x, y, 50, 30);
+                RayGui.GuiLabel(dayRect, $"Day: {state.Day} Time: {state.CurrentTime.ToString("#")}");
             }
         }
     }

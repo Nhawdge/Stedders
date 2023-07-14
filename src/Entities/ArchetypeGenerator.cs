@@ -22,17 +22,21 @@ namespace Stedders.Entities
             legs.Position = startPos;
             torso.Position = startPos with { Y = startPos.Y - 30 * torso.Scale };
 
-            player.Components.Add(new Equipment { 
-                Name = "Laser 1", 
-                MaxAmmo = 100, 
+            player.Components.Add(new Equipment
+            {
+                Name = "Laser 1",
+                MaxAmmo = 100,
                 Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
-                Button = MouseButton.MOUSE_BUTTON_LEFT });
-            player.Components.Add(new Equipment { 
-                Name = "Laser 2", 
-                MaxAmmo = 100, 
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false) 
-                    { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
-                Button = MouseButton.MOUSE_BUTTON_RIGHT }); ;
+                Button = MouseButton.MOUSE_BUTTON_LEFT
+            });
+            player.Components.Add(new Equipment
+            {
+                Name = "Laser 2",
+                MaxAmmo = 100,
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
+                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
+                Button = MouseButton.MOUSE_BUTTON_RIGHT
+            }); ;
             return player;
         }
 
@@ -63,5 +67,14 @@ namespace Stedders.Entities
             return plant;
         }
 
+        public static Entity GenerateBarn(GameEngine engine, Vector2 position)
+        {
+            var barn = new Entity();
+
+            var pos = new Position() { Pos = position };
+
+            barn.Components.Add(pos);
+            return barn;
+        }
     }
 }

@@ -26,9 +26,9 @@ namespace Stedders.Systems
             if (state.State == States.Game)
             {
                 float LeftEdge = 0 + GetScreenWidth() / 2;
-                float RightEdge = 5667 - GetScreenWidth() / 2;
+                float RightEdge = Engine.MapEdge.X - GetScreenWidth() / 2;
                 float TopEdge = 0 + GetScreenHeight() / 2;
-                float BottomEdge = 3939 - GetScreenHeight() / 2;
+                float BottomEdge = Engine.MapEdge.Y- GetScreenHeight() / 2;
                 var mousePos = GetScreenToWorld2D(GetMousePosition(), Engine.Camera);
 
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();

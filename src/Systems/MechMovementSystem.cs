@@ -47,7 +47,7 @@ namespace Stedders.Systems
                             break;
                         case < -45:
                         default:
-                            torso.Play("IdleD");
+                            torso.Play("IdleU");
                             break;
                     }
                     if (throttle != 0)
@@ -81,7 +81,6 @@ namespace Stedders.Systems
                     torso.Position = newPosition with { Y = newPosition.Y - 30 * torso.Scale };
                 }
             }
-
         }
     }
 }

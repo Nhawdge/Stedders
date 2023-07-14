@@ -1,11 +1,17 @@
-﻿namespace Stedders.Components
+﻿using System.Numerics;
+
+namespace Stedders.Components
 {
     internal class NpcAi : Component
     {
-        public float Speed { get; set; } = 30f;
+        public float Speed { get; set; } = 100f;
+        public float EatingSpeed { get; set; } = 10f;
+        public Vector2 TargetPosition { get; set; }
         public EnemyAction Action;
         public float TimeSinceLastActionChanged;
         public float ThinkingTime = 10f;
+        public float Belly = 0f;
+        public float BellyMax = 300f;
     }
     public enum EnemyAction
     {

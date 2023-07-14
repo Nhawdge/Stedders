@@ -1,5 +1,6 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
+using Stedders.Entities;
 using Stedders.Utilities;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,14 @@ namespace Stedders.Systems
             if (state.State == States.Game)
             {
                 var allEntities = Engine.Entities.Where(x => x.HasTypes(typeof(Plant)));
+                var entitiesToRemove = new List<Entity>();
                 foreach (var entity in allEntities)
                 {
                     var plant = entity.GetComponent<Plant>();
+                    if (plant.PlantBody <= 0)
+                    {
+                        entitiesToRemove.Add(entity);
+                    }
 
                     plant.Growth += Raylib.GetFrameTime() * plant.GrowthRate * (state.TimeOfDay == TimeOfDay.Day ? plant.DayGrowthModifier : plant.NightGrowthModifier);
 
@@ -45,6 +51,7 @@ namespace Stedders.Systems
                         }
                     }
                 }
+                entitiesToRemove.ForEach(x => Engine.Entities.Remove(x));
             }
         }
     }

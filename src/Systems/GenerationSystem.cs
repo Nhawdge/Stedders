@@ -58,9 +58,9 @@ namespace Stedders.Systems
                     y += 30;
                 }
 
-
                 Engine.Entities.Add(ArchetypeGenerator.BuildEnemy(Engine, new Vector2(200, 200)));
-
+                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1847, 805)));
+                
                 state.State = States.Dialogue;
             }
 

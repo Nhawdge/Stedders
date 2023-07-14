@@ -3,6 +3,7 @@ using Stedders.Components;
 using Stedders.Entities;
 using Stedders.Systems;
 using Stedders.Utilities;
+using System.Numerics;
 
 namespace Stedders
 {
@@ -14,6 +15,8 @@ namespace Stedders
         public Entity Singleton = new();
         public TextureManager TextureManager = new();
         public SoundManager SoundManager = new();
+
+        public Vector2 MapEdge = new Vector2(4320, 2880);
 
         public void RunGame()
         {

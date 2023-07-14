@@ -14,5 +14,12 @@
         public float GrowthRate = 1f; //1 per second
         public float DayGrowthModifier = 1f;
         public float NightGrowthModifier = 0.5f;
+
+        public float Water = 0f;
+        public float MaxWater = 100f;
+
+        public float PlantBody = 100f;
+        public float MaxPlantBody = 100f;
+
     }
 }
