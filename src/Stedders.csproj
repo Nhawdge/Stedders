@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputType>Exe</OutputType>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputType>WinExe</OutputType>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -17,14 +17,14 @@
     <PackageReference Include="csvhelper" Version="30.0.1" />
     <PackageReference Include="Raylib-cslo" Version="4.2.0.5" />
   </ItemGroup>
-    
+
   <ItemGroup>
     <None Update="Assets/**/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </None>
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Update="Assets/**/*.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
