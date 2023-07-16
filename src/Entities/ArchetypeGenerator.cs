@@ -1,5 +1,4 @@
-﻿using Raylib_CsLo;
-using Stedders.Components;
+﻿using Stedders.Components;
 using Stedders.Utilities;
 using System.Numerics;
 
@@ -12,9 +11,9 @@ namespace Stedders.Entities
             var player = new Entity();
             player.Components.Add(new Player());
 
-            var legs = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2), "Assets/Mech2", 3, true) { MechPiece = MechPieces.Legs, CanRotate = false };
+            var legs = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2), "Assets/Mech2", 3, true) { MechPiece = MechPieces.Legs, CanRotate = false, ZIndex = 3 };
             player.Components.Add(legs);
-            var torso = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2Top), "Assets/Mech2Top", 3, true) { MechPiece = MechPieces.Torso, CanRotate = false };
+            var torso = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2Top), "Assets/Mech2Top", 3, true) { MechPiece = MechPieces.Torso, CanRotate = false, ZIndex = 2 };
             player.Components.Add(torso);
             var startPos = new Vector2(2118, 2760);
 
@@ -30,6 +29,7 @@ namespace Stedders.Entities
             var enemy = new Entity();
             var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Enemy1), "Assets/Enemy1", 3, true)
             {
+                ZIndex = 1,
                 CanRotate = false,
                 Position = position
             };
@@ -92,6 +92,24 @@ namespace Stedders.Entities
             silo.Components.Add(new Silo());
             silo.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Silo), "Assets/Silo", 3, true) { Position = position });
             return silo;
+        }
+
+        internal static Entity GenerateField(GameEngine engine, Vector2 position, bool startWithPlant = false)
+        {
+            var field = new Entity();
+            var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Field1), "Assets/Field1", 3, true) { Position = position };
+            var fieldComponent = new Field();
+            field.Components.Add(sprite);
+            field.Components.Add(fieldComponent);
+            if (startWithPlant)
+            {
+                field.Components.Add(new Plant("Wiggle Root"));
+                field.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Plant1", 3, true)
+                {
+                    Position = position
+                });
+            }
+            return field;
         }
     }
 }

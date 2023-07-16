@@ -16,7 +16,7 @@ namespace Stedders.Systems
         {
             Raylib.DrawTextureEx(BackgroundTexture, Vector2.Zero, 0f, 3, Raylib.WHITE);
             foreach (var entity in Engine.Entities.Where(x => x.HasTypes(typeof(Render)))
-                .OrderBy(x => x.GetComponent<Render>().Position.Y))
+                .OrderBy(x => x.GetComponent<Render>().ZIndex))
             {
                 var myRenders = entity.GetComponents<Render>();
                 foreach (var myRender in myRenders)

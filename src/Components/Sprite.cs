@@ -13,10 +13,6 @@ namespace Stedders.Components
         public int CurrentFrameIndex = 0;
         public AnimationSets CurrentAnimation;
 
-        //public Sprite(Texture texture, int col = 0, int row = 0, float scale = 1, bool isCentered = true) : base(texture, col, row, scale, isCentered)
-        //{
-        //}
-
         public Sprite(Texture texture, string animationDataPath, float scale = 1, bool isCentered = true) : base(texture, 0, 0, scale, isCentered)
         {
             AnimationDataPath = animationDataPath;

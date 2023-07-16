@@ -16,21 +16,25 @@ namespace Stedders.Systems
             var state = Engine.Singleton.GetComponent<GameState>();
             if (state.State == States.Game)
             {
-                var allEntities = Engine.Entities.Where(x => x.HasTypes(typeof(Plant)));
+                var allEntities = Engine.Entities.Where(x => x.HasTypes(typeof(Plant), typeof(Field)));
                 var entitiesToRemove = new List<Entity>();
                 foreach (var entity in allEntities)
                 {
+                    var field = entity.GetComponent<Field>();
                     var plant = entity.GetComponent<Plant>();
                     if (plant.PlantBody <= 0)
                     {
-                        entitiesToRemove.Add(entity);
+                        entity.Components.Remove(plant);
+                        var plantSprite = entity.GetComponents<Sprite>().First(x => x.AnimationDataPath == "Assets/Plant1");
+                        entity.Components.Remove(plantSprite);
+                        field.HasCrop = false;
                     }
 
                     plant.Growth += Raylib.GetFrameTime() * plant.GrowthRate * (state.TimeOfDay == TimeOfDay.Day ? plant.DayGrowthModifier : plant.NightGrowthModifier);
 
                     if (plant.Growth > plant.GrowthRequired)
                     {
-                        var mySprite = entity.GetComponents<Sprite>().First();
+                        var mySprite = entity.GetComponents<Sprite>().First(x => x.AnimationDataPath == "Assets/Plant1");
                         if (plant.GrowthStage >= plant.MaxGrowthStage)
                         {
                             mySprite.Play($"Mature");

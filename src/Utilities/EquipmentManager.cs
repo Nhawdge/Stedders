@@ -138,7 +138,7 @@ namespace Stedders.Utilities
                 Ammo = 10,
                 Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
                 IconKey = TextureKey.SeedCannon,
-                CooldownPerShot = 3,
+                CooldownPerShot = 1,
                 ShotCoolDownRate = 1,
                 CanReload = true,
                 Fire = (entities, player, item) =>
@@ -147,15 +147,35 @@ namespace Stedders.Utilities
                     {
                         return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
                     }
-                    item.ShotCooldown = item.CooldownPerShot;
 
                     if (item.Ammo > 0)
                     {
-                        item.Ammo--;
                         var target = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), engine.Camera);
-                        var seed = ArchetypeGenerator.GeneratePlant(engine, target);
-                        var entitiesToAdd = new List<Entity>() { seed };
-                        return (entitiesToAdd, Enumerable.Empty<Entity>());
+                        var nearestField = entities.Where(x => x.HasTypes(typeof(Field)))
+                            .OrderBy(x => (x.GetComponent<Sprite>().Position - target).Length())
+                            .FirstOrDefault();
+                        if (nearestField != null)
+                        {
+                            var field = nearestField.GetComponents<Sprite>()
+                                .FirstOrDefault(x => x.AnimationDataPath == "Assets/Field1");
+                            var fieldComponent = nearestField.GetComponent<Field>();
+                            if (field != null && fieldComponent.HasCrop == false)
+                            {
+                                if (Raylib.CheckCollisionPointRec(target, field.Destination))
+                                {
+                                    item.Ammo--;
+                                    item.ShotCooldown = item.CooldownPerShot;
+                                    nearestField.Components.Add(new Plant("Wiggle Root"));
+                                    nearestField.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Plant1", 3, true)
+                                    {
+                                        Position = field.Position
+                                    });
+                                    fieldComponent.HasCrop = true;
+
+                                }
+                            }
+                        }
+                        return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
                     }
                     else
                     {

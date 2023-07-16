@@ -15,6 +15,7 @@ namespace Stedders.Components
         public float Scale = 1f;
         public float Rotation = 0f;
         public bool CanRotate = true;
+        public float ZIndex = 0f;
         public float RotationAsRadians => (Rotation - 90) * (float)(Math.PI / 180);
         public Vector2 Position;
         public Color Color;

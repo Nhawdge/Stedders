@@ -19,7 +19,7 @@ namespace Stedders.Systems
                 }
 
                 var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
-                playerRenderLegs!.Rotation += 1f;
+                playerRenderLegs!.Rotation += 2f;
             });
 
             KeyboardMapping.Add(KeyboardKey.KEY_A, () =>
@@ -31,7 +31,7 @@ namespace Stedders.Systems
                 }
 
                 var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
-                playerRenderLegs!.Rotation -= 1f;
+                playerRenderLegs!.Rotation -= 2f;
             });
             KeyboardMapping.Add(KeyboardKey.KEY_W, () =>
             {

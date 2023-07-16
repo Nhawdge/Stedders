@@ -2,6 +2,7 @@ using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Entities;
 using System.Numerics;
+using System.Runtime.ConstrainedExecution;
 
 namespace Stedders.Systems
 {
@@ -24,9 +25,11 @@ namespace Stedders.Systems
 
 
                 Engine.Entities.Add(ArchetypeGenerator.GeneratePlayerMech(this.Engine));
-
-                var startX = 1940;
-                var startY = 1490;
+                                 
+                var startX = 981;
+                var startY = 744;
+                var xPadding = 48;
+                var yPadding = 48;
 
                 var y = startY;
                 for (var j = 0; j < 5; j++)
@@ -34,39 +37,40 @@ namespace Stedders.Systems
                     var x = startX;
                     for (var i = 0; i < 3; i++)
                     {
-                        Engine.Entities.Add(ArchetypeGenerator.GeneratePlant(this.Engine, new Vector2(x, y)));
-                        x += 30;
+                        Engine.Entities.Add(ArchetypeGenerator.GenerateField(this.Engine, new Vector2(x, y)));
+                        x += xPadding;
                     }
-                    y += 30;
+                    y += yPadding;
                 }
 
-                y = startY;
+                y =   936;
                 for (var j = 0; j < 5; j++)
                 {
-                    var x = startX + 145;
+                    var x = 3300 + 145;
                     for (var i = 0; i < 3; i++)
                     {
-                        Engine.Entities.Add(ArchetypeGenerator.GeneratePlant(this.Engine, new Vector2(x, y)));
-                        x += 30;
+                        Engine.Entities.Add(ArchetypeGenerator.GenerateField(this.Engine, new Vector2(x, y), true));
+                        x += xPadding;
                     }
-                    y += 30;
+                    y += yPadding;
                 }
-
-                y = startY;
+                //< 3003.7996, 2085.5286 >
+                y = 2085;
                 for (var j = 0; j < 5; j++)
                 {
-                    var x = startX + 145 + 145;
+                    var x = 3003 + 145 + 145;
                     for (var i = 0; i < 3; i++)
                     {
-                        Engine.Entities.Add(ArchetypeGenerator.GeneratePlant(this.Engine, new Vector2(x, y)));
-                        x += 30;
+                        Engine.Entities.Add(ArchetypeGenerator.GenerateField(this.Engine, new Vector2(x, y)));
+                        x += xPadding;
                     }
-                    y += 30;
+                    y += yPadding;
                 }
 
                 Engine.Entities.Add(ArchetypeGenerator.GenerateEnemy(Engine, new Vector2(200, 200)));
                 Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
                 Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
+
 
                 state.State = States.Dialogue;
                 state.DialoguePhase = ("intro", 1);

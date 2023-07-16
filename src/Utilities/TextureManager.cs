@@ -24,6 +24,7 @@ namespace Stedders.Utilities
             TextureStore.Add(TextureKey.MechDirection, Raylib.LoadTexture("Assets/MechDirection.png"));
             TextureStore.Add(TextureKey.Barn, Raylib.LoadTexture("Assets/Barn.png"));
             TextureStore.Add(TextureKey.Silo, Raylib.LoadTexture("Assets/Silo.png"));
+            TextureStore.Add(TextureKey.Field1, Raylib.LoadTexture("Assets/Field1.png"));
         }
         public Texture GetTexture(TextureKey key)
         {
@@ -53,5 +54,6 @@ namespace Stedders.Utilities
         MechDirection,
         Barn,
         Silo,
+        Field1,
     }
 }
