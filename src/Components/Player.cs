@@ -8,7 +8,7 @@
 
         public float Speed = 2f;
 
-        public float BioMassContainer = 0f;
-        public float MaxBioMassContainer = 100f;
+        //public float BioMassContainer = 0f;
+        //public float MaxBioMassContainer = 100f;
     }
 }

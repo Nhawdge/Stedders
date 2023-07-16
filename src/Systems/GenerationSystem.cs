@@ -17,6 +17,7 @@ namespace Stedders.Systems
 
             if (state.State == States.Start)
             {
+
                 Engine.Entities.Add(ArchetypeGenerator.GeneratePlayerMech(this.Engine));
 
                 var startX = 1940;
@@ -70,7 +71,16 @@ namespace Stedders.Systems
             else if (state.State == States.Game)
             {
                 var rand = new Random();
-                state.TimeSinceLastSpawn += Raylib.GetFrameTime() * (state.TimeOfDay == TimeOfDay.Day ? 0.5f : 1f);
+                var spawnRateModifier = state.TimeOfDay switch
+                {
+                    TimeOfDay.Dawn => .25f,
+                    TimeOfDay.Day => 0.1f,
+                    TimeOfDay.Dusk => .5f,
+                    TimeOfDay.Night => 1f,
+                    _ => throw new NotImplementedException()
+                };
+
+                state.TimeSinceLastSpawn += Raylib.GetFrameTime() * spawnRateModifier;
                 if (state.TimeSinceLastSpawn > state.SpawnInterval)
                 {
                     state.TimeSinceLastSpawn = 0f;

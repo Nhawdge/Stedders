@@ -60,18 +60,10 @@ namespace Stedders.Entities
             var barnComponent = new Barn();
 
             barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
-
             barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
             barnComponent.Equipment.Add(EquipmentManager.GenerateHarvester(engine));
 
-            barnComponent.Equipment.Add(new Equipment
-            {
-                Name = "Seeder",
-                MaxAmmo = 100,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
-                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
-                IconKey = TextureKey.SeedCannon,
-            });
+            barnComponent.Equipment.Add(EquipmentManager.GenerateSeeder(engine));
             barnComponent.Equipment.Add(new Equipment
             {
                 Name = "Water",

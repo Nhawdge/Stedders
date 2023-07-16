@@ -10,9 +10,13 @@ namespace Stedders.Utilities
         public void LoadSounds()
         {
             SoundStore.Add(SoundKey.FlowerGrowth, Raylib.LoadSound("Assets/Sound/Stedders_Flower_Growing.wav"));
-            
+            SoundStore.Add(SoundKey.Laser, Raylib.LoadSound("Assets/Sound/Laser.wav"));
+
             MusicStore.Add(MusicKey.Ambiance, Raylib.LoadMusicStream("Assets/Sound/Stedders_Day_Map_Ambience.wav"));
+            MusicStore.Add(MusicKey.Menu, Raylib.LoadMusicStream("Assets/Sound/Stedders_Menu_Music.wav"));
+            MusicStore.Add(MusicKey.GamePlay, Raylib.LoadMusicStream("Assets/Sound/Stedders_Gameplay_Music.wav"));
         }
+
         public Sound GetSound(SoundKey key)
         {
             if (SoundStore.Count <= 0)
@@ -34,9 +38,13 @@ namespace Stedders.Utilities
     public enum SoundKey
     {
         FlowerGrowth,
+        Laser,
     }
+
     public enum MusicKey // probably C# (Get it??)
     {
-        Ambiance,
+        Ambiance, 
+        Menu,
+        GamePlay,
     }
 }

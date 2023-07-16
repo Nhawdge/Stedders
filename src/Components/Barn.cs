@@ -4,5 +4,6 @@
     {
         public List<Equipment> Equipment = new();
         public bool IsOpen = false;
+        public int Range = 100;
     }
 }

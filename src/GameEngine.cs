@@ -41,6 +41,11 @@ namespace Stedders
 
         public void Load()
         {
+            Singleton.Components.Add(new GameState());
+            Entities.Add(Singleton);
+            RayGui.GuiLoadStyle("Assets/cyber.rgs");
+            RayGui.GuiSetFont(Raylib.LoadFont("Assets/Roboto-Black.ttf"));
+
             Systems = new List<GameSystem>
             {
                 new RenderSystem(this),
@@ -59,11 +64,6 @@ namespace Stedders
                 new DialogueSystem(this),
                 new SoundSystem(this),
             };
-
-            Singleton.Components.Add(new GameState());
-            Entities.Add(Singleton);
-            RayGui.GuiLoadStyle("Assets/cyber.rgs");
-            RayGui.GuiSetFont(Raylib.LoadFont("Assets/Roboto-Black.ttf"));
         }
 
         public void GameLoop()

@@ -4,6 +4,8 @@ using Stedders.Utilities;
 using System.Collections.Immutable;
 using System.Net.WebSockets;
 using System.Numerics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Stedders.Systems
 {
@@ -50,7 +52,7 @@ namespace Stedders.Systems
                 RayGui.GuiLabel(dayRect, $"Day: {state.Day} Time: {state.CurrentTime.ToString("#")}");
                 y += spread;
 
-                RayGui.GuiLabel(dayRect with { y = dayRect.y + spread + 2 }, $"Biomass: {player.BioMassContainer.ToString("0.#")}/{player.MaxBioMassContainer.ToString("0")}");
+                //RayGui.GuiLabel(dayRect with { y = dayRect.y + spread + 2 }, $"Biomass: {player.BioMassContainer.ToString("0.#")}/{player.MaxBioMassContainer.ToString("0")}");
                 RayGui.GuiLabel(dayRect with { y = dayRect.y + spread * 2 + 2 }, $"{state.Currency.ToString("C")}");
 
                 // Barn stuff
@@ -62,7 +64,7 @@ namespace Stedders.Systems
                 var posDiff = barnPos - playerSprite.Position;
                 var distance = posDiff.Length();
                 var topButton = new Rectangle(Raylib.GetScreenWidth() / 2 - 100, 20, 200, 60);
-                if (distance < 50)
+                if (distance < barnComponent.Range)
                 {
                     if (RayGui.GuiButton(topButton, TranslationManager.GetTranslation(barnComponent.IsOpen ? "close" : "open")))
                     {
@@ -96,8 +98,13 @@ namespace Stedders.Systems
                         Raylib.DrawTexturePro(itemTexture,
                             new Rectangle(0, 0, itemTexture.width, itemTexture.height),
                             itemRect with { y = itemRect.y + 10, width = 50, height = 50 }, Vector2.Zero, 0f, Raylib.WHITE);
-                        var buttonRect = itemRect with { x = itemRect.x + 55, y = itemRect.y + 10, width = width - 70 };
-                        if (RayGui.GuiButton(buttonRect, item.Name))
+                        var buttonRect = itemRect with { x = itemRect.x + 55, y = itemRect.y + 10, width = width - 170 };
+                        var itemText = item.Name;
+                        if (item.CanReload)
+                        {
+                            itemText += $" {item.Ammo}/{item.MaxAmmo}";
+                        }
+                        if (RayGui.GuiButton(buttonRect, itemText))
                         {
                             var currentLeft = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_LEFT);
                             if (currentLeft is not null)
@@ -108,7 +115,27 @@ namespace Stedders.Systems
                             item.Button = MouseButton.MOUSE_BUTTON_LEFT;
                             playerMech.Components.Add(item);
                             inventoryToRemove.Add(item);
-
+                        }
+                        if (item.CanReload)
+                        {
+                            if (item.Ammo == item.MaxAmmo)
+                            {
+                                RayGui.GuiDisable();
+                            }
+                            if (RayGui.GuiButton(buttonRect with { x = buttonRect.x + buttonRect.width + 5, width = 90 }, "Reload"))
+                            {
+                                var cost = item.MaxAmmo - item.Ammo * item.CostPerShot;
+                                if (state.Currency >= cost)
+                                {
+                                    state.Currency -= cost;
+                                    item.Ammo = item.MaxAmmo;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Insufficient funds");
+                                }
+                            }
+                            RayGui.GuiEnable();
                         }
                         var mousePos = Raylib.GetMousePosition();
                         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_RIGHT))
@@ -128,7 +155,7 @@ namespace Stedders.Systems
                         }
                         index++;
                     }
-                    inventorytoAdd.ForEach(x => barnComponent.Equipment.Add(x));
+                    inventorytoAdd.ForEach(barnComponent.Equipment.Add);
                     inventoryToRemove.ForEach(x => barnComponent.Equipment.Remove(x));
                     RayGui.GuiLabel(new Rectangle(container.x, container.height - 10, 500, 50), TranslationManager.GetTranslation("equip-help"));
                 }
@@ -138,12 +165,16 @@ namespace Stedders.Systems
                 var siloPos = silo.GetComponent<Position>().Pos;
                 posDiff = siloPos - playerSprite.Position;
                 distance = posDiff.Length();
-                if (distance < 50)
+                if (distance < siloComponent.Range)
                 {
                     if (RayGui.GuiButton(topButton, TranslationManager.GetTranslation("sell-biomass")))
                     {
-                        state.Currency += player.BioMassContainer * 10;
-                        player.BioMassContainer = 0f;
+                        var harvester = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Name == "Harvester");
+                        if (harvester is not null)
+                        {
+                            state.Currency += harvester.Ammo * 10;
+                            harvester.Ammo = 0f;
+                        }
                     }
                 }
             }

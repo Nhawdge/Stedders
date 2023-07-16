@@ -22,9 +22,19 @@ namespace Stedders.Components
         public float HeatPerShot { get; set; }
         public bool IsFiring { get; set; }
         public bool IsOverheated { get; set; }
+        public float ShotCooldown { get; set; }
+        public float ShotCoolDownRate { get; set; }
+        public float CooldownPerShot { get; set; }
         public TextureKey IconKey { get; set; }
+        public bool CanReload { get;  set; } = false;
+        public float CostPerShot { get; set; } = 100;
 
-        internal Action<IEnumerable<Entity>, Entity, Equipment> Fire = (_, _, _) => { };
+        public Action<IEnumerable<Entity>, Equipment> Idle = (_, _) => { };
+
+        public Func<IEnumerable<Entity>, Entity, Equipment, (IEnumerable<Entity>, IEnumerable<Entity>)> Fire = (_, _, _) =>
+        {
+            return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
+        };
 
         // Saw blade - melee - free 
         // Laser - ranged - 

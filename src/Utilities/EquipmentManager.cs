@@ -13,10 +13,16 @@ namespace Stedders.Utilities
             {
                 Name = "Laser",
                 MaxAmmo = 100,
+                Ammo = 0,
+                Damage = 25,
                 Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
                 IconKey = TextureKey.LaserCannon,
                 Fire = (allEntities, entity, item) =>
                 {
+                    if (item.IsOverheated)
+                    {
+                        return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
+                    }
                     var allEnemies = allEntities.Where(x => x.HasTypes(typeof(NpcAi), typeof(Sprite), typeof(Health)));
 
                     var mySprite = entity.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
@@ -24,7 +30,14 @@ namespace Stedders.Utilities
                     var dest = mySprite.Destination;
                     dest.width += item.Range;
                     item.Range = Math.Min(item.MaxRange, item.Range + 1000 * Raylib.GetFrameTime());
-                    item.Ammo -= 1 * Raylib.GetFrameTime();
+                    item.Ammo += 20 * Raylib.GetFrameTime();
+                    if (item.Ammo >= item.MaxAmmo)
+                    {
+                        item.Name = "Overheated";
+
+                        item.IsOverheated = true;
+                        item.Ammo = item.MaxAmmo;
+                    }
                     Raylib.DrawTexturePro(item.Sprite.Texture, item.Sprite.Source, dest, item.Sprite.Origin, mySprite.Rotation - 90, Raylib.WHITE);
 
                     var mousePos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), engine.Camera);
@@ -52,6 +65,17 @@ namespace Stedders.Utilities
                             enemyPos.Color = Raylib.RED;
                         }
                     }
+                    return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
+                },
+                Idle = (entity, item) =>
+                {
+                    item.Ammo -= Raylib.GetFrameTime() * (item.IsOverheated ? 10 : 15);
+                    if (item.Ammo <= 0)
+                    {
+                        item.IsOverheated = false;
+                        item.Ammo = 0;
+                        item.Name = "Laser";
+                    }
                 }
             };
         }
@@ -61,8 +85,11 @@ namespace Stedders.Utilities
             {
                 Name = "Harvester",
                 MaxAmmo = 100,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
-                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
+                Ammo = 0,
+                Range = 50,
+                MaxRange = 50,
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
+                CanReload = false,
                 IconKey = TextureKey.Harvester,
                 Fire = (allEntities, player, item) =>
                 {
@@ -77,17 +104,62 @@ namespace Stedders.Utilities
                         var plant = nearestPlant.GetComponent<Plant>();
                         var lineStart = myPos.Position;
                         var lineEnd = plantPos.Position;
-                        Raylib.DrawLine((int)lineStart.X, (int)lineStart.Y, (int)lineEnd.X, (int)lineEnd.Y, Raylib.GREEN);
-                        if (Raylib.CheckCollisionPointLine(plantPos.Position, lineStart, lineEnd, 30))
+                        Raylib.DrawCircle(
+                            (int)lineEnd.X,
+                            (int)lineEnd.Y,
+                            10, Raylib.GREEN);
+                        var lineDistance = (lineEnd - lineStart).Length();
+                        if (lineDistance < item.Range)
                         {
-                            if (playerComponent.BioMassContainer <= playerComponent.MaxBioMassContainer)
+                            Raylib.DrawLine((int)lineStart.X, (int)lineStart.Y, (int)lineEnd.X, (int)lineEnd.Y, Raylib.GREEN);
+                            if (Raylib.CheckCollisionPointLine(plantPos.Position, lineStart, lineEnd, 30))
                             {
-                                plant.PlantBody -= item.Damage * Raylib.GetFrameTime();
-                                playerComponent.BioMassContainer += item.Damage * Raylib.GetFrameTime();
+                                if (item.Ammo <= item.MaxAmmo)
+                                {
+                                    plant.PlantBody -= item.Damage * Raylib.GetFrameTime();
+                                    item.Ammo += item.Damage * Raylib.GetFrameTime();
+                                }
                             }
                         }
                     }
+                    return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
 
+                }
+            };
+        }
+
+        internal static Equipment GenerateSeeder(GameEngine engine)
+        {
+            return new Equipment
+            {
+                Name = "Seeder",
+                MaxAmmo = 10,
+                Ammo = 10,
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
+                IconKey = TextureKey.SeedCannon,
+                CooldownPerShot = 3,
+                ShotCoolDownRate = 1,
+                CanReload= true,
+                Fire = (entities, player, item) =>
+                {
+                    if (item.ShotCooldown > 0)
+                    {
+                        return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
+                    }
+                    item.ShotCooldown = item.CooldownPerShot;
+
+                    if (item.Ammo > 0)
+                    {
+                        item.Ammo--;
+                        var target = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), engine.Camera);
+                        var seed = ArchetypeGenerator.GeneratePlant(engine, target);
+                        var entitiesToAdd = new List<Entity>() { seed };
+                        return (entitiesToAdd, Enumerable.Empty<Entity>());
+                    }
+                    else
+                    {
+                        return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
+                    }
                 }
             };
         }

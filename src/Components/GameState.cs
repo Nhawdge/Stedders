@@ -1,3 +1,7 @@
+using Raylib_CsLo;
+using Stedders.Utilities;
+using System.Diagnostics;
+
 namespace Stedders.Components
 {
     public class GameState : Component
@@ -6,7 +10,12 @@ namespace Stedders.Components
         public States State
         {
             get => this._state;
-            set { this.LastState = _state; this._state = value; }
+            set
+            {
+                this.LastState = _state;
+                this.MusicSetSinceStateChange = false;
+                this._state = value;
+            }
         }
         public States LastState = States.MainMenu;
         public TimeOfDay TimeOfDay = TimeOfDay.Day;
@@ -20,6 +29,13 @@ namespace Stedders.Components
         public float Currency = 0f;
 
         public (string, int) DialoguePhase { get; set; }
+
+        public HashSet<MusicPlayer> CurrentMusic { get; set; } = new();
+        public float MainVolume { get; set; } = 0.5f;
+
+        public bool MusicSetSinceStateChange = false;
+
+        public float IntroAnimationTiming = 0f;
     }
 
     public enum TimeOfDay
@@ -38,7 +54,14 @@ namespace Stedders.Components
         Pause,
         Credits,
         HowTo,
+        Options,
         Game,
         GameOver
     }
+
+    public record MusicPlayer(MusicKey Key, Music Music, float Volume)
+    {
+        public bool IsPlaying { get; set; } = false;
+    };
+
 }
