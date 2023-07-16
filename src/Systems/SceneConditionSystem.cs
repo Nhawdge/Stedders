@@ -20,6 +20,17 @@ namespace Stedders.Systems
                     state.State = States.Dialogue;
                     state.NextState = States.GameOver;
                 }
+                var siloEntity = allBuildings.FirstOrDefault(x => x.HasTypes(typeof(Silo)));
+                if (siloEntity != null)
+                {
+                    var silo = siloEntity.GetComponent<Silo>();
+                    if (silo.BioMass > silo.MaxBioMass)
+                    {
+                        state.DialoguePhase = ("win", 1);
+                        state.State = States.Dialogue;
+                        state.NextState = States.GameWin;
+                    }
+                }
             }
         }
     }

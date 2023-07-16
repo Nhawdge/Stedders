@@ -1,4 +1,5 @@
-﻿using Stedders.Components;
+﻿using Raylib_CsLo;
+using Stedders.Components;
 using Stedders.Entities;
 
 namespace Stedders.Systems
@@ -21,6 +22,7 @@ namespace Stedders.Systems
                     var myHealth = entity.GetComponent<Health>();
                     if (myHealth.CurrentHealth <= 0)
                     {
+                        Engine.Singleton.GetComponent<GameState>().Stats.TotalEnemiesKilled += 1;
                         entitiesToRemove.Add(entity);
                     }
                 }
@@ -31,18 +33,17 @@ namespace Stedders.Systems
                     var myHealth = entity.GetComponent<Building>();
                     if (myHealth.Health <= 0)
                     {
-                        //entitiesToRemove.Add(entity);
                         entity.Components.Remove(myHealth);
                     }
-                    if (entity.HasTypes(typeof(Barn)))
+                    if (entity.HasTypes(typeof(Barn)) || entity.HasTypes(typeof(Silo)))
                     {
                         var sprite = entity.GetComponent<Sprite>();
-                        if (myHealth.Health > 50)
+                        var healthPercent = myHealth.Health / myHealth.MaxHealth *100;
+                        if (healthPercent > 50)
                         {
-
                             sprite.Play("Health100");
                         }
-                        else if (myHealth.Health > 10)
+                        else if (healthPercent > 10)
                         {
                             sprite.Play("Health50");
                         }

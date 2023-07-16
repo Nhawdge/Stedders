@@ -3,7 +3,6 @@
     internal class Barn : Building
     {
         public List<Equipment> Equipment = new();
-        public bool IsOpen = false;
- 
+        public bool IsOpen = false; 
     }
 }

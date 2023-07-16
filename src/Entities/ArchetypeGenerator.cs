@@ -63,8 +63,8 @@ namespace Stedders.Entities
             barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
             barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
             barnComponent.Equipment.Add(EquipmentManager.GenerateHarvester(engine));
-
             barnComponent.Equipment.Add(EquipmentManager.GenerateSeeder(engine));
+
             barnComponent.Equipment.Add(new Equipment
             {
                 Name = "Water - WIP",

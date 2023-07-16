@@ -9,6 +9,7 @@ namespace Stedders.Systems
         public Dictionary<MouseButton, Action> MouseMapping = new Dictionary<MouseButton, Action>();
         public InputSystem(GameEngine gameEngine) : base(gameEngine)
         {
+            var state = Engine.Singleton.GetComponent<GameState>();
             KeyboardMapping.Add(KeyboardKey.KEY_D, () =>
             {
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
@@ -73,10 +74,6 @@ namespace Stedders.Systems
                 {
                     state.State = States.Pause;
                 }
-                //else if (state.State == States.Pause)
-                //{
-                //    state.State = States.Game;
-                //}
             });
 
             KeyboardMapping.Add(KeyboardKey.KEY_ONE, () =>
@@ -93,6 +90,9 @@ namespace Stedders.Systems
                 if (playerMech is null)
                     return;
 
+                if (state.GuiOpen == true)
+                    return;
+
                 var player = playerMech.GetComponent<Player>();
                 var weapon = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_LEFT);
                 if (weapon is not null)
@@ -103,6 +103,9 @@ namespace Stedders.Systems
             {
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
                 if (playerMech is null)
+                    return;
+
+                if (state.GuiOpen == true)
                     return;
 
                 var player = playerMech.GetComponent<Player>();

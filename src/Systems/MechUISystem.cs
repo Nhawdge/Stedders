@@ -24,6 +24,7 @@ namespace Stedders.Systems
 
             if (state.State == States.Game)
             {
+                state.GuiOpen = false;
                 var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
                 if (playerMech is null)
                 {
@@ -41,7 +42,7 @@ namespace Stedders.Systems
                 RayGui.GuiSliderBar(new Rectangle(x, y, 100, 20), string.Empty, "Throttle", Math.Abs(speed), 0, player.MaxThrottle);
 
                 y += spread;
-                var equippedItems = playerMech.GetComponents<Equipment>();
+                var equippedItems = playerMech.GetComponents<Equipment>().OrderBy(x => x.Button);
                 foreach (var item in equippedItems)
                 {
                     RayGui.GuiSliderBar(new Rectangle(x, y, 100, 20), string.Empty, item.Name, item.Ammo, 0, item.MaxAmmo);
@@ -71,15 +72,18 @@ namespace Stedders.Systems
                         if (RayGui.GuiButton(topButton, TranslationManager.GetTranslation(barnComponent.IsOpen ? "close" : "open")))
                         {
                             barnComponent.IsOpen = !barnComponent.IsOpen;
+                            state.GuiOpen = barnComponent.IsOpen;
                         }
                     }
                     else
                     {
                         barnComponent.IsOpen = false;
+                        state.GuiOpen = false;
                     }
 
                     if (barnComponent.IsOpen)
                     {
+                        state.GuiOpen = true;
                         var width = 500;
                         var height = 600;
                         var container = new Rectangle(
@@ -126,15 +130,11 @@ namespace Stedders.Systems
                                 }
                                 if (RayGui.GuiButton(buttonRect with { x = buttonRect.x + buttonRect.width + 5, width = 90 }, "Reload"))
                                 {
-                                    var cost = (item.MaxAmmo - item.Ammo) * item.CostPerShot;
-                                    if (state.Currency >= cost)
+                                    while (item.Ammo < item.MaxAmmo && state.Currency >= item.CostPerShot)
                                     {
-                                        state.Currency -= cost;
-                                        item.Ammo = item.MaxAmmo;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Insufficient funds");
+                                        state.Currency -= item.CostPerShot;
+                                        item.Ammo++;
+                                        Engine.Singleton.GetComponent<GameState>().Stats.MoneySpent += item.CostPerShot;
                                     }
                                 }
                                 RayGui.GuiEnable();
@@ -176,7 +176,11 @@ namespace Stedders.Systems
                             var harvester = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Name == "Harvester");
                             if (harvester is not null)
                             {
+                                siloComponent.BioMass = harvester.Ammo;
                                 state.Currency += harvester.Ammo * 10;
+                                Engine.Singleton.GetComponent<GameState>().Stats.MoneyEarned += harvester.Ammo * 10;
+                                Engine.Singleton.GetComponent<GameState>().Stats.MostMoney = Math.Max(Engine.Singleton.GetComponent<GameState>().Stats.MostMoney, state.Currency);
+
                                 harvester.Ammo = 0f;
                             }
                         }

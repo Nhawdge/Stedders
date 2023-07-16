@@ -229,6 +229,7 @@ namespace Stedders.Systems
                         var plant = nearestPlant.GetComponent<Plant>();
                         plant.PlantBody -= myAi.EatingSpeed * Raylib.GetFrameTime();
                         myAi.Belly += myAi.EatingSpeed * Raylib.GetFrameTime();
+                        Engine.Singleton.GetComponent<GameState>().Stats.BiomassEaten += myAi.EatingSpeed * Raylib.GetFrameTime();
                     }
                     else if (myAi.Action == EnemyAction.Flee)
                     {

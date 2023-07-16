@@ -18,6 +18,11 @@ namespace Stedders.Systems
             if (state.State == States.Start)
             {
                 Engine.Entities.RemoveAll(x => true);
+                state.Currency = 0;
+                state.Day = 0;
+                state.CurrentTime = 0;
+
+
                 Engine.Entities.Add(ArchetypeGenerator.GeneratePlayerMech(this.Engine));
 
                 var startX = 1940;

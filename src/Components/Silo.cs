@@ -3,6 +3,6 @@
     internal class Silo : Building
     {
         public float BioMass = 0f;
-        public float MaxBioMass = 10_000f;
+        public float MaxBioMass = 1_000f;
     }
 }

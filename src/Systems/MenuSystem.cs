@@ -23,6 +23,7 @@ namespace Stedders.Systems
 
             if (state.State == States.MainMenu)
             {
+                state.GuiOpen = true;
                 state.IntroAnimationTiming += 50 * Raylib.GetFrameTime();
                 var titleTiming = Math.Min(state.IntroAnimationTiming, 255);
 
@@ -79,10 +80,10 @@ namespace Stedders.Systems
             }
             else if (state.State == States.Game)
             {
-
             }
             else if (state.State == States.Pause)
             {
+                state.GuiOpen = true;
                 Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
 
                 var width = 200;
@@ -108,6 +109,10 @@ namespace Stedders.Systems
                 {
                     state.State = States.Options;
                 }
+                if (RayGui.GuiButton(rect with { y = rect.y + (height + 10) * 3 }, TranslationManager.GetTranslation("stats")))
+                {
+                    state.State = States.Stats;
+                }
 
                 if (RayGui.GuiButton(rect with { y = rect.y + (height + 10) * 4 }, TranslationManager.GetTranslation("exit")))
                 {
@@ -117,6 +122,7 @@ namespace Stedders.Systems
             }
             else if (state.State == States.Credits)
             {
+                state.GuiOpen = true;
                 var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - 200, Raylib.GetScreenHeight() / 2 - 200, 400, 400);
                 RayGui.GuiDummyRec(centerPane, "");
 
@@ -133,6 +139,7 @@ namespace Stedders.Systems
             }
             else if (state.State == States.HowTo)
             {
+                state.GuiOpen = true;
                 var boxWidth = 650;
                 var boxHeight = 700;
                 var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - boxWidth / 2, Raylib.GetScreenHeight() / 2 - boxHeight / 2, boxWidth, boxHeight);
@@ -142,7 +149,8 @@ namespace Stedders.Systems
 
                 RayGui.GuiLabel(centerPane with { x = centerPane.x + 15, height = centerPane.height - 150 }, text);
 
-                var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
+                var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 100, centerPane.y + centerPane.height - 100, 200, 60);
+                
                 if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
                 {
                     state.State = state.LastState;
@@ -151,6 +159,7 @@ namespace Stedders.Systems
             }
             else if (state.State == States.Options)
             {
+                state.GuiOpen = true;
                 var boxWidth = 650;
                 var boxHeight = 700;
                 var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - boxWidth / 2, Raylib.GetScreenHeight() / 2 - boxHeight / 2, boxWidth, boxHeight);
@@ -159,14 +168,40 @@ namespace Stedders.Systems
                 var text = TranslationManager.GetTranslation("volume");
                 state.MainVolume = RayGui.GuiSlider(
                     centerPane with { x = centerPane.x + Raylib.MeasureText(text, RayGui.GuiGetFont().baseSize), y = centerPane.y / 2 + 50, height = 30, width = 400 },
-                   text, state.MainVolume.ToString("#0%"),
+                    text, state.MainVolume.ToString("#0%"),
                     state.MainVolume, 0, 1);
 
                 ////var text = TranslationManager.GetTranslation("howto-full");
 
                 //RayGui.GuiLabel(centerPane with { x = centerPane.x + 15, height = centerPane.height - 150 }, text);
 
-                var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 50, centerPane.y + centerPane.height - 50, 100, 30);
+                var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 100, centerPane.y + centerPane.height - 100, 200, 60);
+                if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
+                {
+                    state.State = state.LastState;
+                }
+            }
+            else if (state.State == States.Stats)
+            {
+                state.GuiOpen = true;
+                var boxWidth = 650;
+                var boxHeight = 700;
+                var centerPane = new Rectangle(Raylib.GetScreenWidth() / 2 - boxWidth / 2, Raylib.GetScreenHeight() / 2 - boxHeight / 2, boxWidth, boxHeight);
+                RayGui.GuiDummyRec(centerPane, "");
+
+                var textPane = centerPane with { x = centerPane.x + 15, height = centerPane.height - 150 };
+                var statsText = $"Stats\n";
+                statsText += $"Enemies Killed: {state.Stats.TotalEnemiesKilled}";
+                statsText += $"\nMoney Earned: {state.Stats.MoneyEarned.ToString("C")}";
+                statsText += $"\nMoney Spent: {state.Stats.MoneySpent.ToString("C")}";
+                statsText += $"\nMost Money: {state.Stats.MostMoney.ToString("C")}";
+                statsText += $"\nHighest Day: {state.Stats.LongestDay}";
+                statsText += $"\nBiomass Harvested: {state.Stats.BiomassHarvested.ToString("0")}";
+                statsText += $"\nBiomass Eaten: {state.Stats.BiomassEaten.ToString("0")}";
+
+                RayGui.GuiLabel(textPane, statsText);
+
+                var backRect = new Rectangle(centerPane.x + centerPane.width / 2 - 100, centerPane.y + centerPane.height - 100, 200,60);
                 if (RayGui.GuiButton(backRect, TranslationManager.GetTranslation("back")))
                 {
                     state.State = state.LastState;
@@ -174,7 +209,7 @@ namespace Stedders.Systems
             }
             else if (state.State == States.GameOver)
             {
-
+                state.GuiOpen = true;
                 Raylib.SetMouseCursor(MouseCursor.MOUSE_CURSOR_ARROW);
 
                 var width = 200;
@@ -196,9 +231,9 @@ namespace Stedders.Systems
                 {
                     state.State = States.HowTo;
                 }
-                if (RayGui.GuiButton(rect with { y = rect.y + (height + 10) * 2 }, TranslationManager.GetTranslation("options")))
+                if (RayGui.GuiButton(rect with { y = rect.y + (height + 10) * 2 }, TranslationManager.GetTranslation("stats")))
                 {
-                    state.State = States.Options;
+                    state.State = States.Stats;
                 }
 
                 if (RayGui.GuiButton(rect with { y = rect.y + (height + 10) * 4 }, TranslationManager.GetTranslation("exit")))

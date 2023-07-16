@@ -25,6 +25,7 @@ namespace Stedders.Systems
                 {
                     state.CurrentTime = 0;
                     state.Day++;
+                    Engine.Singleton.GetComponent<GameState>().Stats.LongestDay = Math.Max(Engine.Singleton.GetComponent<GameState>().Stats.LongestDay, state.Day);
                 }
 
                 if (state.CurrentTime < dawnEnd)

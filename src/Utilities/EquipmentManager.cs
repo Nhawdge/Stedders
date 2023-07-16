@@ -105,10 +105,6 @@ namespace Stedders.Utilities
                         var lineStart = myPos.Position;
                         var lineEnd = plantPos.Position;
                         lineEnd.Y += 10;
-                        //Raylib.DrawCircle(
-                        //    (int)lineEnd.X,
-                        //    (int)lineEnd.Y,
-                        //    10, Raylib.GREEN);
                         var lineDistance = (lineEnd - lineStart).Length();
                         if (lineDistance < item.Range)
                         {
@@ -118,13 +114,17 @@ namespace Stedders.Utilities
                                 if (item.Ammo <= item.MaxAmmo)
                                 {
                                     plant.PlantBody -= item.Damage * Raylib.GetFrameTime();
-                                    item.Ammo += item.Damage * Raylib.GetFrameTime();
+                                    item.Ammo += Math.Min(item.Damage * Raylib.GetFrameTime(), item.MaxAmmo);
+                                    engine.Singleton.GetComponent<GameState>().Stats.BiomassHarvested += item.Damage * Raylib.GetFrameTime();
+                                }
+                                else
+                                {
+                                    item.Ammo = Math.Min(item.Ammo, item.MaxAmmo);
                                 }
                             }
                         }
                     }
                     return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
-
                 }
             };
         }
@@ -140,7 +140,7 @@ namespace Stedders.Utilities
                 IconKey = TextureKey.SeedCannon,
                 CooldownPerShot = 3,
                 ShotCoolDownRate = 1,
-                CanReload= true,
+                CanReload = true,
                 Fire = (entities, player, item) =>
                 {
                     if (item.ShotCooldown > 0)
