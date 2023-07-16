@@ -62,7 +62,7 @@ namespace Stedders.Systems
                         if (healthPercent > 80)
                         {
                             options[EnemyAction.Idle] += 2;
-                            options[EnemyAction.Move] += 10;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 5;
                             options[EnemyAction.Eat] += 10;
                             options[EnemyAction.Flee] += -10;
@@ -70,7 +70,7 @@ namespace Stedders.Systems
                         else if (healthPercent is < 80 and > 30)
                         {
                             options[EnemyAction.Idle] += 0;
-                            options[EnemyAction.Move] += 10;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 10;
                             options[EnemyAction.Eat] += 2;
                             options[EnemyAction.Flee] += 3;
@@ -78,7 +78,7 @@ namespace Stedders.Systems
                         else if (healthPercent is < 30)
                         {
                             options[EnemyAction.Idle] += -5;
-                            options[EnemyAction.Move] += 10;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 3;
                             options[EnemyAction.Eat] += 2;
                             options[EnemyAction.Flee] += 20;
@@ -88,7 +88,7 @@ namespace Stedders.Systems
                         if (nearestPlant is null)
                         {
                             options[EnemyAction.Idle] += 2;
-                            options[EnemyAction.Move] += 10;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 50;
                             options[EnemyAction.Eat] += 10;
                             options[EnemyAction.Flee] += 0;
@@ -97,7 +97,7 @@ namespace Stedders.Systems
                         if (plantDistance > 1000)
                         {
                             options[EnemyAction.Idle] += 0;
-                            options[EnemyAction.Move] += 10;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 0;
                             options[EnemyAction.Eat] += 0;
                             options[EnemyAction.Flee] += 0;
@@ -105,7 +105,7 @@ namespace Stedders.Systems
                         else if (plantDistance is < 1000 and > 100)
                         {
                             options[EnemyAction.Idle] += 0;
-                            options[EnemyAction.Move] += 10;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 0;
                             options[EnemyAction.Eat] += 0;
                             options[EnemyAction.Flee] += 0;
@@ -113,7 +113,7 @@ namespace Stedders.Systems
                         else if (plantDistance is < 100 and > 20)
                         {
                             options[EnemyAction.Idle] += 0;
-                            options[EnemyAction.Move] += 15;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 0;
                             options[EnemyAction.Eat] += 0;
                             options[EnemyAction.Flee] += 0;
@@ -134,7 +134,7 @@ namespace Stedders.Systems
                         if (bellyPercent < 30)
                         {
                             options[EnemyAction.Idle] += 0;
-                            options[EnemyAction.Move] += 20;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 0;
                             options[EnemyAction.Eat] += 20;
                             options[EnemyAction.Flee] += 0;
@@ -142,7 +142,7 @@ namespace Stedders.Systems
                         else if (bellyPercent < 60)
                         {
                             options[EnemyAction.Idle] += 0;
-                            options[EnemyAction.Move] += 15;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 0;
                             options[EnemyAction.Eat] += 15;
                             options[EnemyAction.Flee] += 0;
@@ -150,7 +150,7 @@ namespace Stedders.Systems
                         else if (bellyPercent is > 60 and < 150)
                         {
                             options[EnemyAction.Idle] += 10;
-                            options[EnemyAction.Move] += 10;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 0;
                             options[EnemyAction.Eat] += 10;
                             options[EnemyAction.Flee] += 10;
@@ -158,7 +158,7 @@ namespace Stedders.Systems
                         else if (bellyPercent > 150)
                         {
                             options[EnemyAction.Idle] += 10;
-                            options[EnemyAction.Move] += -5;
+                            options[EnemyAction.Move] += 0;
                             options[EnemyAction.Attack] += 0;
                             options[EnemyAction.Eat] += -10;
                             options[EnemyAction.Flee] += 30;
@@ -180,16 +180,14 @@ namespace Stedders.Systems
                     }
                     else if (myAi.Action == EnemyAction.Move)
                     {
-                        if (nearestPlant == null)
+                        if (myAi.TargetPosition == Vector2.Zero)
                         {
                             continue;
                         }
 
-                        var nearestPlantPos = nearestPlant.GetComponent<Render>();
-                        var plantPosDiff = nearestPlantPos.Position - myPos.Position;
+                        var posDiff = myAi.TargetPosition - myPos.Position;
 
-                        myAi.TargetPosition = nearestPlant.GetComponent<Render>().Position; 
-                        var angle = Math.Atan2(plantPosDiff.Y, plantPosDiff.X);
+                        var angle = Math.Atan2(posDiff.Y, posDiff.X);
 
                         myPos.Position.X += (float)Math.Cos(angle) * myAi.Speed * Raylib.GetFrameTime();
                         myPos.Position.Y += (float)Math.Sin(angle) * myAi.Speed * Raylib.GetFrameTime();
@@ -219,6 +217,14 @@ namespace Stedders.Systems
                         {
                             continue;
                         }
+                        var nearestPlantPos = nearestPlant.GetComponent<Render>();
+                        var plantPosDiff = nearestPlantPos.Position - myPos.Position;
+                        if (plantPosDiff.Length() > 10)
+                        {
+                            myAi.TargetPosition = nearestPlant.GetComponent<Render>().Position;
+                            myAi.Action = EnemyAction.Move;
+                        }
+
                         myPos.Play("Eating");
                         var plant = nearestPlant.GetComponent<Plant>();
                         plant.PlantBody -= myAi.EatingSpeed * Raylib.GetFrameTime();
@@ -269,6 +275,29 @@ namespace Stedders.Systems
                         }
 
                         //Console.WriteLine($"\n\n\nLE: {leftEdgeDistance}, RE: {rightEdgeDistance},\nTE: {topEdgeDistance}, BE: {bottomEdgeDistance}");
+                    }
+                    else if (myAi.Action == EnemyAction.Attack)
+                    {
+                        var nearestBuilding = Engine.Entities
+                            .Where(x => x.HasTypes(typeof(Building)))
+                            .OrderBy(x => (x.GetComponent<Render>().Position - myPos.Position).Length())
+                            .FirstOrDefault();
+                        if (nearestBuilding == null)
+                        {
+                            continue;
+                        }
+                        var distance = (nearestBuilding.GetComponent<Render>().Position - myPos.Position).Length();
+                        if (distance < myAi.AttackRange)
+                        {
+                            myPos.Play("Eating");
+                            var building = nearestBuilding.GetComponent<Building>();
+                            building.Health -= myAi.AttackDamage * Raylib.GetFrameTime();
+                        }
+                        else
+                        {
+                            myAi.Action = EnemyAction.Move;
+                            myAi.TargetPosition = nearestBuilding.GetComponent<Render>().Position;
+                        }
                     }
                 }
                 entitiesToRemove.ForEach(x => Engine.Entities.Remove(x));

@@ -24,6 +24,34 @@ namespace Stedders.Systems
                         entitiesToRemove.Add(entity);
                     }
                 }
+
+                var allBuildings = Engine.Entities.Where(x => x.HasTypes(typeof(Building)));
+                foreach (var entity in allBuildings)
+                {
+                    var myHealth = entity.GetComponent<Building>();
+                    if (myHealth.Health <= 0)
+                    {
+                        //entitiesToRemove.Add(entity);
+                        entity.Components.Remove(myHealth);
+                    }
+                    if (entity.HasTypes(typeof(Barn)))
+                    {
+                        var sprite = entity.GetComponent<Sprite>();
+                        if (myHealth.Health > 50)
+                        {
+
+                            sprite.Play("Health100");
+                        }
+                        else if (myHealth.Health > 10)
+                        {
+                            sprite.Play("Health50");
+                        }
+                        else
+                        {
+                            sprite.Play("Health0");
+                        }
+                    }
+                }
                 entitiesToRemove.ForEach(x => Engine.Entities.Remove(x));
 
             }

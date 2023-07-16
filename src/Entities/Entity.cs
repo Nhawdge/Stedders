@@ -23,7 +23,7 @@ namespace Stedders.Entities
         }
         public bool HasTypes(params Type[] types)
         {
-            return types.All(t => Components.Any(c => c.GetType() == t));
+            return types.All(t => Components.Any(c => t.IsAssignableFrom(c.GetType())));
         }
     }
 }

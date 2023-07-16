@@ -2,11 +2,6 @@
 using Stedders.Components;
 using Stedders.Entities;
 using Stedders.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stedders.Systems
 {
@@ -47,6 +42,7 @@ namespace Stedders.Systems
                         {
                             plant.GrowthStage++;
                             plant.Growth = 0;
+                            plant.PlantBody += 25 * plant.GrowthStage;
                             mySprite.Play($"Grow{plant.GrowthStage}");
                         }
                     }

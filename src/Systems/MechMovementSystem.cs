@@ -24,12 +24,14 @@ namespace Stedders.Systems
 
                     legs.Rotation = (legs.Rotation + 360) % 360;
                     var newPosition = new Vector2(legs.Position.X, legs.Position.Y);
-                    Raylib.DrawLine(
-                        (int)newPosition.X,
-                        (int)newPosition.Y,
-                        (int)(newPosition.X + Math.Cos(legs.RotationAsRadians) * 100),
-                        (int)(newPosition.Y + Math.Sin(legs.RotationAsRadians) * 100),
-                        Raylib.BLACK);
+
+                    var directionTexture = Engine.TextureManager.GetTexture(Utilities.TextureKey.MechDirection);
+
+                    Raylib.DrawTexturePro(directionTexture,
+                        new Rectangle(0, 0, directionTexture.width, directionTexture.height),
+                        new Rectangle(newPosition.X, newPosition.Y, 32, 32),
+                        new Vector2(16, 100), legs.Rotation, Raylib.WHITE);
+
                     var throttle = playerMech.GetComponent<Player>().Throttle;
 
                     switch (torso.Rotation)
@@ -78,7 +80,7 @@ namespace Stedders.Systems
                     var directionAsVector = new Vector2((float)Math.Cos(legs.RotationAsRadians), (float)Math.Sin(legs.RotationAsRadians));
                     newPosition += directionAsVector * throttle;
                     legs.Position = newPosition;
-                    torso.Position = newPosition with { Y = newPosition.Y - 30 * torso.Scale };
+                    torso.Position = newPosition with { Y = newPosition.Y - 30 /** torso.Scale*/ };
                 }
             }
         }

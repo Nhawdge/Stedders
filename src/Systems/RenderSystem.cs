@@ -20,15 +20,18 @@ namespace Stedders.Systems
             {
                 var myRenders = entity.GetComponents<Render>();
                 foreach (var myRender in myRenders)
+                {
                     Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
+                    //Raylib.DrawRectangleLines((int)myRender.Destination.X, (int)myRender.Destination.Y, (int)myRender.Destination.width, (int)myRender.Destination.height, Raylib.BLACK);
+                }
             }
-            foreach (var entity in Engine.Entities.Where(x => x.HasTypes(typeof(Sprite)))
-                .OrderBy(x => x.GetComponent<Render>().Position.Y))
-            {
-                var myRenders = entity.GetComponents<Render>();
-                foreach (var myRender in myRenders)
-                    Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
-            }
+            //foreach (var entity in Engine.Entities.Where(x => x.HasTypes(typeof(Sprite)))
+            //    .OrderBy(x => x.GetComponent<Render>().Position.Y))
+            //{
+            //    var myRenders = entity.GetComponents<Render>();
+            //    foreach (var myRender in myRenders)
+            //        Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
+            //}
         }
     }
 }

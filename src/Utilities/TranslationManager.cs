@@ -12,7 +12,7 @@ namespace Stedders.Utilities
         {
             if (Translations.TryGetValue(key, out var value))
                 return Regex.Unescape(value);
-            return $"'{key}' has no valid translations for '{language}'";
+            return $"'{key}' has no valid translations for '{language}'"; 
         }
 
         static TranslationManager()

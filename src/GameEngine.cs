@@ -63,6 +63,7 @@ namespace Stedders
                 new PlantGrowthSystem(this),
                 new DialogueSystem(this),
                 new SoundSystem(this),
+                new SceneConditionSystem(this),
             };
         }
 

@@ -1,5 +1,6 @@
 using Raylib_CsLo;
 using Stedders.Utilities;
+using System.Numerics;
 using System.Text.Json;
 
 namespace Stedders.Components
@@ -43,12 +44,52 @@ namespace Stedders.Components
                     var totalFrames = CurrentAnimation.To - CurrentAnimation.From + 1;
                     CurrentFrameIndex = (CurrentFrameIndex + 1) % totalFrames;
                 }
+
                 return new Rectangle(
                        frame.X,
                        frame.Y,
                        frame.W * (IsFlipped ? -1 : 1),
                        frame.H
                        );
+            }
+        }
+
+        public override Rectangle Destination
+        {
+            get
+            {
+                var frame = CurrentAnimation?.Frames[CurrentFrameIndex];
+                if (frame == null)
+                    return new Rectangle();
+
+                return new Rectangle(
+                    Position.X,
+                    Position.Y,
+                    frame.W * Scale,
+                    frame.H * Scale);
+            }
+        }
+
+        public override Vector2 Origin
+        {
+            get
+            {
+                var frame = CurrentAnimation?.Frames[CurrentFrameIndex];
+                if (frame == null)
+                    return Vector2.Zero;
+
+                switch (OriginPos)
+                {
+                    case OriginAlignment.Center:
+                        return new Vector2( (frame.W / 2) * Scale,(frame.H / 2) * Scale);
+                    case OriginAlignment.LeftCenter:
+                        return (new Vector2(0, frame.Y + frame.H / 2 * Scale));
+                    case OriginAlignment.LeftBottom:
+                        return new Vector2(0, frame.Y + frame.H * Scale);
+                    case OriginAlignment.LeftTop:
+                    default:
+                        return Vector2.Zero;
+                }
             }
         }
 

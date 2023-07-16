@@ -32,6 +32,7 @@ namespace Stedders.Components
 
         public HashSet<MusicPlayer> CurrentMusic { get; set; } = new();
         public float MainVolume { get; set; } = 0.5f;
+        public States NextState { get; set; }
 
         public bool MusicSetSinceStateChange = false;
 

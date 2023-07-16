@@ -21,6 +21,9 @@ namespace Stedders.Utilities
             TextureStore.Add(TextureKey.SeedCannon, Raylib.LoadTexture("Assets/SeedCannon.png"));
             TextureStore.Add(TextureKey.LaserCannon, Raylib.LoadTexture("Assets/LaserCannon.png"));
             TextureStore.Add(TextureKey.Harvester, Raylib.LoadTexture("Assets/Harvester.png"));
+            TextureStore.Add(TextureKey.MechDirection, Raylib.LoadTexture("Assets/MechDirection.png"));
+            TextureStore.Add(TextureKey.Barn, Raylib.LoadTexture("Assets/Barn.png"));
+            TextureStore.Add(TextureKey.Silo, Raylib.LoadTexture("Assets/Silo.png"));
         }
         public Texture GetTexture(TextureKey key)
         {
@@ -47,5 +50,8 @@ namespace Stedders.Utilities
         WaterCannon,
         SeedCannon,
         Harvester,
+        MechDirection,
+        Barn,
+        Silo,
     }
 }

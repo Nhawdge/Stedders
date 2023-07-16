@@ -86,8 +86,8 @@ namespace Stedders.Utilities
                 Name = "Harvester",
                 MaxAmmo = 100,
                 Ammo = 0,
-                Range = 50,
-                MaxRange = 50,
+                Range = 75,
+                MaxRange = 75,
                 Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
                 CanReload = false,
                 IconKey = TextureKey.Harvester,
@@ -104,10 +104,11 @@ namespace Stedders.Utilities
                         var plant = nearestPlant.GetComponent<Plant>();
                         var lineStart = myPos.Position;
                         var lineEnd = plantPos.Position;
-                        Raylib.DrawCircle(
-                            (int)lineEnd.X,
-                            (int)lineEnd.Y,
-                            10, Raylib.GREEN);
+                        lineEnd.Y += 10;
+                        //Raylib.DrawCircle(
+                        //    (int)lineEnd.X,
+                        //    (int)lineEnd.Y,
+                        //    10, Raylib.GREEN);
                         var lineDistance = (lineEnd - lineStart).Length();
                         if (lineDistance < item.Range)
                         {

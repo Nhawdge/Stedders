@@ -25,7 +25,7 @@ namespace Stedders.Components
             get => CanRotate ? Rotation : 0f;
         }
 
-        public Vector2 Origin
+        public virtual Vector2 Origin
         {
             get
             {
@@ -41,7 +41,6 @@ namespace Stedders.Components
                     default:
                         return Vector2.Zero;
                 }
-
             }
         }
 
@@ -64,7 +63,7 @@ namespace Stedders.Components
                     );
         }
 
-        public Rectangle Destination
+        public virtual Rectangle Destination
         {
             get => new Rectangle(
                     Position.X,

@@ -42,9 +42,10 @@ namespace Stedders.Systems
                 {
                     state.DialoguePhase = (state.DialoguePhase.Item1, state.DialoguePhase.Item2 + 1);
                     if (state.DialoguePhase.Item2 > 3)
-                        state.State = States.Game;
+                        state.State = state.NextState;
                 }
             }
+
         }
     }
 }

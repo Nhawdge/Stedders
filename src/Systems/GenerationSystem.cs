@@ -17,7 +17,7 @@ namespace Stedders.Systems
 
             if (state.State == States.Start)
             {
-
+                Engine.Entities.RemoveAll(x => true);
                 Engine.Entities.Add(ArchetypeGenerator.GeneratePlayerMech(this.Engine));
 
                 var startX = 1940;
@@ -60,12 +60,12 @@ namespace Stedders.Systems
                 }
 
                 Engine.Entities.Add(ArchetypeGenerator.GenerateEnemy(Engine, new Vector2(200, 200)));
-                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1706, 1655)));
-                Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1380)));
+                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
+                Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
 
                 state.State = States.Dialogue;
                 state.DialoguePhase = ("intro", 1);
-
+                state.NextState = States.Game;
             }
 
             else if (state.State == States.Game)
