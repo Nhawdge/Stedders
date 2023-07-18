@@ -10,6 +10,7 @@ namespace Stedders.Entities
         {
             var player = new Entity();
             player.Components.Add(new Player());
+            player.Components.Add(new SoundAction(SoundKey.Mech2EngineStart));
 
             var legs = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2), "Assets/Mech2", 3, true) { MechPiece = MechPieces.Legs, CanRotate = false, ZIndex = 3 };
             player.Components.Add(legs);
@@ -43,7 +44,7 @@ namespace Stedders.Entities
         public static Entity GeneratePlant(GameEngine engine, Vector2 position)
         {
             var plant = new Entity();
-            plant.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Plant1", 3, true)
+            plant.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Plant1", 3, false)
             {
                 Position = position
             });
@@ -64,23 +65,11 @@ namespace Stedders.Entities
             barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
             barnComponent.Equipment.Add(EquipmentManager.GenerateHarvester(engine));
             barnComponent.Equipment.Add(EquipmentManager.GenerateSeeder(engine));
+            barnComponent.Equipment.Add(EquipmentManager.GenerateWaterCannon(engine));
+            barnComponent.Equipment.Add(EquipmentManager.GenerateWaterCannon(engine));
 
-            barnComponent.Equipment.Add(new Equipment
-            {
-                Name = "Water - WIP",
-                MaxAmmo = 100,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
-                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
-                IconKey = TextureKey.WaterCannon,
-            });
-            barnComponent.Equipment.Add(new Equipment
-            {
-                Name = "Water - WIP",
-                MaxAmmo = 100,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false)
-                { IsFlipped = true, OriginPos = Render.OriginAlignment.LeftBottom, },
-                IconKey = TextureKey.WaterCannon,
-            });
+
+
             barn.Components.Add(barnComponent);
 
             return barn;
@@ -97,14 +86,15 @@ namespace Stedders.Entities
         internal static Entity GenerateField(GameEngine engine, Vector2 position, bool startWithPlant = false)
         {
             var field = new Entity();
-            var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Field1), "Assets/Field1", 3, true) { Position = position };
+            var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Field1), "Assets/Field1", 3, false) { Position = position };
             var fieldComponent = new Field();
             field.Components.Add(sprite);
             field.Components.Add(fieldComponent);
             if (startWithPlant)
             {
+                fieldComponent.HasCrop = true;
                 field.Components.Add(new Plant("Wiggle Root"));
-                field.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Plant1", 3, true)
+                field.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Plant1", 3, false)
                 {
                     Position = position
                 });

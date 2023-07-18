@@ -24,5 +24,7 @@ equip-help,"Left click to place in left hardpoint,\nRight click the place in rig
 sell-biomass,"Sell Biomass"
 options,"Options"
 volume,"Volume"
+sfxvolume,"SFX"
+musicvolume,"Music"
 restart,"Restart"
 stats,"Stats"

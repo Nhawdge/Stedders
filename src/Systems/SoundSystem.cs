@@ -52,6 +52,7 @@ namespace Stedders.Systems
             {
                 if (music.IsPlaying)
                 {
+                    Raylib.SetMusicVolume(music.Music, state.MusicVolume);
                     Raylib.UpdateMusicStream(music.Music);
                 }
             }
@@ -64,10 +65,15 @@ namespace Stedders.Systems
                 foreach (var soundAction in soundsActions)
                 {
                     var sound = Engine.SoundManager.GetSound(soundAction.SoundKey);
-                    Raylib.SetSoundVolume(sound, 0.25f);
-
-                    Raylib.PlaySoundMulti(Engine.SoundManager.GetSound(soundAction.SoundKey));
-
+                    Raylib.SetSoundVolume(sound, state.SfxVolume);
+                    if (soundAction.ShouldStop)
+                    {
+                        Raylib.StopSound(Engine.SoundManager.GetSound(soundAction.SoundKey));
+                    }
+                    else if (!Raylib.IsSoundPlaying(sound))
+                    {
+                        Raylib.PlaySound(Engine.SoundManager.GetSound(soundAction.SoundKey));
+                    }
                     soundAction.IsPlaying = true;
                     soundsToRemove.Add(soundAction);
                 }

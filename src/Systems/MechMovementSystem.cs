@@ -1,5 +1,6 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
+using Stedders.Utilities;
 using System.Numerics;
 
 namespace Stedders.Systems
@@ -71,9 +72,13 @@ namespace Stedders.Systems
                                 legs.Play("WalkD");
                                 break;
                         }
+                        playerMech.Components.Add(new SoundAction(SoundKey.Mech2Walking));
+                        playerMech.Components.Add(new SoundAction(SoundKey.Mech2EngineIdle, false));
                     }
                     else
                     {
+                        playerMech.Components.Add(new SoundAction(SoundKey.Mech2Walking, true));
+                        playerMech.Components.Add(new SoundAction(SoundKey.Mech2EngineIdle));
                         legs.Play("Idle");
                     }
 

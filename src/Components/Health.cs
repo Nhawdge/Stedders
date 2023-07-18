@@ -4,5 +4,6 @@
     {
         public float CurrentHealth;
         public float MaxHealth;
+        public float RegenRate = 0f;
     }
 }

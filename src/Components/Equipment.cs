@@ -22,14 +22,15 @@ namespace Stedders.Components
         public float HeatPerShot { get; set; }
         public bool IsFiring { get; set; }
         public bool IsOverheated { get; set; }
-        public float ShotCooldown { get; set; }
-        public float ShotCoolDownRate { get; set; }
+        public float ShotCooldown { get; set; } = 0f;
+        public float ShotCoolDownRate { get; set; } = 1f;
         public float CooldownPerShot { get; set; }
         public TextureKey IconKey { get; set; }
         public bool CanReload { get;  set; } = false;
         public float CostPerShot { get; set; } = 100;
+        public SoundKey SoundKey { get; set; }
 
-        public Action<IEnumerable<Entity>, Equipment> Idle = (_, _) => { };
+        public Action<Entity, Equipment> Idle = (_, _) => { };
 
         public Func<IEnumerable<Entity>, Entity, Equipment, (IEnumerable<Entity>, IEnumerable<Entity>)> Fire = (_, _, _) =>
         {

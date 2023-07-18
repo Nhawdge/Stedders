@@ -1,6 +1,7 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Entities;
+using Stedders.Utilities;
 using System.Numerics;
 
 namespace Stedders.Systems
@@ -191,6 +192,9 @@ namespace Stedders.Systems
 
                         myPos.Position.X += (float)Math.Cos(angle) * myAi.Speed * Raylib.GetFrameTime();
                         myPos.Position.Y += (float)Math.Sin(angle) * myAi.Speed * Raylib.GetFrameTime();
+
+                        enemy.Components.Add(new SoundAction(SoundKey.Enemy1Move));
+
                         var angleInDegrees = angle * (180 / Math.PI) + 90;
                         switch (angleInDegrees)
                         {
@@ -223,12 +227,16 @@ namespace Stedders.Systems
                         {
                             myAi.TargetPosition = nearestPlant.GetComponent<Render>().Position;
                             myAi.Action = EnemyAction.Move;
+                            continue;
                         }
 
                         myPos.Play("Eating");
                         var plant = nearestPlant.GetComponent<Plant>();
                         plant.PlantBody -= myAi.EatingSpeed * Raylib.GetFrameTime();
                         myAi.Belly += myAi.EatingSpeed * Raylib.GetFrameTime();
+                        var sounds = new List<SoundKey>() { SoundKey.Enemy1Eating1, SoundKey.Enemy1Eating2, SoundKey.Enemy1Eating3 };
+                        enemy.Components.Add(new SoundAction(sounds[new Random().Next(0, sounds.Count - 1)]));
+
                         Engine.Singleton.GetComponent<GameState>().Stats.BiomassEaten += myAi.EatingSpeed * Raylib.GetFrameTime();
                     }
                     else if (myAi.Action == EnemyAction.Flee)

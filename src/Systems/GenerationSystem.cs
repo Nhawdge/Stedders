@@ -1,6 +1,7 @@
 using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Entities;
+using Stedders.Utilities;
 using System.Numerics;
 using System.Runtime.ConstrainedExecution;
 
@@ -16,9 +17,16 @@ namespace Stedders.Systems
         {
             var state = Engine.Singleton.GetComponent<GameState>();
 
+            if (state.State == States.Loading)
+            {
+                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
+                Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
+                state.State = States.MainMenu;
+            }
             if (state.State == States.Start)
             {
                 Engine.Entities.RemoveAll(x => true);
+                Engine.Entities.Add(Engine.Singleton);
                 state.Currency = 0;
                 state.Day = 0;
                 state.CurrentTime = 0;
@@ -43,7 +51,7 @@ namespace Stedders.Systems
                     y += yPadding;
                 }
 
-                y =   936;
+                y = 936;
                 for (var j = 0; j < 5; j++)
                 {
                     var x = 3300 + 145;
@@ -67,10 +75,9 @@ namespace Stedders.Systems
                     y += yPadding;
                 }
 
-                Engine.Entities.Add(ArchetypeGenerator.GenerateEnemy(Engine, new Vector2(200, 200)));
+                //Engine.Entities.Add(ArchetypeGenerator.GenerateEnemy(Engine, new Vector2(200, 200)));
                 Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
                 Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
-
 
                 state.State = States.Dialogue;
                 state.DialoguePhase = ("intro", 1);
@@ -94,6 +101,9 @@ namespace Stedders.Systems
                 {
                     state.TimeSinceLastSpawn = 0f;
                     Console.WriteLine("Spawning");
+                    var spawnSoundOptions = new List<SoundKey>() { SoundKey.Enemy1Spawn1, SoundKey.Enemy1Spawn2, SoundKey.Enemy1Spawn3 };
+                    Engine.Singleton.Components.Add(new SoundAction(spawnSoundOptions[rand.Next(0, spawnSoundOptions.Count - 1)]));
+
                     Engine.Entities.Add(ArchetypeGenerator.GenerateEnemy(Engine, new Vector2(rand.Next(0, 4000), rand.Next(0, 3000))));
                 }
 

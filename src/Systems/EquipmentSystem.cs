@@ -26,12 +26,12 @@ namespace Stedders.Systems
                     {
                         item.ShotCooldown -= item.ShotCoolDownRate * Raylib.GetFrameTime();
                         item.ShotCooldown = Math.Max(item.ShotCooldown, 0);
+                        item.Idle(entity, item);
                         if (item.IsFiring)
                         {
                             item.IsFiring = false;
                             (entitiesToAdd, entitiesToRemove) = item.Fire(Engine.Entities, entity, item);
                         }
-                        item.Idle(Engine.Entities, item);
                     }
                 }
                 foreach (var entity in entitiesToRemove)

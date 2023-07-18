@@ -1,6 +1,7 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Entities;
+using Stedders.Utilities;
 
 namespace Stedders.Systems
 {
@@ -8,7 +9,10 @@ namespace Stedders.Systems
     {
         public HealthSystem(GameEngine gameEngine) : base(gameEngine)
         {
+            Rand = new Random();
         }
+
+        public Random Rand { get; }
 
         public override void Update()
         {
@@ -20,9 +24,15 @@ namespace Stedders.Systems
                 foreach (var entity in allEntities)
                 {
                     var myHealth = entity.GetComponent<Health>();
+                    myHealth.CurrentHealth += myHealth.RegenRate * Raylib.GetFrameTime();
                     if (myHealth.CurrentHealth <= 0)
                     {
-                        Engine.Singleton.GetComponent<GameState>().Stats.TotalEnemiesKilled += 1;
+                        if (entity.HasTypes(typeof(NpcAi)))
+                        {
+                            var deathSoundOptions = new List<SoundKey>() { SoundKey.Enemy1Death1, SoundKey.Enemy1Death2, SoundKey.Enemy1Death3 };
+                            Engine.Singleton.Components.Add(new SoundAction(deathSoundOptions[Rand.Next(0, deathSoundOptions.Count-1)]));
+                            Engine.Singleton.GetComponent<GameState>().Stats.TotalEnemiesKilled += 1;
+                        }
                         entitiesToRemove.Add(entity);
                     }
                 }
@@ -38,7 +48,7 @@ namespace Stedders.Systems
                     if (entity.HasTypes(typeof(Barn)) || entity.HasTypes(typeof(Silo)))
                     {
                         var sprite = entity.GetComponent<Sprite>();
-                        var healthPercent = myHealth.Health / myHealth.MaxHealth *100;
+                        var healthPercent = myHealth.Health / myHealth.MaxHealth * 100;
                         if (healthPercent > 50)
                         {
                             sprite.Play("Health100");

@@ -31,7 +31,9 @@ namespace Stedders.Components
         public (string, int) DialoguePhase { get; set; }
 
         public HashSet<MusicPlayer> CurrentMusic { get; set; } = new();
-        public float MainVolume { get; set; } = 0.5f;
+        public float MainVolume { get; set; } = 1f;
+        public float SfxVolume { get; set; } = 0.5f;
+        public float MusicVolume { get; set; } = 0.5f;
         public States NextState { get; set; }
         public bool GuiOpen { get; set; }
 
@@ -63,6 +65,7 @@ namespace Stedders.Components
 
     public enum States
     {
+        Loading,
         MainMenu,
         Start,
         Dialogue,
