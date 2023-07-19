@@ -245,11 +245,11 @@ namespace Stedders.Utilities
             {
                 Name = "Water",
                 Ammo = 10,
+                MaxAmmo = 10,
                 CanReload = true,
                 CooldownPerShot = 1.5f,
                 CostPerShot = 1,
-                Damage = 0,
-
+                Damage = 10,
                 IconKey = TextureKey.WaterCannon,
                 Fire = (entities, player, item) =>
                 {
@@ -287,6 +287,13 @@ namespace Stedders.Utilities
                         {
                             sprite.Play("Splash");
                             health.RegenRate = -1;
+                            var fieldsInRange = entities.Where(x => x.HasTypes(typeof(Field)))
+                                .Where(x => (x.GetComponent<Sprite>().Position - sprite.Position).Length() < 100);
+                            foreach (var field in fieldsInRange)
+                            {
+                                var fieldComponent = field.GetComponent<Field>();
+                                fieldComponent.WaterLevel += item.Damage;
+                            }
                         }
                     };
                     waterBlob.Components.Add(motion);

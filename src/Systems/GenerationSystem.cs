@@ -33,7 +33,7 @@ namespace Stedders.Systems
 
 
                 Engine.Entities.Add(ArchetypeGenerator.GeneratePlayerMech(this.Engine));
-                                 
+
                 var startX = 981;
                 var startY = 744;
                 var xPadding = 48;

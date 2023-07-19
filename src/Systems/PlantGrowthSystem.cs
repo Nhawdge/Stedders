@@ -16,12 +16,27 @@ namespace Stedders.Systems
             var state = Engine.Singleton.GetComponent<GameState>();
             if (state.State == States.Game)
             {
-                var allEntities = Engine.Entities.Where(x => x.HasTypes(typeof(Plant), typeof(Field)));
+                var allEntities = Engine.Entities.Where(x => x.HasTypes(typeof(Field)));
                 var entitiesToRemove = new List<Entity>();
                 foreach (var entity in allEntities)
                 {
                     var field = entity.GetComponent<Field>();
+                    var sprite = entity.GetComponent<Sprite>();
+
+                    if (field.WaterLevel > 1)
+                    {
+                        sprite.Play("Wet");
+                    }
+                    else
+                    {
+                        sprite.Play("Empty");
+                    }
+
                     var plant = entity.GetComponent<Plant>();
+                    if (plant is null)
+                    {
+                        continue;
+                    }
                     if (plant.PlantBody <= 0)
                     {
                         entity.Components.Remove(plant);
@@ -29,8 +44,22 @@ namespace Stedders.Systems
                         entity.Components.Remove(plantSprite);
                         field.HasCrop = false;
                     }
+                    var growthModifier = state.TimeOfDay switch
+                    {
+                        TimeOfDay.Dawn => plant.DawnGrowthModifier,
+                        TimeOfDay.Day => plant.DayGrowthModifier,
+                        TimeOfDay.Dusk => plant.DuskGrowthModifier,
+                        TimeOfDay.Night => plant.NightGrowthModifier,
+                        _ => 0f
+                    };
 
                     plant.Growth += Raylib.GetFrameTime() * plant.GrowthRate * (state.TimeOfDay == TimeOfDay.Day ? plant.DayGrowthModifier : plant.NightGrowthModifier);
+                    if (field.WaterLevel > 0)
+                    {
+                        plant.Growth += Raylib.GetFrameTime() * plant.WaterConsumptionRate;
+                        field.WaterLevel -= Raylib.GetFrameTime() * plant.WaterConsumptionRate;
+                        field.WaterLevel = Math.Max(0, field.WaterLevel);
+                    }
 
                     if (plant.Growth > plant.GrowthRequired)
                     {

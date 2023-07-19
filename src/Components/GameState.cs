@@ -24,7 +24,7 @@ namespace Stedders.Components
         public int Day = 0;
 
         public float TimeSinceLastSpawn = 0f;
-        public float SpawnInterval = 15f;
+        public float SpawnInterval = 10f;
 
         public float Currency = 0f;
 

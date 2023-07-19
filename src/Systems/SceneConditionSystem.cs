@@ -24,11 +24,11 @@ namespace Stedders.Systems
                 if (siloEntity != null)
                 {
                     var silo = siloEntity.GetComponent<Silo>();
-                    if (silo.BioMass > silo.MaxBioMass)
+                    if (silo.BioMass >= silo.MaxBioMass)
                     {
                         state.DialoguePhase = ("win", 1);
                         state.State = States.Dialogue;
-                        state.NextState = States.GameWin;
+                        state.NextState = States.GameOver;
                     }
                 }
             }

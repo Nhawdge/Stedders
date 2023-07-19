@@ -172,7 +172,7 @@ namespace Stedders.Systems
                             var harvester = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Name == "Harvester");
                             if (harvester is not null)
                             {
-                                siloComponent.BioMass = harvester.Ammo;
+                                siloComponent.BioMass += harvester.Ammo;
                                 state.Currency += harvester.Ammo * 10;
                                 Engine.Singleton.GetComponent<GameState>().Stats.MoneyEarned += harvester.Ammo * 10;
                                 Engine.Singleton.GetComponent<GameState>().Stats.MostMoney = Math.Max(Engine.Singleton.GetComponent<GameState>().Stats.MostMoney, state.Currency);
