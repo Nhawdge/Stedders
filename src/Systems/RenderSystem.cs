@@ -9,7 +9,7 @@ namespace Stedders.Systems
         public Texture BackgroundTexture { get; private set; }
         public RenderSystem(GameEngine gameEngine) : base(gameEngine)
         {
-            this.BackgroundTexture = Raylib.LoadTexture("Assets/FreestyleRanchBackground.png");
+            this.BackgroundTexture = Raylib.LoadTexture("Assets/Maps/FreestyleRanchBackground.png");
         }
 
         public override void Update()

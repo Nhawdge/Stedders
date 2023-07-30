@@ -25,7 +25,16 @@ namespace Stedders.Systems
                 Raylib.DrawTexturePro(personTexture, new Rectangle(0, 0, personTexture.width, personTexture.height),
                     new Rectangle(10, Raylib.GetScreenHeight() - 210, 200, 200), Vector2.Zero, 0f, Raylib.WHITE);
 
-                var text = TranslationManager.GetTranslation($"{state.DialoguePhase.Item1}-{state.DialoguePhase.Item2}");
+                var text = TranslationManager.GetTranslation($"{state.DialoguePhase.Item1}");
+                var textSplit = text.Split("|");
+                if (textSplit.Length > state.DialoguePhase.Item2)
+                {
+                    text = textSplit[state.DialoguePhase.Item2];
+                }
+                else
+                { 
+                    state.State = state.NextState;
+                }
 
                 var rect = new Rectangle(220, Raylib.GetScreenHeight() - 190, Raylib.GetScreenWidth() - 230 - 15, 150);
 
@@ -37,15 +46,11 @@ namespace Stedders.Systems
                                     190,
                                     40),
                                    TranslationManager.GetTranslation("next"));
-
                 if (nextClicked)
                 {
                     state.DialoguePhase = (state.DialoguePhase.Item1, state.DialoguePhase.Item2 + 1);
-                    if (state.DialoguePhase.Item2 > 3)
-                        state.State = state.NextState;
                 }
             }
-
         }
     }
 }

@@ -20,9 +20,15 @@ namespace Stedders
 
         public void RunGame()
         {
-            Raylib.InitWindow(1380, 768, "Stedders");
+            Raylib.InitWindow(1920, 1080, "Stedders");
+            Raylib.SetWindowMonitor(0);
+
+            Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_UNDECORATED);
+            //Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_TOPMOST);
+
+            Console.WriteLine(Raylib.GetScreenWidth());
 #if DEBUG
-            Raylib.SetWindowPosition(-1652, 110);
+            //Raylib.SetWindowPosition(-1652, 110);
 #endif
             Raylib.SetTargetFPS(60);
             Raylib.InitAudioDevice();
@@ -43,8 +49,8 @@ namespace Stedders
         {
             Singleton.Components.Add(new GameState());
             Entities.Add(Singleton);
-            RayGui.GuiLoadStyle("Assets/cyber.rgs");
-            RayGui.GuiSetFont(Raylib.LoadFont("Assets/Roboto-Black.ttf"));
+            RayGui.GuiLoadStyle("Assets/Other/cyber.rgs");
+            RayGui.GuiSetFont(Raylib.LoadFont("Assets/Other/Roboto-Black.ttf"));
 
             Systems = new List<GameSystem>
             {

@@ -80,7 +80,7 @@ namespace Stedders.Systems
                 Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
 
                 state.State = States.Dialogue;
-                state.DialoguePhase = ("intro", 1);
+                state.DialoguePhase = ("intro", 0);
                 state.NextState = States.Game;
             }
 

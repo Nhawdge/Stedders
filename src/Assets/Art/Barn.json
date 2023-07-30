@@ -1,0 +1,43 @@
+{ "frames": [
+   {
+    "filename": "Health100-0",
+    "frame": { "x": 1, "y": 1, "w": 80, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 64 },
+    "sourceSize": { "w": 80, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "Health50-1",
+    "frame": { "x": 83, "y": 1, "w": 80, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 64 },
+    "sourceSize": { "w": 80, "h": 64 },
+    "duration": 100
+   },
+   {
+    "filename": "Health0-2",
+    "frame": { "x": 1, "y": 67, "w": 80, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 64 },
+    "sourceSize": { "w": 80, "h": 64 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "Barn.png",
+  "format": "RGBA8888",
+  "size": { "w": 164, "h": 132 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Health100", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "Health50", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "Health0", "from": 2, "to": 2, "direction": "forward" }
+  ]
+ }
+}
