@@ -20,15 +20,14 @@ namespace Stedders
 
         public void RunGame()
         {
-            Raylib.InitWindow(1920, 1080, "Stedders");
-            Raylib.SetWindowMonitor(0);
+            
+            Raylib.SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
+            
+            Raylib.InitWindow(1368, 768, "Stedders");
+            //Raylib.SetWindowMonitor(0);
 
-            Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_UNDECORATED);
-            //Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_TOPMOST);
-
-            Console.WriteLine(Raylib.GetScreenWidth());
 #if DEBUG
-            //Raylib.SetWindowPosition(-1652, 110);
+            Raylib.SetWindowPosition(-1652, 110);
 #endif
             Raylib.SetTargetFPS(60);
             Raylib.InitAudioDevice();

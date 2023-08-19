@@ -9,7 +9,7 @@ namespace Stedders.Utilities
         public void LoadTextures()
         {
             TextureStore.Add(TextureKey.Mech1, Raylib.LoadTexture("Assets/Art/Mech1.png"));
-            TextureStore.Add(TextureKey.Mech2, Raylib.LoadTexture("Assets/Art/Mech2.png"));
+            TextureStore.Add(TextureKey.Mech2, Raylib.LoadTexture("Assets/Art/fastmechwalksample.png"));
             TextureStore.Add(TextureKey.Mech2Top, Raylib.LoadTexture("Assets/Art/Mech2Top.png"));
             TextureStore.Add(TextureKey.Background, Raylib.LoadTexture("Assets/Art/background.png"));
             TextureStore.Add(TextureKey.Plant1, Raylib.LoadTexture("Assets/Art/Plant1.png"));

@@ -1,0 +1,67 @@
+{ "frames": [
+   {
+    "filename": "Walk-0",
+    "frame": { "x": 1, "y": 1, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "Walk-1",
+    "frame": { "x": 51, "y": 1, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "Walk-2",
+    "frame": { "x": 101, "y": 1, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "-3",
+    "frame": { "x": 151, "y": 1, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "-4",
+    "frame": { "x": 201, "y": 1, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "fastmech.png",
+  "format": "RGBA8888",
+  "size": { "w": 250, "h": 50 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Walk", "from": 0, "to": 2, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Background", "opacity": 255, "blendMode": "normal" },
+   { "name": "Head", "opacity": 255, "blendMode": "normal" },
+   { "name": "Left Leg", "opacity": 255, "blendMode": "normal" },
+   { "name": "Right Leg", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

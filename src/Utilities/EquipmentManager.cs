@@ -1,9 +1,7 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
 using Stedders.Entities;
-using System.IO.IsolatedStorage;
 using System.Numerics;
-using System.Runtime.InteropServices;
 
 namespace Stedders.Utilities
 {
@@ -17,7 +15,7 @@ namespace Stedders.Utilities
                 MaxAmmo = 100,
                 Ammo = 0,
                 Damage = 25,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), TextureKey.Laser, 1, false),
                 IconKey = TextureKey.LaserCannon,
                 SoundKey = SoundKey.Laser,
                 Fire = (allEntities, entity, item) =>
@@ -100,7 +98,7 @@ namespace Stedders.Utilities
                 Ammo = 0,
                 Range = 75,
                 MaxRange = 75,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), TextureKey.Laser, 1, false),
                 CanReload = false,
                 IconKey = TextureKey.Harvester,
                 Fire = (allEntities, player, item) =>
@@ -173,7 +171,7 @@ namespace Stedders.Utilities
                 Name = "Seeder",
                 MaxAmmo = 10,
                 Ammo = 10,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), 0, 0, 1, false),
+                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), TextureKey.Laser, 1, false),
                 IconKey = TextureKey.SeedCannon,
                 CooldownPerShot = 1,
                 ShotCoolDownRate = 1,
@@ -205,7 +203,7 @@ namespace Stedders.Utilities
                         if (nearestField != null)
                         {
                             var field = nearestField.GetComponents<Sprite>()
-                                .FirstOrDefault(x => x.AnimationDataPath == "Assets/Field1");
+                                .FirstOrDefault(x => x.Key == TextureKey.Field1);
                             var fieldComponent = nearestField.GetComponent<Field>();
                             if (field != null && fieldComponent.HasCrop == false)
                             {
@@ -214,7 +212,7 @@ namespace Stedders.Utilities
                                     item.Ammo--;
                                     item.ShotCooldown = item.CooldownPerShot;
                                     nearestField.Components.Add(new Plant("Wiggle Root"));
-                                    nearestField.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Plant1", 3, false)
+                                    nearestField.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Art/Plant1", TextureKey.Plant1, 3, false)
                                     {
                                         Position = field.Position
                                     });
@@ -266,7 +264,7 @@ namespace Stedders.Utilities
                     }
 
                     var waterBlob = new Entity();
-                    var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.WaterBlob), "Assets/WaterBlob", 2, true)
+                    var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.WaterBlob), "Assets/Art/WaterBlob", TextureKey.WaterBlob, 2, true)
                     {
                         Position = torso.Position,
                     };

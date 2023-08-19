@@ -13,7 +13,7 @@ namespace Stedders.Components
         public int CurrentFrameIndex = 0;
         public AnimationSets CurrentAnimation;
 
-        public Sprite(Texture texture, string animationDataPath, float scale = 1, bool isCentered = true) : base(texture, 0, 0, scale, isCentered)
+        public Sprite(Texture texture, string animationDataPath, TextureKey key, float scale = 1, bool isCentered = true) : base(texture, key, scale, isCentered)
         {
             AnimationDataPath = animationDataPath;
             var data = File.ReadAllText(animationDataPath + ".json");
@@ -98,8 +98,8 @@ namespace Stedders.Components
                 this.CurrentAnimation = animations;
                 CurrentFrameIndex = 0;
             }
-            else
-                throw new ArgumentException($"Invalid Animation name '{animationName}' for '{AnimationDataPath}'");
+            //else
+            //    throw new ArgumentException($"Invalid Animation name '{animationName}' for '{AnimationDataPath}'");
         }
 
         public record AnimationSets(string Name, int From, int To, Direction direction, List<Frame> Frames);
@@ -112,6 +112,5 @@ namespace Stedders.Components
             backward,
             pingpong
         }
-
     }
 }

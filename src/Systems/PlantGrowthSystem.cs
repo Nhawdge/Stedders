@@ -40,7 +40,7 @@ namespace Stedders.Systems
                     if (plant.PlantBody <= 0)
                     {
                         entity.Components.Remove(plant);
-                        var plantSprite = entity.GetComponents<Sprite>().First(x => x.AnimationDataPath == "Assets/Plant1");
+                        var plantSprite = entity.GetComponents<Sprite>().First(x =>x.Key  == TextureKey.Plant1);
                         entity.Components.Remove(plantSprite);
                         field.HasCrop = false;
                     }
@@ -63,7 +63,7 @@ namespace Stedders.Systems
 
                     if (plant.Growth > plant.GrowthRequired)
                     {
-                        var mySprite = entity.GetComponents<Sprite>().First(x => x.AnimationDataPath == "Assets/Plant1");
+                        var mySprite = entity.GetComponents<Sprite>().First(x => x.Key == TextureKey.Plant1);
                         if (plant.GrowthStage >= plant.MaxGrowthStage)
                         {
                             mySprite.Play($"Mature");
