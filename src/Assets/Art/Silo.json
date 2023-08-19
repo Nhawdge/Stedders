@@ -1,0 +1,43 @@
+{ "frames": [
+   {
+    "filename": "Health100-0",
+    "frame": { "x": 1, "y": 1, "w": 32, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
+    "sourceSize": { "w": 32, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "Health50-1",
+    "frame": { "x": 35, "y": 1, "w": 32, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
+    "sourceSize": { "w": 32, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "Health0-2",
+    "frame": { "x": 1, "y": 51, "w": 32, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 48 },
+    "sourceSize": { "w": 32, "h": 48 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "Silo.png",
+  "format": "RGBA8888",
+  "size": { "w": 68, "h": 100 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Health100", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "Health50", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "Health0", "from": 2, "to": 2, "direction": "forward" }
+  ]
+ }
+}

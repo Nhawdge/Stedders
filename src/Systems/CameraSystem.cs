@@ -36,11 +36,11 @@ namespace Stedders.Systems
                 {
                     return;
                 }
-                var playerRenderTorso = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                var playerLegs = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
 
-                if (playerRenderTorso != null)
+                if (playerLegs != null)
                 {
-                    var playerPos = playerRenderTorso.Position;
+                    var playerPos = playerLegs.Position;
                     var xdiff = (playerPos.X - mousePos.X) * 0.25;
                     var ydiff = (playerPos.Y - mousePos.Y) * 0.25;
 

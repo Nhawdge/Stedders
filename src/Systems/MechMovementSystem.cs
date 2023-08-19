@@ -21,7 +21,7 @@ namespace Stedders.Systems
                 if (playerMech is not null)
                 {
                     var legs = playerMech.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Legs);
-                    var torso = playerMech.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Torso);
+                    var torso = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
 
                     legs.Rotation = (legs.Rotation + 360) % 360;
                     var newPosition = new Vector2(legs.Position.X, legs.Position.Y);
@@ -34,24 +34,27 @@ namespace Stedders.Systems
                         new Vector2(16, 100), legs.Rotation, Raylib.WHITE);
 
                     var throttle = playerMech.GetComponent<Player>().Throttle;
-
-                    switch (torso.Rotation)
+                    if (torso is not null)
                     {
-                        case > 45 and < 135:
-                            torso.Play("IdleR");
-                            torso.IsFlipped = false;
-                            break;
-                        case > 135 and < 225:
-                            torso.Play("IdleD");
-                            break;
-                        case > 225 and < 315:
-                            torso.Play("IdleR");
-                            torso.IsFlipped = true;
-                            break;
-                        case < -45:
-                        default:
-                            torso.Play("IdleU");
-                            break;
+
+                        switch (torso.Rotation)
+                        {
+                            case > 45 and < 135:
+                                torso.Play("IdleR");
+                                torso.IsFlipped = false;
+                                break;
+                            case > 135 and < 225:
+                                torso.Play("Idle");
+                                break;
+                            case > 225 and < 315:
+                                torso.Play("IdleR");
+                                torso.IsFlipped = true;
+                                break;
+                            case < -45:
+                            default:
+                                torso.Play("IdleU");
+                                break;
+                        }
                     }
                     if (throttle != 0)
                     {
@@ -85,7 +88,10 @@ namespace Stedders.Systems
                     var directionAsVector = new Vector2((float)Math.Cos(legs.RotationAsRadians), (float)Math.Sin(legs.RotationAsRadians));
                     newPosition += directionAsVector * throttle;
                     legs.Position = newPosition;
-                    torso.Position = newPosition with { Y = newPosition.Y - 30 /** torso.Scale*/ };
+                    if (torso is not null)
+                    {
+                        torso.Position = newPosition with { Y = newPosition.Y - 30 /** torso.Scale*/ };
+                    }
                 }
             }
         }

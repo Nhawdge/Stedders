@@ -16,7 +16,7 @@ namespace Stedders.Systems
                 var allBuildings = Engine.Entities.Where(x => x.HasTypes(typeof(Building)));
                 if (allBuildings.Count() == 0)
                 {
-                    state.DialoguePhase = ("lose", 1);
+                    state.DialoguePhase = ("lose", 0);
                     state.State = States.Dialogue;
                     state.NextState = States.GameOver;
                 }
@@ -26,7 +26,7 @@ namespace Stedders.Systems
                     var silo = siloEntity.GetComponent<Silo>();
                     if (silo.BioMass >= silo.MaxBioMass)
                     {
-                        state.DialoguePhase = ("win", 1);
+                        state.DialoguePhase = ("win", 0);
                         state.State = States.Dialogue;
                         state.NextState = States.GameOver;
                     }

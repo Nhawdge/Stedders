@@ -1,0 +1,91 @@
+{ "frames": [
+   {
+    "filename": "Grow1-0",
+    "frame": { "x": 1, "y": 1, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 250
+   },
+   {
+    "filename": "Grow2-1",
+    "frame": { "x": 19, "y": 1, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 250
+   },
+   {
+    "filename": "Grow3-2",
+    "frame": { "x": 37, "y": 1, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 250
+   },
+   {
+    "filename": "Grow4-3",
+    "frame": { "x": 1, "y": 19, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 250
+   },
+   {
+    "filename": "Grow5-4",
+    "frame": { "x": 19, "y": 19, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 250
+   },
+   {
+    "filename": "Mature-5",
+    "frame": { "x": 19, "y": 19, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 1000
+   },
+   {
+    "filename": "Mature-6",
+    "frame": { "x": 37, "y": 19, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 1000
+   },
+   {
+    "filename": "Mature-7",
+    "frame": { "x": 1, "y": 37, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 1000
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "Plant1.png",
+  "format": "RGBA8888",
+  "size": { "w": 54, "h": 54 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Grow1", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "Grow2", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "Grow3", "from": 2, "to": 2, "direction": "forward" },
+   { "name": "Grow4", "from": 3, "to": 3, "direction": "forward" },
+   { "name": "Grow5", "from": 4, "to": 4, "direction": "forward" },
+   { "name": "Mature", "from": 5, "to": 7, "direction": "pingpong" }
+  ]
+ }
+}

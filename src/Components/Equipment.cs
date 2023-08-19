@@ -1,8 +1,6 @@
 ﻿using Raylib_CsLo;
 using Stedders.Entities;
 using Stedders.Utilities;
-using System;
-using System.Numerics;
 
 namespace Stedders.Components
 {

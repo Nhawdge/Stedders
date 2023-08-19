@@ -20,7 +20,12 @@ namespace Stedders
 
         public void RunGame()
         {
-            Raylib.InitWindow(1380, 768, "Stedders");
+            
+            Raylib.SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
+            
+            Raylib.InitWindow(1368, 768, "Stedders");
+            //Raylib.SetWindowMonitor(0);
+
 #if DEBUG
             Raylib.SetWindowPosition(-1652, 110);
 #endif
@@ -43,8 +48,8 @@ namespace Stedders
         {
             Singleton.Components.Add(new GameState());
             Entities.Add(Singleton);
-            RayGui.GuiLoadStyle("Assets/cyber.rgs");
-            RayGui.GuiSetFont(Raylib.LoadFont("Assets/Roboto-Black.ttf"));
+            RayGui.GuiLoadStyle("Assets/Other/cyber.rgs");
+            RayGui.GuiSetFont(Raylib.LoadFont("Assets/Other/Roboto-Black.ttf"));
 
             Systems = new List<GameSystem>
             {

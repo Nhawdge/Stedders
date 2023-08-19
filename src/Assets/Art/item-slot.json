@@ -1,0 +1,22 @@
+{ "frames": [
+   {
+    "filename": "-0",
+    "frame": { "x": 1, "y": 1, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.40-x64",
+  "image": "item-slot.png",
+  "format": "RGBA8888",
+  "size": { "w": 18, "h": 18 },
+  "scale": "1",
+  "frameTags": [
+  ]
+ }
+}

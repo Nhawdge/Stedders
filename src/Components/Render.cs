@@ -1,4 +1,5 @@
 using Raylib_CsLo;
+using Stedders.Utilities;
 using System.Numerics;
 
 namespace Stedders.Components
@@ -20,6 +21,7 @@ namespace Stedders.Components
         public Vector2 Position;
         public Color Color;
         public MechPieces MechPiece;
+        public TextureKey Key;
 
         public float RenderRotation
         {
@@ -51,7 +53,6 @@ namespace Stedders.Components
             LeftTop,
             LeftCenter,
             LeftBottom,
-
         }
 
         public virtual Rectangle Source
@@ -73,15 +74,14 @@ namespace Stedders.Components
                     SpriteHeight * Scale);
         }
 
-        public Render(Texture texture, int col = 0, int row = 0, float scale = 1, bool isCentered = true)
+        public Render(Texture texture, TextureKey key, float scale = 1, bool isCentered = true)
         {
             Texture = texture;
+            Key = key;
             Position = Vector2.Zero;
             Scale = scale;
             Color = Raylib.WHITE;
             OriginPos = isCentered ? OriginAlignment.Center : OriginAlignment.LeftTop;
-            Column = col;
-            Row = row;
             SpriteWidth = texture.width;
             SpriteHeight = texture.height;
         }

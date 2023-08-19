@@ -22,7 +22,7 @@ namespace Stedders.Utilities
                 HasHeaderRecord = false,
                 HeaderValidated = null,
             };
-            using (var reader = new StreamReader("Assets/Translations.csv"))
+            using (var reader = new StreamReader("Assets/Other/Translations.csv"))
             using (var csv = new CsvReader(reader, config))
             {
                 var records = csv.GetRecords<TranslationRow>();

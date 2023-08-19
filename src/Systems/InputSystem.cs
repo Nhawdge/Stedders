@@ -136,13 +136,15 @@ namespace Stedders.Systems
             var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
             if (playerMech is not null)
             {
-                var playerRenderTorso = playerMech.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
-
-                var mousePos = Raylib.GetMousePosition();
-                var mouseWorldPos = Raylib.GetScreenToWorld2D(mousePos, Engine.Camera);
-                var difference = mouseWorldPos - playerRenderTorso.Position;
-                var angle = Math.Atan2(difference.Y, difference.X);
-                playerRenderTorso.Rotation = (float)(angle * 180 / Math.PI) + 90;
+                var playerRenderTorso = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                if (playerRenderTorso is not null)
+                {
+                    var mousePos = Raylib.GetMousePosition();
+                    var mouseWorldPos = Raylib.GetScreenToWorld2D(mousePos, Engine.Camera);
+                    var difference = mouseWorldPos - playerRenderTorso.Position;
+                    var angle = Math.Atan2(difference.Y, difference.X);
+                    playerRenderTorso.Rotation = (float)(angle * 180 / Math.PI) + 90;
+                }
             }
             //if (Raylib.GetMouseWheelMove() > 0)
             //{
