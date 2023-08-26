@@ -19,14 +19,14 @@ namespace Stedders.Systems
 
             if (state.State == States.Loading)
             {
-                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
-                Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
+                //Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
+                //Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
                 state.State = States.MainMenu;
             }
             if (state.State == States.Start)
             {
-                Engine.Entities.RemoveAll(x => true);
-                Engine.Entities.Add(Engine.Singleton);
+                //Engine.Entities.RemoveAll(x => true);
+                //Engine.Entities.Add(Engine.Singleton);
                 state.Currency = 0;
                 state.Day = 0;
                 state.CurrentTime = 0;
@@ -76,8 +76,8 @@ namespace Stedders.Systems
                 }
 
                 //Engine.Entities.Add(ArchetypeGenerator.GenerateEnemy(Engine, new Vector2(200, 200)));
-                Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
-                Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
+                //Engine.Entities.Add(ArchetypeGenerator.GenerateBarn(Engine, new Vector2(1700, 1600)));
+                //Engine.Entities.Add(ArchetypeGenerator.GenerateSilo(Engine, new Vector2(1925, 1300)));
 
                 state.State = States.Dialogue;
                 state.DialoguePhase = ("intro", 0);

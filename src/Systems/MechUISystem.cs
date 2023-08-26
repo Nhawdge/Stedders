@@ -70,6 +70,13 @@ namespace Stedders.Systems
                             barnComponent.IsOpen = !barnComponent.IsOpen;
                             state.GuiOpen = barnComponent.IsOpen;
                         }
+                        if (RayGui.GuiButton(topButton with { x = topButton.x + 210 }, "Enter")) 
+                        {
+                            var mapHolder = Engine.Entities.Where(x => x.HasTypes(typeof(Map))).FirstOrDefault();
+                            var map = mapHolder.GetComponent<Map>();
+                            mapHolder.Components.Remove(map);
+                            mapHolder.Components.Add(MapManager.Instance.GetMap("Barn"));
+                        }
                     }
                     else
                     {
@@ -96,7 +103,7 @@ namespace Stedders.Systems
                         foreach (var item in barnComponent.Equipment.OrderByDescending(x => x.Button))
                         {
                             var itemRect = new Rectangle(container.x + 10, container.y + 60 * index, 50, 50);
-                            var itemTexture = Engine.TextureManager.GetTexture(item.IconKey);
+                            var itemTexture = TextureManager.Instance.GetTexture(item.IconKey);
                             Raylib.DrawTexturePro(itemTexture,
                                 new Rectangle(0, 0, itemTexture.width, itemTexture.height),
                                 itemRect with { y = itemRect.y + 10, width = 50, height = 50 }, Vector2.Zero, 0f, Raylib.WHITE);

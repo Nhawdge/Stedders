@@ -1,6 +1,5 @@
 using Raylib_CsLo;
 using Stedders.Components;
-using System.Numerics;
 
 namespace Stedders.Systems
 {
@@ -14,7 +13,19 @@ namespace Stedders.Systems
 
         public override void Update()
         {
-            Raylib.DrawTextureEx(BackgroundTexture, Vector2.Zero, 0f, 3, Raylib.WHITE);
+            //Raylib.DrawTextureEx(BackgroundTexture, Vector2.Zero, 0f, 3, Raylib.WHITE);
+            var mapEntity = Engine.Entities.FirstOrDefault(x => x.HasTypes(typeof(Map)));
+            var map = mapEntity.GetComponent<Map>();
+            var cells = map.Cells;
+            if (cells != null)
+            {
+                foreach (var cell in cells)
+                {
+                    //Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
+                    Raylib.DrawTexturePro(cell.Tilemap.Texture, cell.Tilemap.Source, cell.Tilemap.Destination, cell.Tilemap.Origin, cell.Tilemap.Rotation, Raylib.WHITE);
+                }
+            }
+
             foreach (var entity in Engine.Entities.Where(x => x.HasTypes(typeof(Render)))
                 .OrderBy(x => x.GetComponent<Render>().ZIndex))
             {

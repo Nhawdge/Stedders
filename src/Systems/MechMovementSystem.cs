@@ -26,7 +26,7 @@ namespace Stedders.Systems
                     legs.Rotation = (legs.Rotation + 360) % 360;
                     var newPosition = new Vector2(legs.Position.X, legs.Position.Y);
 
-                    var directionTexture = Engine.TextureManager.GetTexture(Utilities.TextureKey.MechDirection);
+                    var directionTexture = TextureManager.Instance.GetTexture(Utilities.TextureKey.MechDirection);
 
                     Raylib.DrawTexturePro(directionTexture,
                         new Rectangle(0, 0, directionTexture.width, directionTexture.height),

@@ -21,7 +21,7 @@ namespace Stedders.Systems
             if (state.State == States.Dialogue)
             {
                 RayGui.GuiDummyRec(new Rectangle(10, Raylib.GetScreenHeight() - 210, Raylib.GetScreenWidth() - 20, 200), "");
-                var personTexture = Engine.TextureManager.GetTexture(TextureKey.Person1);
+                var personTexture = TextureManager.Instance.GetTexture(TextureKey.Person1);
                 Raylib.DrawTexturePro(personTexture, new Rectangle(0, 0, personTexture.width, personTexture.height),
                     new Rectangle(10, Raylib.GetScreenHeight() - 210, 200, 200), Vector2.Zero, 0f, Raylib.WHITE);
 

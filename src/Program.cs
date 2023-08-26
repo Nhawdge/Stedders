@@ -1,3 +1,3 @@
 ﻿using Stedders;
 
-new GameEngine().RunGame();
+GameEngine.Instance.RunGame();

@@ -15,7 +15,7 @@ namespace Stedders.Utilities
                 MaxAmmo = 100,
                 Ammo = 0,
                 Damage = 25,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), TextureKey.Laser, 1, false),
+                Sprite = new Render(TextureKey.Laser, 1, false),
                 IconKey = TextureKey.LaserCannon,
                 SoundKey = SoundKey.Laser,
                 Fire = (allEntities, entity, item) =>
@@ -26,7 +26,13 @@ namespace Stedders.Utilities
                     }
                     var allEnemies = allEntities.Where(x => x.HasTypes(typeof(NpcAi), typeof(Sprite), typeof(Health)));
 
-                    var mySprite = entity.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
+                    var offset = item.Button == MouseButton.MOUSE_BUTTON_LEFT ? 20 : 30;
+                    var mySprite = entity.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                    if (mySprite == null)
+                    {
+                        mySprite = entity.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
+                        offset = 0;
+                    }
 
                     var dest = mySprite.Destination;
                     dest.width += item.Range;
@@ -35,11 +41,9 @@ namespace Stedders.Utilities
                     if (item.Ammo >= item.MaxAmmo)
                     {
                         item.Name = "Overheated";
-
                         item.IsOverheated = true;
                         item.Ammo = item.MaxAmmo;
                     }
-                    var offset = item.Button == MouseButton.MOUSE_BUTTON_LEFT ? 20 : 30;
                     Raylib.DrawTexturePro(item.Sprite.Texture, item.Sprite.Source, dest,
                         new Vector2(item.Sprite.Origin.X, item.Sprite.Origin.Y + offset),
                         mySprite.Rotation - 90, Raylib.WHITE);
@@ -96,18 +100,23 @@ namespace Stedders.Utilities
                 Name = "Harvester",
                 MaxAmmo = 100,
                 Ammo = 0,
-                Range = 75,
+                Range = 150,
                 MaxRange = 75,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), TextureKey.Laser, 1, false),
+                Sprite = new Render(TextureKey.Laser, 1, false),
                 CanReload = false,
                 IconKey = TextureKey.Harvester,
                 Fire = (allEntities, player, item) =>
                 {
                     var playerComponent = player.GetComponent<Player>();
-                    var myPos = player.GetComponents<Sprite>().First(x => x.MechPiece == MechPieces.Torso);
+                    var myPos = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                    if (myPos == null)
+                    {
+                        myPos = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
+                    }
+
                     var plants = allEntities.Where(x => x.HasTypes(typeof(Plant), typeof(Sprite)));
                     var nearestPlant = plants.OrderBy(x => (x.GetComponent<Sprite>().Position - myPos.Position).Length()).FirstOrDefault();
-                    var mySprite = player.GetComponents<Render>().First(x => x.MechPiece == MechPieces.Torso);
+                    var mySprite = myPos;
 
                     if (nearestPlant is not null)
                     {
@@ -171,7 +180,7 @@ namespace Stedders.Utilities
                 Name = "Seeder",
                 MaxAmmo = 10,
                 Ammo = 10,
-                Sprite = new Render(engine.TextureManager.GetTexture(TextureKey.Laser), TextureKey.Laser, 1, false),
+                Sprite = new Render(TextureKey.Laser, 1, false),
                 IconKey = TextureKey.SeedCannon,
                 CooldownPerShot = 1,
                 ShotCoolDownRate = 1,
@@ -212,7 +221,7 @@ namespace Stedders.Utilities
                                     item.Ammo--;
                                     item.ShotCooldown = item.CooldownPerShot;
                                     nearestField.Components.Add(new Plant("Wiggle Root"));
-                                    nearestField.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Art/Plant1", TextureKey.Plant1, 3, false)
+                                    nearestField.Components.Add(new Sprite(TextureKey.Plant1, "Assets/Art/Plant1", 3, false)
                                     {
                                         Position = field.Position
                                     });
@@ -257,14 +266,15 @@ namespace Stedders.Utilities
                     }
                     item.ShotCooldown = item.CooldownPerShot;
                     var torso = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
-                    var entitiesToAdd = new List<Entity>();
+
                     if (torso is null)
                     {
-                        return (entitiesToAdd, Enumerable.Empty<Entity>());
+                        torso = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
                     }
+                    var entitiesToAdd = new List<Entity>();
 
                     var waterBlob = new Entity();
-                    var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.WaterBlob), "Assets/Art/WaterBlob", TextureKey.WaterBlob, 2, true)
+                    var sprite = new Sprite(TextureKey.WaterBlob, "Assets/Art/WaterBlob", 2, true)
                     {
                         Position = torso.Position,
                     };

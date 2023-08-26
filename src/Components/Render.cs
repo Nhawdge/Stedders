@@ -74,16 +74,16 @@ namespace Stedders.Components
                     SpriteHeight * Scale);
         }
 
-        public Render(Texture texture, TextureKey key, float scale = 1, bool isCentered = true)
+        public Render(TextureKey key, float scale = 1, bool isCentered = true)
         {
-            Texture = texture;
+            Texture = TextureManager.Instance.GetTexture(key);
             Key = key;
             Position = Vector2.Zero;
             Scale = scale;
             Color = Raylib.WHITE;
             OriginPos = isCentered ? OriginAlignment.Center : OriginAlignment.LeftTop;
-            SpriteWidth = texture.width;
-            SpriteHeight = texture.height;
+            SpriteWidth = Texture.width;
+            SpriteHeight = Texture.height;
         }
     }
 

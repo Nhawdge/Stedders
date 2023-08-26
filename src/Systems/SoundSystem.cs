@@ -10,9 +10,9 @@ namespace Stedders.Systems
         {
             var state = Engine.Singleton.GetComponent<GameState>();
 
-            state.CurrentMusic.Add(new MusicPlayer(MusicKey.Menu, Engine.SoundManager.GetMusic(MusicKey.Menu), 1f));
-            state.CurrentMusic.Add(new MusicPlayer(MusicKey.Ambiance, Engine.SoundManager.GetMusic(MusicKey.Ambiance), 1f));
-            state.CurrentMusic.Add(new MusicPlayer(MusicKey.GamePlay, Engine.SoundManager.GetMusic(MusicKey.GamePlay), 1f));
+            state.CurrentMusic.Add(new MusicPlayer(MusicKey.Menu, SoundManager.Instance.GetMusic(MusicKey.Menu), 1f));
+            state.CurrentMusic.Add(new MusicPlayer(MusicKey.Ambiance, SoundManager.Instance.GetMusic(MusicKey.Ambiance), 1f));
+            state.CurrentMusic.Add(new MusicPlayer(MusicKey.GamePlay, SoundManager.Instance.GetMusic(MusicKey.GamePlay), 1f));
         }
 
         public override void Update()
@@ -64,15 +64,15 @@ namespace Stedders.Systems
                 var soundsActions = entity.GetComponents<SoundAction>();
                 foreach (var soundAction in soundsActions)
                 {
-                    var sound = Engine.SoundManager.GetSound(soundAction.SoundKey);
+                    var sound = SoundManager.Instance.GetSound(soundAction.SoundKey);
                     Raylib.SetSoundVolume(sound, state.SfxVolume);
                     if (soundAction.ShouldStop)
                     {
-                        Raylib.StopSound(Engine.SoundManager.GetSound(soundAction.SoundKey));
+                        Raylib.StopSound(SoundManager.Instance.GetSound(soundAction.SoundKey));
                     }
                     else if (!Raylib.IsSoundPlaying(sound))
                     {
-                        Raylib.PlaySound(Engine.SoundManager.GetSound(soundAction.SoundKey));
+                        Raylib.PlaySound(SoundManager.Instance.GetSound(soundAction.SoundKey));
                     }
                     soundAction.IsPlaying = true;
                     soundsToRemove.Add(soundAction);

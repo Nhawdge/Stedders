@@ -12,7 +12,7 @@ namespace Stedders.Entities
             player.Components.Add(new Player());
             player.Components.Add(new SoundAction(SoundKey.Mech2EngineStart));
 
-            var legs = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2), "Assets/Art/fastmechwalksample", TextureKey.Mech2, 3, true)
+            var legs = new Sprite(TextureKey.Mech2, "Assets/Art/fastmechwalksample", 3, true)
             {
                 MechPiece = MechPieces.Legs,
                 CanRotate = false,
@@ -35,7 +35,7 @@ namespace Stedders.Entities
         public static Entity GenerateEnemy(GameEngine engine, Vector2 position)
         {
             var enemy = new Entity();
-            var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Enemy1), "Assets/Art/Enemy1", TextureKey.Enemy1, 3, true)
+            var sprite = new Sprite(TextureKey.Enemy1, "Assets/Art/Enemy1", 3, true)
             {
                 ZIndex = 1,
                 CanRotate = false,
@@ -51,7 +51,7 @@ namespace Stedders.Entities
         public static Entity GeneratePlant(GameEngine engine, Vector2 position)
         {
             var plant = new Entity();
-            plant.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Art/Plant1", TextureKey.Plant1, 3, false)
+            plant.Components.Add(new Sprite(TextureKey.Plant1, "Assets/Art/Plant1", 3, false)
             {
                 Position = position
             });
@@ -63,7 +63,7 @@ namespace Stedders.Entities
         public static Entity GenerateBarn(GameEngine engine, Vector2 position)
         {
             var barn = new Entity();
-            var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Barn), "Assets/Art/Barn", TextureKey.Barn, 3, true) { Position = position };
+            var sprite = new Sprite(TextureKey.Barn, "Assets/Art/Barn", 3, true) { Position = position };
 
             barn.Components.Add(sprite);
             var barnComponent = new Barn();
@@ -86,14 +86,14 @@ namespace Stedders.Entities
         {
             var silo = new Entity();
             silo.Components.Add(new Silo());
-            silo.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Silo), "Assets/Art/Silo", TextureKey.Silo, 3, true) { Position = position });
+            silo.Components.Add(new Sprite(TextureKey.Silo, "Assets/Art/Silo", 3, true) { Position = position });
             return silo;
         }
 
         internal static Entity GenerateField(GameEngine engine, Vector2 position, bool startWithPlant = false)
         {
             var field = new Entity();
-            var sprite = new Sprite(engine.TextureManager.GetTexture(TextureKey.Field1), "Assets/Art/Field1", TextureKey.Field1, 3, false) { Position = position };
+            var sprite = new Sprite(TextureKey.Field1, "Assets/Art/Field1", 3, false) { Position = position };
             var fieldComponent = new Field();
             field.Components.Add(sprite);
             field.Components.Add(fieldComponent);
@@ -101,7 +101,7 @@ namespace Stedders.Entities
             {
                 fieldComponent.HasCrop = true;
                 field.Components.Add(new Plant("Wiggle Root"));
-                field.Components.Add(new Sprite(engine.TextureManager.GetTexture(TextureKey.Plant1), "Assets/Art/Plant1", TextureKey.Plant1, 3, false)
+                field.Components.Add(new Sprite(TextureKey.Plant1, "Assets/Art/Plant1", 3, false)
                 {
                     Position = position
                 });
