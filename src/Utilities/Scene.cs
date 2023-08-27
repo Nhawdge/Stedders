@@ -9,5 +9,4 @@ namespace Stedders.Utilities
         internal Action GameLoop;
         public List<Entity> Entities = new();
     }
-
 }

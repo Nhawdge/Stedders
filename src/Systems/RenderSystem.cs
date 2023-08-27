@@ -15,14 +15,17 @@ namespace Stedders.Systems
         {
             //Raylib.DrawTextureEx(BackgroundTexture, Vector2.Zero, 0f, 3, Raylib.WHITE);
             var mapEntity = Engine.Entities.FirstOrDefault(x => x.HasTypes(typeof(Map)));
-            var map = mapEntity.GetComponent<Map>();
-            var cells = map.Cells;
-            if (cells != null)
+            if (mapEntity is not null)
             {
-                foreach (var cell in cells)
+                var map = mapEntity.GetComponent<Map>();
+                var cells = map.Cells;
+                if (cells != null)
                 {
-                    //Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
-                    Raylib.DrawTexturePro(cell.Tilemap.Texture, cell.Tilemap.Source, cell.Tilemap.Destination, cell.Tilemap.Origin, cell.Tilemap.Rotation, Raylib.WHITE);
+                    foreach (var cell in cells)
+                    {
+                        //Raylib.DrawTexturePro(myRender.Texture, myRender.Source, myRender.Destination, myRender.Origin, myRender.RenderRotation, myRender.Color);
+                        Raylib.DrawTexturePro(cell.Tilemap.Texture, cell.Tilemap.Source, cell.Tilemap.Destination, cell.Tilemap.Origin, cell.Tilemap.Rotation, Raylib.WHITE);
+                    }
                 }
             }
 

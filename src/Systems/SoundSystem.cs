@@ -22,30 +22,30 @@ namespace Stedders.Systems
             Raylib.SetMasterVolume(state.MainVolume);
             if (!state.MusicSetSinceStateChange)
             {
-                foreach (var music in state.CurrentMusic)
-                {
-                    music.IsPlaying = false;
-                    Raylib.StopMusicStream(music.Music);
-                }
-                state.MusicSetSinceStateChange = true;
-                if (state.State is not States.Game)
-                {
-                    state.CurrentMusic.First(x => x.Key == MusicKey.Menu).IsPlaying = true;
-                }
-                else if (state.State == States.Game)
-                {
-                    state.CurrentMusic.First(x => x.Key == MusicKey.GamePlay).IsPlaying = true;
-                    state.CurrentMusic.First(x => x.Key == MusicKey.Ambiance).IsPlaying = true;
-                }
-                foreach (var music in state.CurrentMusic)
-                {
-                    if (music.IsPlaying)
-                    {
-                        Raylib.PlayMusicStream(music.Music);
-                        music.IsPlaying = true;
-                        Raylib.SetMusicVolume(music.Music, music.Volume);
-                    }
-                }
+                //foreach (var music in state.CurrentMusic)
+                //{
+                //    music.IsPlaying = false;
+                //    Raylib.StopMusicStream(music.Music);
+                //}
+                //state.MusicSetSinceStateChange = true;
+                //if (state.State is not States.Game)
+                //{
+                //    state.CurrentMusic.First(x => x.Key == MusicKey.Menu).IsPlaying = true;
+                //}
+                //else if (state.State == States.Game)
+                //{
+                //    state.CurrentMusic.First(x => x.Key == MusicKey.GamePlay).IsPlaying = true;
+                //    state.CurrentMusic.First(x => x.Key == MusicKey.Ambiance).IsPlaying = true;
+                //}
+                //foreach (var music in state.CurrentMusic)
+                //{
+                //    if (music.IsPlaying)
+                //    {
+                //        Raylib.PlayMusicStream(music.Music);
+                //        music.IsPlaying = true;
+                //        Raylib.SetMusicVolume(music.Music, music.Volume);
+                //    }
+                //}
             }
 
             foreach (var music in state.CurrentMusic)

@@ -1,52 +1,63 @@
-﻿using Stedders.Components;
+﻿using Raylib_CsLo;
+using Stedders.Components;
 using Stedders.Entities;
+using System.Security.Authentication.ExtendedProtection;
 
 namespace Stedders.Utilities
 {
-    internal class SceneManager
+    internal partial class SceneManager
     {
         internal static SceneManager Instance { get; } = new();
         public GameEngine Engine { get; }
+        internal Dictionary<string, BaseScene> Scenes { get; set; } = new();
 
         private SceneManager()
         {
             Engine = GameEngine.Instance;
         }
 
-        internal BaseScene LoadScene(SceneKey key)
+        internal BaseScene LoadScene(string key)
         {
             return key switch
             {
-                SceneKey.MainMenu => LoadMainMenu(),
-                SceneKey.Game => LoadMainGame(),
+                SceneKey.Menu.MainMenu => MainMenu(),
+                SceneKey.Menu.HowToPlay => HowToPlay(),
+                SceneKey.FreestyleRanch.World => FreestyleRanch(),
                 _ => throw new NotImplementedException(),
             };
         }
 
-        private BaseScene LoadMainMenu()
+
+        internal void ChangeScene(string key, bool forceReload = false)
         {
-            var mainMenu = new BaseScene();
-            var map = new Entity();
-            var buildMap = MapManager.Instance.GetMap("FreestyleRanch");
-            map.Components.Add(buildMap);
-
-            mainMenu.Entities.Add(map);
-            mainMenu.Entities.AddRange(buildMap.EntitiesToAdd);
-
-            return mainMenu;
+            if (Scenes.TryGetValue(key, out var scene) && forceReload == false)
+            {
+                Engine.ActiveScene = scene;
+            }
+            var nextScene = LoadScene(key);
+            Scenes.Add(key, nextScene);
+            Engine.ActiveScene = nextScene;
         }
 
-        private BaseScene LoadMainGame()
+        public static class SceneKey
         {
-            var mainGame = new BaseScene();
-            return mainGame;
-        }
+            public static class Menu
+            {
+                public const string MainMenu = "MainMenu";
+                public const string HowToPlay = "HowToPlay";
+                public const string Options = "Options";
+                public const string Credits = "Credits";
 
-        public enum SceneKey
-        {
-            MainMenu,
-            Game,
-        }
+                public const string PauseMenu = "PauseMenu";
+                public const string Stats = "Stats";
+                public const string GameOver = "GameOver";
+            }
 
+            public static class FreestyleRanch
+            {
+                public const string World = "FreestyleRanch";
+                public const string Barn = "FreestyleRanch_Barn";
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace Stedders.Entities
 {
     public static class ArchetypeGenerator
     {
-        public static Entity GeneratePlayerMech(GameEngine engine)
+        public static Entity GeneratePlayerMech()
         {
             var player = new Entity();
             player.Components.Add(new Player());
@@ -32,7 +32,7 @@ namespace Stedders.Entities
             return player;
         }
 
-        public static Entity GenerateEnemy(GameEngine engine, Vector2 position)
+        public static Entity GenerateEnemy(Vector2 position)
         {
             var enemy = new Entity();
             var sprite = new Sprite(TextureKey.Enemy1, "Assets/Art/Enemy1", 3, true)
@@ -48,7 +48,7 @@ namespace Stedders.Entities
             return enemy;
         }
 
-        public static Entity GeneratePlant(GameEngine engine, Vector2 position)
+        public static Entity GeneratePlant(Vector2 position)
         {
             var plant = new Entity();
             plant.Components.Add(new Sprite(TextureKey.Plant1, "Assets/Art/Plant1", 3, false)
@@ -60,7 +60,7 @@ namespace Stedders.Entities
             return plant;
         }
 
-        public static Entity GenerateBarn(GameEngine engine, Vector2 position)
+        public static Entity GenerateBarn( Vector2 position)
         {
             var barn = new Entity();
             var sprite = new Sprite(TextureKey.Barn, "Assets/Art/Barn", 3, true) { Position = position };
@@ -68,12 +68,12 @@ namespace Stedders.Entities
             barn.Components.Add(sprite);
             var barnComponent = new Barn();
 
-            barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
-            barnComponent.Equipment.Add(EquipmentManager.GenerateLaser(engine));
-            barnComponent.Equipment.Add(EquipmentManager.GenerateHarvester(engine));
-            barnComponent.Equipment.Add(EquipmentManager.GenerateSeeder(engine));
-            barnComponent.Equipment.Add(EquipmentManager.GenerateWaterCannon(engine));
-            barnComponent.Equipment.Add(EquipmentManager.GenerateWaterCannon(engine));
+            barnComponent.Equipment.Add(EquipmentManager.GenerateLaser());
+            barnComponent.Equipment.Add(EquipmentManager.GenerateLaser());
+            barnComponent.Equipment.Add(EquipmentManager.GenerateHarvester());
+            barnComponent.Equipment.Add(EquipmentManager.GenerateSeeder());
+            barnComponent.Equipment.Add(EquipmentManager.GenerateWaterCannon());
+            barnComponent.Equipment.Add(EquipmentManager.GenerateWaterCannon());
 
 
 
@@ -82,7 +82,7 @@ namespace Stedders.Entities
             return barn;
         }
 
-        public static Entity GenerateSilo(GameEngine engine, Vector2 position)
+        public static Entity GenerateSilo(Vector2 position)
         {
             var silo = new Entity();
             silo.Components.Add(new Silo());
@@ -90,7 +90,7 @@ namespace Stedders.Entities
             return silo;
         }
 
-        internal static Entity GenerateField(GameEngine engine, Vector2 position, bool startWithPlant = false)
+        internal static Entity GenerateField(Vector2 position, bool startWithPlant = false)
         {
             var field = new Entity();
             var sprite = new Sprite(TextureKey.Field1, "Assets/Art/Field1", 3, false) { Position = position };

@@ -70,10 +70,10 @@ namespace Stedders.Systems
             KeyboardMapping.Add(KeyboardKey.KEY_ESCAPE, () =>
             {
                 var state = Engine.Singleton.GetComponent<GameState>();
-                if (state.State == States.Game)
-                {
-                    state.State = States.Pause;
-                }
+                //if (state.State == States.Game)
+                //{
+                //    state.State = States.Pause;
+                //}
             });
 
             KeyboardMapping.Add(KeyboardKey.KEY_ONE, () =>

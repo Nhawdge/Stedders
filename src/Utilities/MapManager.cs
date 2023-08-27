@@ -48,11 +48,11 @@ namespace Stedders.Utilities
                             var pos = new Vector2(entityInstance.px[0], entityInstance.px[1]);
                             if (entityInstance.__identifier == "Barn")
                             {
-                                entities.Add(ArchetypeGenerator.GenerateBarn(GameEngine.Instance, pos * 3));
+                                entities.Add(ArchetypeGenerator.GenerateBarn(pos * 3));
                             }
                             if (entityInstance.__identifier == "Silo")
                             {
-                                entities.Add(ArchetypeGenerator.GenerateSilo(GameEngine.Instance, pos * 3));
+                                entities.Add(ArchetypeGenerator.GenerateSilo(pos * 3));
                             }
                         }
                     }
@@ -75,8 +75,8 @@ namespace Stedders.Utilities
 
     public enum MapPartsKey
     {
-        Tiles,
-        Roads,
-        Barn,
+        Base,
+        Decor,
+        Entities,
     }
 }

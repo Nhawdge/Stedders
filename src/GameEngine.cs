@@ -55,7 +55,7 @@ namespace Stedders
 
         public void Load()
         {
-            ActiveScene = SceneManager.Instance.LoadScene(SceneManager.SceneKey.MainMenu);
+            ActiveScene = SceneManager.Instance.LoadScene(SceneManager.SceneKey.Menu.MainMenu);
             Singleton.Components.Add(new GameState());
             Entities.Add(Singleton);
             RayGui.GuiLoadStyle("Assets/Other/cyber.rgs");

@@ -7,7 +7,7 @@ namespace Stedders.Utilities
 {
     internal static class EquipmentManager
     {
-        public static Equipment GenerateLaser(GameEngine engine)
+        public static Equipment GenerateLaser()
         {
             return new Equipment
             {
@@ -48,7 +48,7 @@ namespace Stedders.Utilities
                         new Vector2(item.Sprite.Origin.X, item.Sprite.Origin.Y + offset),
                         mySprite.Rotation - 90, Raylib.WHITE);
 
-                    var mousePos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), engine.Camera);
+                    var mousePos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), GameEngine.Instance.Camera);
 
                     var mouseDirectionAsRadians = (float)Math.Atan2(mousePos.Y - mySprite.Position.Y, mousePos.X - mySprite.Position.X);
                     var lineStart = mySprite.Position;
@@ -56,7 +56,7 @@ namespace Stedders.Utilities
                         mySprite.Position.X + (float)Math.Cos(mouseDirectionAsRadians) * (item.Range + 50),
                         mySprite.Position.Y + (float)Math.Sin(mouseDirectionAsRadians) * (item.Range + 50));
 
-                    engine.Singleton.Components.Add(new SoundAction(SoundKey.Laser));
+                    GameEngine.Instance.Singleton.Components.Add(new SoundAction(SoundKey.Laser));
 
                     foreach (var enemy in allEnemies)
                     {
@@ -79,7 +79,7 @@ namespace Stedders.Utilities
                 {
                     if (!item.IsFiring)
                     {
-                        engine.Singleton.Components.Add(new SoundAction(SoundKey.Laser, true));
+                        GameEngine.Instance.Singleton.Components.Add(new SoundAction(SoundKey.Laser, true));
                     }
 
                     item.Ammo -= Raylib.GetFrameTime() * (item.IsOverheated ? 10 : 15);
@@ -93,7 +93,7 @@ namespace Stedders.Utilities
             };
         }
 
-        public static Equipment GenerateHarvester(GameEngine engine)
+        public static Equipment GenerateHarvester()
         {
             return new Equipment
             {
@@ -145,7 +145,7 @@ namespace Stedders.Utilities
                                 new Vector2(item.Sprite.Origin.X, item.Sprite.Origin.Y + offset),
                                 plantDirectionAsDegrees,
                                 Raylib.GREEN);
-                            engine.Singleton.Components.Add(new SoundAction(SoundKey.Harvester1));
+                            GameEngine.Instance.Singleton.Components.Add(new SoundAction(SoundKey.Harvester1));
 
                             //Raylib.DrawLine((int)lineStart.X, (int)lineStart.Y, (int)lineEnd.X, (int)lineEnd.Y, Raylib.GREEN);
                             if (Raylib.CheckCollisionPointLine(plantSprite.Position, lineStart, lineEnd, 30))
@@ -154,7 +154,7 @@ namespace Stedders.Utilities
                                 {
                                     plant.PlantBody -= item.Damage * Raylib.GetFrameTime();
                                     item.Ammo += Math.Min(item.Damage * Raylib.GetFrameTime(), item.MaxAmmo);
-                                    engine.Singleton.GetComponent<GameState>().Stats.BiomassHarvested += item.Damage * Raylib.GetFrameTime();
+                                    GameEngine.Instance.Singleton.GetComponent<GameState>().Stats.BiomassHarvested += item.Damage * Raylib.GetFrameTime();
                                 }
                                 else
                                 {
@@ -168,12 +168,12 @@ namespace Stedders.Utilities
                 Idle = (player, item) =>
                 {
                     if (!item.IsFiring)
-                        engine.Singleton.Components.Add(new SoundAction(SoundKey.Harvester1, true));
+                        GameEngine.Instance.Singleton.Components.Add(new SoundAction(SoundKey.Harvester1, true));
                 }
             };
         }
 
-        internal static Equipment GenerateSeeder(GameEngine engine)
+        internal static Equipment GenerateSeeder()
         {
             return new Equipment
             {
@@ -194,7 +194,7 @@ namespace Stedders.Utilities
 
                     if (item.Ammo > 0)
                     {
-                        var target = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), engine.Camera);
+                        var target = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), GameEngine.Instance.Camera);
 
                         var allFields = entities.Where(x => x.HasTypes(typeof(Field)));
                         allFields.ToList().ForEach(x =>
@@ -226,7 +226,7 @@ namespace Stedders.Utilities
                                         Position = field.Position
                                     });
                                     fieldComponent.HasCrop = true;
-                                    engine.Singleton.Components.Add(new SoundAction(SoundKey.Seeder1));
+                                    GameEngine.Instance.Singleton.Components.Add(new SoundAction(SoundKey.Seeder1));
                                 }
                             }
                         }
@@ -240,13 +240,13 @@ namespace Stedders.Utilities
                 Idle = (player, item) =>
                 {
                     if (!item.IsFiring)
-                        engine.Singleton.Components.Add(new SoundAction(SoundKey.Seeder1, true));
+                        GameEngine.Instance.Singleton.Components.Add(new SoundAction(SoundKey.Seeder1, true));
                 }
 
             };
         }
 
-        internal static Equipment GenerateWaterCannon(GameEngine engine)
+        internal static Equipment GenerateWaterCannon()
         {
             return new Equipment
             {
@@ -286,7 +286,7 @@ namespace Stedders.Utilities
                     };
                     waterBlob.Components.Add(health);
 
-                    var target = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), engine.Camera);
+                    var target = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), GameEngine.Instance.Camera);
                     var motion = new Motion()
                     {
                         Target = target,
