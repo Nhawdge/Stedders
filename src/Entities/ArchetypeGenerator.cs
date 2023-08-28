@@ -6,7 +6,7 @@ namespace Stedders.Entities
 {
     public static class ArchetypeGenerator
     {
-        public static Entity GeneratePlayerMech()
+        public static Entity GeneratePlayerMech(Vector2 startPos)
         {
             var player = new Entity();
             player.Components.Add(new Player());
@@ -23,7 +23,6 @@ namespace Stedders.Entities
             //var torso = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2Top), "Assets/Art/Mech2Top", 3, true) { MechPiece = MechPieces.Torso, CanRotate = false, ZIndex = 2 };
             //player.Components.Add(torso);
 
-            var startPos = new Vector2(2118, 2760);
 
             legs.Rotation = 0f;
             legs.Position = startPos;

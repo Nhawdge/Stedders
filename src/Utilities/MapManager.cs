@@ -2,6 +2,7 @@
 using Stedders.Entities;
 using System.Numerics;
 using System.Text.Json;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Stedders.Utilities
 {
@@ -54,15 +55,23 @@ namespace Stedders.Utilities
                             {
                                 entities.Add(ArchetypeGenerator.GenerateSilo(pos * 3));
                             }
+                            if (entityInstance.__identifier == "Player")
+                            {
+                                var startPos = new Vector2(entityInstance.px[0], entityInstance.px[1]);
+                                entities.Add(ArchetypeGenerator.GeneratePlayerMech(startPos));
+                            }
                         }
                     }
                 }
                 cells = cells.OrderBy(x => x.Key).ToList();
+                var canSpawnInstance = level.fieldInstances.FirstOrDefault(x => x.__identifier == "CanSpawnEnemies");
+                var canSpawn = bool.Parse(canSpawnInstance.__value);
                 MapStore.Add(level.identifier, new Map()
                 {
                     Name = level.identifier,
                     Cells = cells,
-                    EntitiesToAdd = entities
+                    EntitiesToAdd = entities,
+                    CanSpawnEnemies = canSpawn,
                 });
             }
         }

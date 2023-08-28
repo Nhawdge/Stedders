@@ -23,6 +23,7 @@ namespace Stedders.Utilities
                 SceneKey.Menu.MainMenu => MainMenu(),
                 SceneKey.Menu.HowToPlay => HowToPlay(),
                 SceneKey.FreestyleRanch.World => FreestyleRanch(),
+                SceneKey.FreestyleRanch.Barn => FreestyleRanchBarn(),
                 _ => throw new NotImplementedException(),
             };
         }

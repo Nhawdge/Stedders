@@ -1,5 +1,6 @@
 ﻿using Stedders.Components;
 using Stedders.Entities;
+using System.Numerics;
 
 namespace Stedders.Utilities
 {
@@ -20,13 +21,36 @@ namespace Stedders.Utilities
             state.Day = 0;
             state.CurrentTime = 0;
 
-            mainGame.Entities.Add(ArchetypeGenerator.GeneratePlayerMech());
+            //mainGame.Entities.Add(ArchetypeGenerator.GeneratePlayerMech(new Vector2(100, 400)));
 
             //todo fix this
             //state.DialoguePhase = ("intro", 0);
             state.NextState = States.Game;
 
             return mainGame;
+        }
+
+        private BaseScene FreestyleRanchBarn()
+        {
+            var scene = new BaseScene();
+            var map = new Entity();
+            var buildMap = MapManager.Instance.GetMap("FreestyleRanch_Barn");
+            map.Components.Add(buildMap);
+            scene.Entities.Add(map);
+            scene.Entities.AddRange(buildMap.EntitiesToAdd);
+
+            var state = Engine.Singleton.GetComponent<GameState>();
+
+            state.Currency = 0;
+            state.Day = 0;
+            state.CurrentTime = 0;
+
+
+            //todo fix this
+            //state.DialoguePhase = ("intro", 0);
+            state.NextState = States.Game;
+
+            return scene;
         }
 
     }

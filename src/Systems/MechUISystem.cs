@@ -2,6 +2,7 @@
 using Stedders.Components;
 using Stedders.Utilities;
 using System.Numerics;
+using static Stedders.Utilities.SceneManager;
 
 namespace Stedders.Systems
 {
@@ -72,7 +73,7 @@ namespace Stedders.Systems
                     if (RayGui.GuiButton(topButton with { x = topButton.x + 210 }, "Enter"))
                     {
                         // TODO
-                        // SceneManager.Instance.ChangeScene();
+                        SceneManager.Instance.ChangeScene(SceneKey.FreestyleRanch.Barn);
                         //var mapHolder = Engine.Entities.Where(x => x.HasTypes(typeof(Map))).FirstOrDefault();
                         //var map = mapHolder.GetComponent<Map>();
                         //mapHolder.Components.Remove(map);

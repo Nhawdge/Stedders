@@ -194,7 +194,7 @@
         public string __smartColor { get; set; }
         public object __bgPos { get; set; }
         public object externalRelPath { get; set; }
-        public object[] fieldInstances { get; set; }
+        public FieldInstance[] fieldInstances { get; set; }
         public Layerinstance[] layerInstances { get; set; }
         public object[] __neighbours { get; set; }
     }
@@ -250,5 +250,15 @@
         public int defUid { get; set; }
         public int[] px { get; set; }
         public object[] fieldInstances { get; set; }
+    }
+
+    public class FieldInstance
+    {
+        public string __identifier { get; set; }
+        public string __type { get; set; }
+        public string __value { get; set; }
+        public object __tile { get; set; }
+        public int defUid { get; set; }
+        public object[] realEditorValues { get; set; }
     }
 }

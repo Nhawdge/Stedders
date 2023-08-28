@@ -1,5 +1,4 @@
-﻿using Raylib_CsLo;
-using Stedders.Entities;
+﻿using Stedders.Entities;
 using Stedders.Utilities;
 using System.Numerics;
 
@@ -11,6 +10,8 @@ namespace Stedders.Components
         internal List<MapCell> Cells = new();
         internal List<Entity> EntitiesToAdd = new();
         internal string Name;
+
+        public bool CanSpawnEnemies { get;  set; }
     }
 
     internal class MapCell
