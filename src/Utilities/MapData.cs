@@ -256,7 +256,7 @@
     {
         public string __identifier { get; set; }
         public string __type { get; set; }
-        public string __value { get; set; }
+        public object __value { get; set; }
         public object __tile { get; set; }
         public int defUid { get; set; }
         public object[] realEditorValues { get; set; }

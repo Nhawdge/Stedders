@@ -6,7 +6,7 @@ namespace Stedders.Components
 {
     internal class Map : Component
     {
-
+        public Guid Id { get; set; }
         internal List<MapCell> Cells = new();
         internal List<Entity> EntitiesToAdd = new();
         internal string Name;

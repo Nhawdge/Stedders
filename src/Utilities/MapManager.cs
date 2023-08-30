@@ -57,17 +57,24 @@ namespace Stedders.Utilities
                             }
                             if (entityInstance.__identifier == "Player")
                             {
-                                var startPos = new Vector2(entityInstance.px[0], entityInstance.px[1]);
-                                entities.Add(ArchetypeGenerator.GeneratePlayerMech(startPos));
+                                entities.Add(ArchetypeGenerator.GeneratePlayerMech(pos));
+                            }
+                            if (entityInstance.__identifier == "Anchor")
+                            {
+                                entities.Add(ArchetypeGenerator.GenerateAnchor(pos, Vector2.Zero, ""));
                             }
                         }
                     }
                 }
                 cells = cells.OrderBy(x => x.Key).ToList();
                 var canSpawnInstance = level.fieldInstances.FirstOrDefault(x => x.__identifier == "CanSpawnEnemies");
-                var canSpawn = bool.Parse(canSpawnInstance.__value);
+                var canSpawn = false;
+                if (canSpawnInstance != null)
+                    canSpawn = bool.Parse(canSpawnInstance.__value.ToString());
+
                 MapStore.Add(level.identifier, new Map()
                 {
+                    Id = Guid.Parse(level.iid),
                     Name = level.identifier,
                     Cells = cells,
                     EntitiesToAdd = entities,

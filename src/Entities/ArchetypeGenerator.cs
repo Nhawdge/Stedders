@@ -59,7 +59,7 @@ namespace Stedders.Entities
             return plant;
         }
 
-        public static Entity GenerateBarn( Vector2 position)
+        public static Entity GenerateBarn(Vector2 position)
         {
             var barn = new Entity();
             var sprite = new Sprite(TextureKey.Barn, "Assets/Art/Barn", 3, true) { Position = position };
@@ -106,6 +106,18 @@ namespace Stedders.Entities
                 });
             }
             return field;
+        }
+
+        internal static Entity GenerateAnchor(Vector2 pos,Vector2 dest, string scene)
+        {
+            var anchor = new Entity();
+            anchor.Components.Add(new Teleporter()
+            {
+                Position = pos,
+                Destination = dest,
+                Scene = scene
+            });
+            return anchor;
         }
     }
 }

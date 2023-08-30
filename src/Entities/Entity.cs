@@ -17,10 +17,12 @@ namespace Stedders.Entities
         {
             return Components.OfType<T>().FirstOrDefault();
         }
+
         public IEnumerable<T> GetComponents<T>()
         {
             return Components.OfType<T>();
         }
+
         public bool HasTypes(params Type[] types)
         {
             return types.All(t => Components.Any(c => t.IsAssignableFrom(c.GetType())));

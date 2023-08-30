@@ -24,7 +24,6 @@ namespace Stedders.Systems
             //    };
             //}
 
-
             float LeftEdge = 0 + GetScreenWidth() / 2;
             float RightEdge = Engine.MapEdge.X - GetScreenWidth() / 2;
             float TopEdge = 0 + GetScreenHeight() / 2;

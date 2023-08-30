@@ -20,6 +20,7 @@ namespace Stedders
                 ActiveScene.Entities = value;
             }
         }
+
         public List<GameSystem> Systems { get; set; } = new();
         public Camera2D Camera;
         public Entity Singleton = new();
@@ -87,15 +88,15 @@ namespace Stedders
         {
             Raylib.BeginDrawing();
             Raylib.BeginMode2D(Camera);
-            Raylib.ClearBackground(Raylib.WHITE);
-            foreach (var system in Systems)
+            Raylib.ClearBackground(Raylib.BLACK);
+            for (int i = 0; i < Systems.Count; i++)
             {
-                system.Update();
+                Systems[i].Update();
             }
             Raylib.EndMode2D();
-            foreach (var system in Systems)
+            for (int i = 0; i < Systems.Count; i++)
             {
-                system.UpdateNoCamera();
+                Systems[i].UpdateNoCamera();
             }
             Raylib.EndDrawing();
         }
