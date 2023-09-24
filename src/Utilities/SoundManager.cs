@@ -4,6 +4,8 @@ namespace Stedders.Utilities
 {
     public class SoundManager
     {
+        internal static SoundManager Instance { get; } = new();
+        private SoundManager() { }
         public Dictionary<SoundKey, Sound> SoundStore { get; set; } = new();
         public Dictionary<MusicKey, Music> MusicStore { get; set; } = new();
 
@@ -33,7 +35,7 @@ namespace Stedders.Utilities
             SoundStore.Add(SoundKey.Seeder1, Raylib.LoadSound("Assets/Sound/Mech/Stedders_SD_Mech_Planting_Seed_V1.wav"));
             SoundStore.Add(SoundKey.Seeder2, Raylib.LoadSound("Assets/Sound/Mech/Stedders_SD_Mech_Planting_Seed_V2.wav"));
             SoundStore.Add(SoundKey.Seeder3, Raylib.LoadSound("Assets/Sound/Mech/Stedders_SD_Mech_Planting_Seed_V3.wav"));
-            
+
             SoundStore.Add(SoundKey.UiHover, Raylib.LoadSound("Assets/Sound/UI/UI_Hover_V1.wav"));
             SoundStore.Add(SoundKey.UiClick, Raylib.LoadSound("Assets/Sound/UI/UI_Press_V1.wav"));
 

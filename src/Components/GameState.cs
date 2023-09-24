@@ -6,18 +6,18 @@ namespace Stedders.Components
 {
     public class GameState : Component
     {
-        private States _state;
-        public States State
-        {
-            get => this._state;
-            set
-            {
-                this.LastState = _state;
-                this.MusicSetSinceStateChange = false;
-                this._state = value;
-            }
-        }
-        public States LastState = States.MainMenu;
+        //private States _state;
+        //public States State
+        //{
+        //    get => this._state;
+        //    set
+        //    {
+        //        this.LastState = _state;
+        //        this.MusicSetSinceStateChange = false;
+        //        this._state = value;
+        //    }
+        //}
+        //public States LastState = States.MainMenu;
         public TimeOfDay TimeOfDay = TimeOfDay.Day;
         public float CurrentTime = 0f;
         public float DayDuration = 300f;
@@ -27,8 +27,6 @@ namespace Stedders.Components
         public float SpawnInterval = 10f;
 
         public float Currency = 0f;
-
-        public (string, int) DialoguePhase { get; set; }
 
         public HashSet<MusicPlayer> CurrentMusic { get; set; } = new();
         public float MainVolume { get; set; } = 1f;

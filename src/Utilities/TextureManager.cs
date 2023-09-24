@@ -4,7 +4,13 @@ namespace Stedders.Utilities
 {
     public class TextureManager
     {
+        public static TextureManager Instance { get; } = new();
         public Dictionary<TextureKey, Texture> TextureStore { get; set; } = new();
+
+        private TextureManager()
+        {
+            LoadTextures();
+        }
 
         public void LoadTextures()
         {
@@ -26,6 +32,9 @@ namespace Stedders.Utilities
             TextureStore.Add(TextureKey.Silo, Raylib.LoadTexture("Assets/Art/Silo.png"));
             TextureStore.Add(TextureKey.Field1, Raylib.LoadTexture("Assets/Art/Field1.png"));
             TextureStore.Add(TextureKey.WaterBlob, Raylib.LoadTexture("Assets/Art/WaterBlob.png"));
+            TextureStore.Add(TextureKey.Bullet, Raylib.LoadTexture("Assets/Art/Bullet.png"));
+
+            TextureStore.Add(TextureKey.FreestyleRanchTileset, Raylib.LoadTexture("Assets/Art/FreestyleRanch.png"));
         }
         public Texture GetTexture(TextureKey key)
         {
@@ -57,5 +66,7 @@ namespace Stedders.Utilities
         Silo,
         Field1,
         WaterBlob,
+        Bullet,
+        FreestyleRanchTileset
     }
 }

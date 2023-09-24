@@ -13,8 +13,10 @@ namespace Stedders.Components
         public int CurrentFrameIndex = 0;
         public AnimationSets CurrentAnimation;
 
-        public Sprite(Texture texture, string animationDataPath, TextureKey key, float scale = 1, bool isCentered = true) : base(texture, key, scale, isCentered)
+        public Sprite(TextureKey key, string animationDataPath,  float scale = 1, bool isCentered = true) : base(key, scale, isCentered)
         {
+            if (animationDataPath == null)
+                return;
             AnimationDataPath = animationDataPath;
             var data = File.ReadAllText(animationDataPath + ".json");
             var json = JsonSerializer.Deserialize<AsepriteData>(data);

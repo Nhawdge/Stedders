@@ -9,20 +9,29 @@ namespace Stedders
 {
     public class GameEngine
     {
-        public List<Entity> Entities { get; set; } = new();
+        public List<Entity> Entities
+        {
+            get
+            {
+                return ActiveScene.Entities;
+            }
+            set
+            {
+                ActiveScene.Entities = value;
+            }
+        }
+
         public List<GameSystem> Systems { get; set; } = new();
         public Camera2D Camera;
         public Entity Singleton = new();
-        public TextureManager TextureManager = new();
-        public SoundManager SoundManager = new();
+        internal BaseScene ActiveScene { get; set; }
 
-        public Vector2 MapEdge = new Vector2(4320, 2880);
+        
 
         public void RunGame()
         {
-            
             Raylib.SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
-            
+
             Raylib.InitWindow(1368, 768, "Stedders");
             //Raylib.SetWindowMonitor(0);
 
@@ -46,10 +55,12 @@ namespace Stedders
 
         public void Load()
         {
+            ActiveScene = SceneManager.Instance.LoadScene(SceneManager.SceneKey.Menu.MainMenu);
             Singleton.Components.Add(new GameState());
             Entities.Add(Singleton);
             RayGui.GuiLoadStyle("Assets/Other/cyber.rgs");
             RayGui.GuiSetFont(Raylib.LoadFont("Assets/Other/Roboto-Black.ttf"));
+
 
             Systems = new List<GameSystem>
             {
@@ -70,6 +81,7 @@ namespace Stedders
                 new SoundSystem(this),
                 new MotionSystem(this),
                 new SceneConditionSystem(this),
+                new TeleportationSystem(this),
             };
         }
 
@@ -77,17 +89,19 @@ namespace Stedders
         {
             Raylib.BeginDrawing();
             Raylib.BeginMode2D(Camera);
-            Raylib.ClearBackground(Raylib.WHITE);
-            foreach (var system in Systems)
+            Raylib.ClearBackground(Raylib.BLACK);
+            for (int i = 0; i < Systems.Count; i++)
             {
-                system.Update();
+                Systems[i].Update();
             }
             Raylib.EndMode2D();
-            foreach (var system in Systems)
+            for (int i = 0; i < Systems.Count; i++)
             {
-                system.UpdateNoCamera();
+                Systems[i].UpdateNoCamera();
             }
             Raylib.EndDrawing();
         }
+
+        public static GameEngine Instance { get; } = new();
     }
 }
