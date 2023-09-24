@@ -12,6 +12,7 @@ namespace Stedders.Utilities
             mainGame.MouseMapping = GetBaseMouseMap();
             var map = new Entity();
             var buildMap = MapManager.Instance.GetMap("FreestyleRanch");
+            mainGame.WorldId = buildMap.Id;
             map.Components.Add(buildMap);
             mainGame.MapEdge = buildMap.MapEdges;
             mainGame.Entities.Add(map);
@@ -40,6 +41,7 @@ namespace Stedders.Utilities
             scene.MouseMapping = GetBaseMouseMap();
             var map = new Entity();
             var buildMap = MapManager.Instance.GetMap("FreestyleRanch_Barn");
+            scene.WorldId = buildMap.Id;
             map.Components.Add(buildMap);
             scene.MapEdge = buildMap.MapEdges;
             scene.Entities.Add(map);

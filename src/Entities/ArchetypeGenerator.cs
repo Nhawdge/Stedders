@@ -1,5 +1,6 @@
 ﻿using Stedders.Components;
 using Stedders.Utilities;
+using System;
 using System.Numerics;
 
 namespace Stedders.Entities
@@ -108,14 +109,14 @@ namespace Stedders.Entities
             return field;
         }
 
-        internal static Entity GenerateAnchor(Vector2 pos,Vector2 dest, string scene)
+        internal static Entity GenerateAnchor(Vector2 pos,Vector2 dest, string destinationSceneName)
         {
             var anchor = new Entity();
-            anchor.Components.Add(new Teleporter<Player>()
+            anchor.Components.Add(new Teleporter()
             {
                 Position = pos,
                 Destination = dest,
-                Scene = scene
+                DestinationSceneName = destinationSceneName
             });
             return anchor;
         }

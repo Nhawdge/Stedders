@@ -6,6 +6,7 @@ namespace Stedders.Utilities
 {
     internal class BaseScene
     {
+        public Guid WorldId;
         internal Action Onload;
         internal Action OnUnload;
         internal Action GameLoop;

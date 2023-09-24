@@ -34,7 +34,10 @@ namespace Stedders.Utilities
                 Engine.ActiveScene = scene;
             }
             var nextScene = LoadScene(key);
-            Scenes.Add(key, nextScene);
+            if (Scenes.TryAdd(key, nextScene))
+            {
+
+            };
             Engine.ActiveScene = nextScene;
         }
 

@@ -52,14 +52,14 @@ namespace Stedders.Utilities
                         }
                         foreach (var entityInstance in instance.EntityInstances)
                         {
-                            var pos = new Vector2(entityInstance.Px[0], entityInstance.Px[1]);
+                            var pos = new Vector2(entityInstance.Px[0] * scale, entityInstance.Px[1] * scale);
                             if (entityInstance.Identifier == "Barn")
                             {
-                                entities.Add(ArchetypeGenerator.GenerateBarn(pos * scale));
+                                entities.Add(ArchetypeGenerator.GenerateBarn(pos));
                             }
                             if (entityInstance.Identifier == "Silo")
                             {
-                                entities.Add(ArchetypeGenerator.GenerateSilo(pos * scale));
+                                entities.Add(ArchetypeGenerator.GenerateSilo(pos));
                             }
                             if (entityInstance.Identifier == "Player")
                             {
@@ -67,7 +67,12 @@ namespace Stedders.Utilities
                             }
                             if (entityInstance.Identifier == "Anchor")
                             {
-                                entities.Add(ArchetypeGenerator.GenerateAnchor(pos, Vector2.Zero, ""));
+                                var destinationWorldVal = entityInstance.FieldInstances.FirstOrDefault(x => x.Identifier == "Entity_ref").Value;
+                                var destinationName = data.Levels.FirstOrDefault(x=>x.Iid == destinationWorldVal.LevelIid).Identifier;
+
+                                var destinationWorldId = destinationWorldVal.LevelIid;
+
+                                entities.Add(ArchetypeGenerator.GenerateAnchor(pos, Vector2.Zero, destinationName));
                             }
                         }
                     }

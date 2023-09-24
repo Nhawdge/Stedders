@@ -81,6 +81,7 @@ namespace Stedders
                 new SoundSystem(this),
                 new MotionSystem(this),
                 new SceneConditionSystem(this),
+                new TeleportationSystem(this),
             };
         }
 

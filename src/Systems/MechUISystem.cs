@@ -71,15 +71,6 @@ namespace Stedders.Systems
                         barnComponent.IsOpen = !barnComponent.IsOpen;
                         state.GuiOpen = barnComponent.IsOpen;
                     }
-                    if (RayGui.GuiButton(topButton with { x = topButton.x + 210 }, "Enter"))
-                    {
-                        // TODO
-                        SceneManager.Instance.ChangeScene(SceneKey.FreestyleRanch.Barn);
-                        //var mapHolder = Engine.Entities.Where(x => x.HasTypes(typeof(Map))).FirstOrDefault();
-                        //var map = mapHolder.GetComponent<Map>();
-                        //mapHolder.Components.Remove(map);
-                        //mapHolder.Components.Add(MapManager.Instance.GetMap("Barn"));
-                    }
                 }
                 else
                 {

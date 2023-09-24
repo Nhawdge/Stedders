@@ -2,11 +2,10 @@
 
 namespace Stedders.Components
 {
-    internal class Teleporter<T> : Component
+    internal class Teleporter : Component
     {
         public Vector2 Destination { get; set; }
         public Vector2 Position { get; set; }
-        public T TeleportType { get; set; }
-        public string Scene { get; set; }
+        public string DestinationSceneName { get;set; }
     }
 }
