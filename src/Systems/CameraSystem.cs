@@ -35,7 +35,7 @@ namespace Stedders.Systems
             {
                 return;
             }
-            var playerLegs = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
+            var playerLegs = playerMech.GetComponents<Render>().FirstOrDefault();
 
             if (playerLegs != null)
             {

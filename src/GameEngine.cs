@@ -72,7 +72,7 @@ namespace Stedders
                 new AiSystem(this),
                 new HealthSystem(this),
                 new CameraSystem(this),
-                new MechMovementSystem(this),
+                new PlayerMovementSystem(this),
                 new MechUISystem(this),
                 new EquipmentSystem(this),
                 new MunitionsSystem(this),
@@ -89,12 +89,12 @@ namespace Stedders
         {
             Raylib.BeginDrawing();
             Raylib.BeginMode2D(Camera);
-            Raylib.ClearBackground(Raylib.BLACK);
+            Raylib.ClearBackground(Raylib.BLACK); 
             for (int i = 0; i < Systems.Count; i++)
             {
                 Systems[i].Update();
             }
-            Raylib.EndMode2D();
+            Raylib.EndMode2D(); 
             for (int i = 0; i < Systems.Count; i++)
             {
                 Systems[i].UpdateNoCamera();

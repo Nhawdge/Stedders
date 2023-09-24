@@ -12,15 +12,15 @@ namespace Stedders.Utilities
 
         internal static MapManager Instance { get; } = new();
         private MapManager()
-        {
+        {  
             Engine = GameEngine.Instance;
             LoadAllMaps();
-        }
+        }  
 
-        public void LoadAllMaps()
+        public void LoadAllMaps() 
         {
             var mapName = "LDTK/Stedders";
-            // TODO Maybe optimize?
+            // TODO Maybe optimize? 
             var mapData = new MapData();
             var mapFile = File.ReadAllText($"Assets/Maps/{mapName}.ldtk");
             var data = MapData.FromJson(mapFile);
@@ -45,7 +45,9 @@ namespace Stedders.Utilities
                         foreach (var tile in instance.GridTiles)
                         {
                             var pos = new Vector2(tile.Px[0], tile.Px[1]);
-                            cells.Add(new MapCell(TextureKey.FreestyleRanchTileset, pos, tile.Src[0], tile.Src[1])
+
+                            // TODO Dynamic texture 
+                            cells.Add(new MapCell(TextureKey.OneBitKenneyMap, pos, tile.Src[0], tile.Src[1])
                             {
                                 Key = identifier,
                             });
@@ -63,12 +65,12 @@ namespace Stedders.Utilities
                             }
                             if (entityInstance.Identifier == "Player")
                             {
-                                entities.Add(ArchetypeGenerator.GeneratePlayerMech(pos));
+                                entities.Add(ArchetypeGenerator.GeneratePlayer(pos));
                             }
                             if (entityInstance.Identifier == "Anchor")
                             {
                                 var destinationWorldVal = entityInstance.FieldInstances.FirstOrDefault(x => x.Identifier == "Entity_ref").Value;
-                                var destinationName = data.Levels.FirstOrDefault(x=>x.Iid == destinationWorldVal.LevelIid).Identifier;
+                                var destinationName = data.Levels.FirstOrDefault(x => x.Iid == destinationWorldVal.LevelIid).Identifier;
 
                                 var destinationWorldId = destinationWorldVal.LevelIid;
 

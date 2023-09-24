@@ -35,9 +35,12 @@ namespace Stedders.Utilities
             TextureStore.Add(TextureKey.Bullet, Raylib.LoadTexture("Assets/Art/Bullet.png"));
 
             TextureStore.Add(TextureKey.FreestyleRanchTileset, Raylib.LoadTexture("Assets/Art/FreestyleRanch.png"));
+            TextureStore.Add(TextureKey.OneBitKenneyMap, Raylib.LoadTexture("Assets/KenneyAssets/monochrome_packed.png"));
+            TextureStore.Add(TextureKey.OneBitKenney, Raylib.LoadTexture("Assets/KenneyAssets/onebitkenney.png"));
+            TextureStore.Add(TextureKey.OneBitKenneyOpaque, Raylib.LoadTexture("Assets/KenneyAssets/onebitkenneyopaque.png"));
         }
         public Texture GetTexture(TextureKey key)
-        {
+        {  
             if (TextureStore.Count <= 0)
             {
                 LoadTextures();
@@ -67,6 +70,9 @@ namespace Stedders.Utilities
         Field1,
         WaterBlob,
         Bullet,
-        FreestyleRanchTileset
+        FreestyleRanchTileset,
+        OneBitKenney,
+        OneBitKenneyMap,
+        OneBitKenneyOpaque
     }
 }

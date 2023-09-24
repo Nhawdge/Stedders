@@ -1,5 +1,6 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
+using Stedders.Systems;
 
 namespace Stedders.Utilities
 {
@@ -22,6 +23,7 @@ namespace Stedders.Utilities
                 SceneKey.Menu.HowToPlay => HowToPlay(),
                 SceneKey.FreestyleRanch.World => FreestyleRanch(),
                 SceneKey.FreestyleRanch.Barn => FreestyleRanchBarn(),
+                SceneKey.NewLand.World => NewLand(),
                 _ => throw new NotImplementedException(),
             };
         }
@@ -60,6 +62,10 @@ namespace Stedders.Utilities
                 public const string World = "FreestyleRanch";
                 public const string Barn = "FreestyleRanch_Barn";
             }
+            public static class NewLand
+            {
+                public const string World = "NewLand";
+            }
         }
 
         public static Dictionary<KeyboardKey, Action> GetBaseKeyboardMap()
@@ -74,9 +80,9 @@ namespace Stedders.Utilities
                 {
                     return;
                 }
+                var player = playerMech.GetComponent<Player>();
 
-                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
-                playerRenderLegs!.Rotation += 2f;
+                player.Movement.X = 1;
             });
 
             KeyboardMapping.Add(KeyboardKey.KEY_A, () =>
@@ -86,9 +92,9 @@ namespace Stedders.Utilities
                 {
                     return;
                 }
+                var player = playerMech.GetComponent<Player>();
 
-                var playerRenderLegs = playerMech.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
-                playerRenderLegs!.Rotation -= 2f;
+                player.Movement.X = -1;
             });
             KeyboardMapping.Add(KeyboardKey.KEY_W, () =>
             {
@@ -99,7 +105,7 @@ namespace Stedders.Utilities
                 }
                 var player = playerMech.GetComponent<Player>();
 
-                player.Throttle = Math.Min(player.Throttle + 0.1f, player.MaxThrottle);
+                player.Movement.Y = -1;
             });
             KeyboardMapping.Add(KeyboardKey.KEY_S, () =>
             {
@@ -110,18 +116,7 @@ namespace Stedders.Utilities
                 }
                 var player = playerMech.GetComponent<Player>();
 
-                player.Throttle = Math.Max(player.Throttle - 0.1f, player.MinThrottle);
-            });
-            KeyboardMapping.Add(KeyboardKey.KEY_SPACE, () =>
-            {
-                var playerMech = GameEngine.Instance.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
-                if (playerMech is null)
-                {
-                    return;
-                }
-                var player = playerMech.GetComponent<Player>();
-
-                player.Throttle = 0f;
+                player.Movement.Y = 1;
             });
 
             KeyboardMapping.Add(KeyboardKey.KEY_ESCAPE, () =>

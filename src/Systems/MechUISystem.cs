@@ -29,14 +29,14 @@ namespace Stedders.Systems
             }
             // GUI Stuff
             var player = playerMech.GetComponent<Player>();
-            var speed = player.Throttle;
+            //var speed = player.Throttle;
 
             RayGui.GuiDummyRec(new Rectangle(5, 5, 240, 100), "");
 
             var spread = 22;
             var x = 10;
             var y = 10;
-            RayGui.GuiSliderBar(new Rectangle(x, y, 100, 20), string.Empty, "Throttle", Math.Abs(speed), 0, player.MaxThrottle);
+            //RayGui.GuiSliderBar(new Rectangle(x, y, 100, 20), string.Empty, "Throttle", Math.Abs(speed), 0, player.MaxThrottle);
 
             y += spread;
             var equippedItems = player.Inventory.OrderBy(x => x.Button);
@@ -57,7 +57,7 @@ namespace Stedders.Systems
             var topButton = new Rectangle(Raylib.GetScreenWidth() / 2 - 100, 20, 200, 60);
 
             var barn = Engine.Entities.Where(x => x.HasTypes(typeof(Barn))).FirstOrDefault();
-            var playerSprite = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
+            var playerSprite = playerMech.GetComponents<Render>().FirstOrDefault();
             if (barn is not null)
             {
                 var barnComponent = barn.GetComponent<Barn>();

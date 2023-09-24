@@ -1,4 +1,5 @@
-﻿using Stedders.Components;
+﻿using Raylib_CsLo;
+using Stedders.Components;
 using Stedders.Utilities;
 using System;
 using System.Numerics;
@@ -7,28 +8,23 @@ namespace Stedders.Entities
 {
     public static class ArchetypeGenerator
     {
-        public static Entity GeneratePlayerMech(Vector2 startPos)
+        public static Entity GeneratePlayer(Vector2 startPos)
         {
-            var player = new Entity();
+            var player = new Entity();  
             player.Components.Add(new Player());
-            player.Components.Add(new SoundAction(SoundKey.Mech2EngineStart));
 
-            var legs = new Sprite(TextureKey.Mech2, "Assets/Art/fastmechwalksample", 3, true)
+            var sprite = new Sprite(TextureKey.OneBitKenney, "Assets/KenneyAssets/onebitkenney", 3, true)
             {
-                MechPiece = MechPieces.Legs,
                 CanRotate = false,
                 ZIndex = 3,
+                Color = Raylib.ORANGE, 
             };
-            player.Components.Add(legs);
+            sprite.Play("Stedder1");
+            player.Components.Add(sprite);
 
-            //var torso = new Sprite(engine.TextureManager.GetTexture(TextureKey.Mech2Top), "Assets/Art/Mech2Top", 3, true) { MechPiece = MechPieces.Torso, CanRotate = false, ZIndex = 2 };
-            //player.Components.Add(torso);
-
-
-            legs.Rotation = 0f;
-            legs.Position = startPos;
-            //torso.Position = startPos with { Y = startPos.Y - 30 /* * torso.Scale*/ };
-
+            sprite.Rotation = 0f;
+            sprite.Position = startPos;
+            
             return player;
         }
 
@@ -109,7 +105,7 @@ namespace Stedders.Entities
             return field;
         }
 
-        internal static Entity GenerateAnchor(Vector2 pos,Vector2 dest, string destinationSceneName)
+        internal static Entity GenerateAnchor(Vector2 pos, Vector2 dest, string destinationSceneName)
         {
             var anchor = new Entity();
             anchor.Components.Add(new Teleporter()

@@ -1,18 +1,13 @@
 ﻿using Stedders.Resources;
+using System.Numerics;
 
 namespace Stedders.Components
 {
     internal class Player : Component
     {
-        public float Throttle = 0f;
-        public float MaxThrottle = 5f;
-        public float MinThrottle = -5f;
-
-        public float Speed = 2f;
+        public float Speed = 100f;
+        public Vector2 Movement = Vector2.Zero;
 
         public List<Equipment> Inventory = ResourceManager.Instance.PlayerInventory;
-
-        //public float BioMassContainer = 0f;
-        //public float MaxBioMassContainer = 100f;
     }
 }

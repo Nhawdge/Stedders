@@ -20,7 +20,7 @@ namespace Stedders.Components
         public float RotationAsRadians => (Rotation - 90) * (float)(Math.PI / 180);
         public Vector2 Position;
         public Color Color;
-        public MechPieces MechPiece;
+        
         public TextureKey Key;
 
         public float RenderRotation

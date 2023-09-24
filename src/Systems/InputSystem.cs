@@ -1,18 +1,26 @@
 using Raylib_CsLo;
 using Stedders.Components;
+using System.Numerics;
 
 namespace Stedders.Systems
 {
     public class InputSystem : GameSystem
     {
- 
+
         public InputSystem(GameEngine gameEngine) : base(gameEngine)
         {
-      
+
         }
 
         public override void Update()
         {
+            var playerEntity = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
+            if (playerEntity is not null)
+            {
+                var player = playerEntity.GetComponents<Player>().FirstOrDefault();
+                player.Movement = Vector2.Zero;
+            }
+
             foreach (var mapping in Engine.ActiveScene.KeyboardMapping)
             {
                 if (Raylib.IsKeyDown(mapping.Key))
@@ -29,10 +37,9 @@ namespace Stedders.Systems
                 }
             }
 
-            var playerMech = Engine.Entities.Where(x => x.HasTypes(typeof(Player))).FirstOrDefault();
-            if (playerMech is not null)
+            if (playerEntity is not null)
             {
-                var playerRenderTorso = playerMech.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                var playerRenderTorso = playerEntity.GetComponents<Render>().FirstOrDefault();
                 if (playerRenderTorso is not null)
                 {
                     var mousePos = Raylib.GetMousePosition();

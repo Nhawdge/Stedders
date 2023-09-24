@@ -4,7 +4,7 @@
 //
 //    using QuickType;
 //
-//    var welcome = Welcome.FromJson(jsonString);
+//    var mapData = MapData.FromJson(jsonString);
 #nullable enable
 #pragma warning disable CS8618
 #pragma warning disable CS8601
@@ -13,9 +13,11 @@
 namespace QuickType
 {
     using System;
-    using System.Globalization;
+    using System.Collections.Generic;
+
     using System.Text.Json;
     using System.Text.Json.Serialization;
+    using System.Globalization;
 
     public partial class MapData
     {
@@ -226,6 +228,9 @@ namespace QuickType
         [JsonPropertyName("tileRect")]
         public object TileRect { get; set; }
 
+        [JsonPropertyName("uiTileRect")]
+        public object UiTileRect { get; set; }
+
         [JsonPropertyName("nineSliceBorders")]
         public object[] NineSliceBorders { get; set; }
 
@@ -356,7 +361,7 @@ namespace QuickType
         public string Id { get; set; }
 
         [JsonPropertyName("params")]
-        public long[] Params { get; set; }
+        public ParamElement[] Params { get; set; }
     }
 
     public partial class Enum
@@ -368,7 +373,7 @@ namespace QuickType
         public long Uid { get; set; }
 
         [JsonPropertyName("values")]
-        public Value[] Values { get; set; }
+        public ValueElement[] Values { get; set; }
 
         [JsonPropertyName("iconTilesetUid")]
         public object IconTilesetUid { get; set; }
@@ -383,7 +388,7 @@ namespace QuickType
         public object[] Tags { get; set; }
     }
 
-    public partial class Value
+    public partial class ValueElement
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
@@ -391,14 +396,8 @@ namespace QuickType
         [JsonPropertyName("tileRect")]
         public object TileRect { get; set; }
 
-        [JsonPropertyName("tileId")]
-        public long TileId { get; set; }
-
         [JsonPropertyName("color")]
         public long Color { get; set; }
-
-        [JsonPropertyName("__tileSrcRect")]
-        public object TileSrcRect { get; set; }
     }
 
     public partial class Layer
@@ -472,6 +471,9 @@ namespace QuickType
         [JsonPropertyName("intGridValues")]
         public object[] IntGridValues { get; set; }
 
+        [JsonPropertyName("intGridValuesGroups")]
+        public object[] IntGridValuesGroups { get; set; }
+
         [JsonPropertyName("autoRuleGroups")]
         public object[] AutoRuleGroups { get; set; }
 
@@ -506,7 +508,7 @@ namespace QuickType
         public string RelPath { get; set; }
 
         [JsonPropertyName("embedAtlas")]
-        public object EmbedAtlas { get; set; }
+        public string EmbedAtlas { get; set; }
 
         [JsonPropertyName("pxWid")]
         public long PxWid { get; set; }
@@ -650,7 +652,7 @@ namespace QuickType
         public string Type { get; set; }
 
         [JsonPropertyName("__value")]
-        public ValueUnion Value { get; set; }
+        public ParamElement Value { get; set; }
 
         [JsonPropertyName("__tile")]
         public object Tile { get; set; }
@@ -659,16 +661,7 @@ namespace QuickType
         public long DefUid { get; set; }
 
         [JsonPropertyName("realEditorValues")]
-        public PurpleRealEditorValue[] RealEditorValues { get; set; }
-    }
-
-    public partial class PurpleRealEditorValue
-    {
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        [JsonPropertyName("params")]
-        public bool[] Params { get; set; }
+        public DefaultOverride[] RealEditorValues { get; set; }
     }
 
     public partial class LayerInstance
@@ -734,7 +727,7 @@ namespace QuickType
         public long Seed { get; set; }
 
         [JsonPropertyName("overrideTilesetUid")]
-        public object OverrideTilesetUid { get; set; }
+        public long? OverrideTilesetUid { get; set; }
 
         [JsonPropertyName("gridTiles")]
         public GridTile[] GridTiles { get; set; }
@@ -797,7 +790,7 @@ namespace QuickType
         public string Type { get; set; }
 
         [JsonPropertyName("__value")]
-        public ValueClass Value { get; set; }
+        public Value Value { get; set; }
 
         [JsonPropertyName("__tile")]
         public object Tile { get; set; }
@@ -806,10 +799,10 @@ namespace QuickType
         public long DefUid { get; set; }
 
         [JsonPropertyName("realEditorValues")]
-        public FluffyRealEditorValue[] RealEditorValues { get; set; }
+        public RealEditorValue[] RealEditorValues { get; set; }
     }
 
-    public partial class FluffyRealEditorValue
+    public partial class RealEditorValue
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
@@ -818,7 +811,7 @@ namespace QuickType
         public Guid[] Params { get; set; }
     }
 
-    public partial class ValueClass
+    public partial class Value
     {
         [JsonPropertyName("entityIid")]
         public Guid EntityIid { get; set; }
@@ -854,13 +847,13 @@ namespace QuickType
         public long A { get; set; }
     }
 
-    public partial struct ValueUnion
+    public partial struct ParamElement
     {
         public bool? Bool;
         public long? Integer;
 
-        public static implicit operator ValueUnion(bool Bool) => new ValueUnion { Bool = Bool };
-        public static implicit operator ValueUnion(long Integer) => new ValueUnion { Integer = Integer };
+        public static implicit operator ParamElement(bool Bool) => new ParamElement { Bool = Bool };
+        public static implicit operator ParamElement(long Integer) => new ParamElement { Integer = Integer };
     }
 
     public partial class MapData
@@ -879,7 +872,7 @@ namespace QuickType
         {
             Converters =
             {
-                ValueUnionConverter.Singleton,
+                ParamElementConverter.Singleton,
                 new DateOnlyConverter(),
                 new TimeOnlyConverter(),
                 IsoDateTimeOffsetConverter.Singleton
@@ -887,26 +880,26 @@ namespace QuickType
         };
     }
 
-    internal class ValueUnionConverter : JsonConverter<ValueUnion>
+    internal class ParamElementConverter : JsonConverter<ParamElement>
     {
-        public override bool CanConvert(Type t) => t == typeof(ValueUnion);
+        public override bool CanConvert(Type t) => t == typeof(ParamElement);
 
-        public override ValueUnion Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override ParamElement Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             switch (reader.TokenType)
             {
                 case JsonTokenType.Number:
                     var integerValue = reader.GetInt64();
-                    return new ValueUnion { Integer = integerValue };
+                    return new ParamElement { Integer = integerValue };
                 case JsonTokenType.True:
                 case JsonTokenType.False:
                     var boolValue = reader.GetBoolean();
-                    return new ValueUnion { Bool = boolValue };
+                    return new ParamElement { Bool = boolValue };
             }
-            throw new Exception("Cannot unmarshal type ValueUnion");
+            throw new Exception("Cannot unmarshal type ParamElement");
         }
 
-        public override void Write(Utf8JsonWriter writer, ValueUnion value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, ParamElement value, JsonSerializerOptions options)
         {
             if (value.Integer != null)
             {
@@ -918,10 +911,10 @@ namespace QuickType
                 JsonSerializer.Serialize(writer, value.Bool.Value, options);
                 return;
             }
-            throw new Exception("Cannot marshal type ValueUnion");
+            throw new Exception("Cannot marshal type ParamElement");
         }
 
-        public static readonly ValueUnionConverter Singleton = new ValueUnionConverter();
+        public static readonly ParamElementConverter Singleton = new ParamElementConverter();
     }
 
     public class DateOnlyConverter : JsonConverter<DateOnly>

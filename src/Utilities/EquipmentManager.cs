@@ -27,10 +27,10 @@ namespace Stedders.Utilities
                     var allEnemies = allEntities.Where(x => x.HasTypes(typeof(NpcAi), typeof(Sprite), typeof(Health)));
 
                     var offset = item.Button == MouseButton.MOUSE_BUTTON_LEFT ? 20 : 30;
-                    var mySprite = entity.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                    var mySprite = entity.GetComponents<Render>().FirstOrDefault();
                     if (mySprite == null)
                     {
-                        mySprite = entity.GetComponents<Render>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
+                        mySprite = entity.GetComponents<Render>().FirstOrDefault();
                         offset = 0;
                     }
 
@@ -108,10 +108,10 @@ namespace Stedders.Utilities
                 Fire = (allEntities, player, item) =>
                 {
                     var playerComponent = player.GetComponent<Player>();
-                    var myPos = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                    var myPos = player.GetComponents<Sprite>().FirstOrDefault();
                     if (myPos == null)
                     {
-                        myPos = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
+                        myPos = player.GetComponents<Sprite>().FirstOrDefault();
                     }
 
                     var plants = allEntities.Where(x => x.HasTypes(typeof(Plant), typeof(Sprite)));
@@ -265,11 +265,11 @@ namespace Stedders.Utilities
                         return (Enumerable.Empty<Entity>(), Enumerable.Empty<Entity>());
                     }
                     item.ShotCooldown = item.CooldownPerShot;
-                    var torso = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Torso);
+                    var torso = player.GetComponents<Sprite>().FirstOrDefault();
 
                     if (torso is null)
                     {
-                        torso = player.GetComponents<Sprite>().FirstOrDefault(x => x.MechPiece == MechPieces.Legs);
+                        torso = player.GetComponents<Sprite>().FirstOrDefault();
                     }
                     var entitiesToAdd = new List<Entity>();
 

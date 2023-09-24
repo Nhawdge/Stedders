@@ -19,7 +19,7 @@ namespace Stedders.Utilities
                 Text = "Play",
                 OnClick = () =>
                 {
-                    SceneManager.Instance.ChangeScene(SceneKey.FreestyleRanch.World);
+                    SceneManager.Instance.ChangeScene(SceneKey.NewLand.World);
                 },
             });
             menu.Components.Add(new UiButton
