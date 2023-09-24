@@ -6,10 +6,10 @@ namespace Stedders.Components
 {
     internal class Tilemap : Render
     {
-        internal int X = 0;
-        internal int Y = 0;
+        internal long X = 0;
+        internal long Y = 0;
         internal Vector2 Dimensions;
-        public Tilemap(TextureKey key, int x, int y, float scale = 1, bool isCentered = true) : base(key, scale, isCentered)
+        public Tilemap(TextureKey key, long x, long y, float scale = 1, bool isCentered = true) : base(key, scale, isCentered)
         {
             X = x;
             Y = y;

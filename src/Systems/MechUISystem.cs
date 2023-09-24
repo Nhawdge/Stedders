@@ -1,5 +1,6 @@
 ﻿using Raylib_CsLo;
 using Stedders.Components;
+using Stedders.Resources;
 using Stedders.Utilities;
 using System.Numerics;
 using static Stedders.Utilities.SceneManager;
@@ -38,7 +39,7 @@ namespace Stedders.Systems
             RayGui.GuiSliderBar(new Rectangle(x, y, 100, 20), string.Empty, "Throttle", Math.Abs(speed), 0, player.MaxThrottle);
 
             y += spread;
-            var equippedItems = playerMech.GetComponents<Equipment>().OrderBy(x => x.Button);
+            var equippedItems = player.Inventory.OrderBy(x => x.Button);
             foreach (var item in equippedItems)
             {
                 RayGui.GuiSliderBar(new Rectangle(x, y, 100, 20), string.Empty, item.Name, item.Ammo, 0, item.MaxAmmo);
@@ -117,14 +118,14 @@ namespace Stedders.Systems
                         }
                         if (RayGui.GuiButton(buttonRect, itemText))
                         {
-                            var currentLeft = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_LEFT);
+                            var currentLeft = player.Inventory.FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_LEFT);
                             if (currentLeft is not null)
                             {
                                 inventorytoAdd.Add(currentLeft);
-                                playerMech.Components.Remove(currentLeft);
+                                player.Inventory.Remove(currentLeft);
                             }
                             item.Button = MouseButton.MOUSE_BUTTON_LEFT;
-                            playerMech.Components.Add(item);
+                            player.Inventory.Add(item);
                             inventoryToRemove.Add(item);
                         }
                         if (item.CanReload)
@@ -149,14 +150,14 @@ namespace Stedders.Systems
                         {
                             if (Raylib.CheckCollisionPointRec(mousePos, buttonRect))
                             {
-                                var currentRight = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_RIGHT);
+                                var currentRight = ResourceManager.Instance.PlayerInventory.FirstOrDefault(x => x.Button == MouseButton.MOUSE_BUTTON_RIGHT);
                                 if (currentRight is not null)
                                 {
                                     inventorytoAdd.Add(currentRight);
-                                    playerMech.Components.Remove(currentRight);
+                                    player.Inventory.Remove(currentRight);
                                 }
                                 item.Button = MouseButton.MOUSE_BUTTON_RIGHT;
-                                playerMech.Components.Add(item);
+                                player.Inventory.Add(item);
                                 inventoryToRemove.Add(item);
                             }
                         }
@@ -178,7 +179,7 @@ namespace Stedders.Systems
                 {
                     if (RayGui.GuiButton(topButton, TranslationManager.GetTranslation("sell-biomass")))
                     {
-                        var harvester = playerMech.GetComponents<Equipment>().FirstOrDefault(x => x.Name == "Harvester");
+                        var harvester = player.Inventory.FirstOrDefault(x => x.Name == "Harvester");
                         if (harvester is not null)
                         {
                             siloComponent.BioMass += harvester.Ammo;

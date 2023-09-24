@@ -1,6 +1,5 @@
 ﻿using Stedders.Components;
 using Stedders.Entities;
-using System.Numerics;
 
 namespace Stedders.Utilities
 {
@@ -9,9 +8,12 @@ namespace Stedders.Utilities
         private BaseScene FreestyleRanch()
         {
             var mainGame = new BaseScene();
+            mainGame.KeyboardMapping = GetBaseKeyboardMap();
+            mainGame.MouseMapping = GetBaseMouseMap();
             var map = new Entity();
             var buildMap = MapManager.Instance.GetMap("FreestyleRanch");
             map.Components.Add(buildMap);
+            mainGame.MapEdge = buildMap.MapEdges;
             mainGame.Entities.Add(map);
             mainGame.Entities.AddRange(buildMap.EntitiesToAdd);
 
@@ -33,9 +35,13 @@ namespace Stedders.Utilities
         private BaseScene FreestyleRanchBarn()
         {
             var scene = new BaseScene();
+
+            scene.KeyboardMapping = GetBaseKeyboardMap();
+            scene.MouseMapping = GetBaseMouseMap();
             var map = new Entity();
             var buildMap = MapManager.Instance.GetMap("FreestyleRanch_Barn");
             map.Components.Add(buildMap);
+            scene.MapEdge = buildMap.MapEdges;
             scene.Entities.Add(map);
             scene.Entities.AddRange(buildMap.EntitiesToAdd);
 
@@ -44,7 +50,6 @@ namespace Stedders.Utilities
             state.Currency = 0;
             state.Day = 0;
             state.CurrentTime = 0;
-
 
             //todo fix this
             //state.DialoguePhase = ("intro", 0);

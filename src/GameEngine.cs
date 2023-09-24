@@ -26,11 +26,10 @@ namespace Stedders
         public Entity Singleton = new();
         internal BaseScene ActiveScene { get; set; }
 
-        public Vector2 MapEdge = new Vector2(4320, 2880);
+        
 
         public void RunGame()
         {
-
             Raylib.SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
 
             Raylib.InitWindow(1368, 768, "Stedders");
@@ -61,6 +60,7 @@ namespace Stedders
             Entities.Add(Singleton);
             RayGui.GuiLoadStyle("Assets/Other/cyber.rgs");
             RayGui.GuiSetFont(Raylib.LoadFont("Assets/Other/Roboto-Black.ttf"));
+
 
             Systems = new List<GameSystem>
             {

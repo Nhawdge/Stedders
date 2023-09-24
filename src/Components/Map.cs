@@ -12,6 +12,8 @@ namespace Stedders.Components
         internal string Name;
 
         public bool CanSpawnEnemies { get;  set; }
+        public Vector2 MapEdges { get; internal set; }
+        public long Scale { get; internal set; }
     }
 
     internal class MapCell
@@ -19,7 +21,7 @@ namespace Stedders.Components
         public MapPartsKey Key;
         public Tilemap Tilemap;
 
-        public MapCell(TextureKey key, Vector2 dest, int x = 0, int y = 0)
+        public MapCell(TextureKey key, Vector2 dest, long x = 0, long y = 0)
         {
             Tilemap = new Tilemap(key, x, y, 3, false)
             {

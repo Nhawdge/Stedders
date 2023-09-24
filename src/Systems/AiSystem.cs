@@ -242,12 +242,12 @@ namespace Stedders.Systems
                 {
                     var pos = myPos.Position;
                     var leftEdgeDistance = pos.X;
-                    var rightEdgeDistance = Engine.MapEdge.X - pos.X;
+                    var rightEdgeDistance = Engine.ActiveScene.MapEdge.X - pos.X;
                     var topEdgeDistance = pos.Y;
-                    var bottomEdgeDistance = Engine.MapEdge.Y - pos.Y;
+                    var bottomEdgeDistance = Engine.ActiveScene.MapEdge.Y - pos.Y;
                     var target = new Vector2(
-                        rightEdgeDistance > leftEdgeDistance ? Engine.MapEdge.X : 0,
-                        topEdgeDistance > bottomEdgeDistance ? Engine.MapEdge.Y : 0);
+                        rightEdgeDistance > leftEdgeDistance ? Engine.ActiveScene.MapEdge.X : 0,
+                        topEdgeDistance > bottomEdgeDistance ? Engine.ActiveScene.MapEdge.Y : 0);
 
                     myAi.TargetPosition = target;
                     var targetDiff = target - pos;

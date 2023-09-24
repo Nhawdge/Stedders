@@ -1,5 +1,6 @@
 using Raylib_CsLo;
 using Stedders.Components;
+using Stedders.Utilities;
 using System.Numerics;
 
 namespace Stedders.Systems
@@ -18,8 +19,17 @@ namespace Stedders.Systems
             Raylib.DrawText(Raylib.GetFPS().ToString(), Raylib.GetScreenWidth() - 50, 20, 20, Raylib.WHITE);
 #endif
             var state = Engine.Singleton.GetComponent<GameState>();
+            var animationTime = 1;
+            if (state.IntroAnimationTiming < animationTime)
+            {
+                state.IntroAnimationTiming += Raylib.GetFrameTime();
+                RayGui.GuiFade((float)EasingHelpers.easeInSine(state.IntroAnimationTiming / animationTime));
+            }
+            else
+            {
+                RayGui.GuiFade(1f);
+            }
 
-            RayGui.GuiFade(255);
             foreach (var entity in Engine.Entities.Where(x => x.HasTypes(typeof(UiTitle))))
             {
                 var buttonWidth = 200;

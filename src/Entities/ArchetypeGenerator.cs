@@ -111,7 +111,7 @@ namespace Stedders.Entities
         internal static Entity GenerateAnchor(Vector2 pos,Vector2 dest, string scene)
         {
             var anchor = new Entity();
-            anchor.Components.Add(new Teleporter()
+            anchor.Components.Add(new Teleporter<Player>()
             {
                 Position = pos,
                 Destination = dest,

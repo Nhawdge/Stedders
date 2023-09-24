@@ -1,8 +1,7 @@
-﻿using Stedders.Components;
+﻿using QuickType;
+using Stedders.Components;
 using Stedders.Entities;
 using System.Numerics;
-using System.Text.Json;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Stedders.Utilities
 {
@@ -24,42 +23,49 @@ namespace Stedders.Utilities
             // TODO Maybe optimize?
             var mapData = new MapData();
             var mapFile = File.ReadAllText($"Assets/Maps/{mapName}.ldtk");
-            var data = JsonSerializer.Deserialize<MapData>(mapFile);
+            var data = MapData.FromJson(mapFile);
 
-            foreach (var level in data.levels)
+            foreach (var level in data.Levels)
             {
                 var cells = new List<MapCell>();
-                var entities = new List<Entity>();
-                foreach (var instance in level.layerInstances)
+                var entities = new List<Entities.Entity>();
+                var canSpawnInstance = level.FieldInstances.FirstOrDefault(x => x.Identifier == "CanSpawnEnemies");
+                var scaleInstance = level.FieldInstances.FirstOrDefault(x => x.Identifier == "Scale");
+
+                var canSpawn = canSpawnInstance?.Value.Bool ?? false;
+
+                var scale = scaleInstance?.Value.Integer ?? 1;
+
+                foreach (var instance in level.LayerInstances)
                 {
-                    if (Enum.TryParse<MapPartsKey>(instance.__identifier, true, out var identifier))
+                    if (System.Enum.TryParse<MapPartsKey>(instance.Identifier, true, out var identifier))
                     {
                         Console.WriteLine("Passed: " + identifier);
 
-                        foreach (var tile in instance.gridTiles)
+                        foreach (var tile in instance.GridTiles)
                         {
-                            var pos = new Vector2(tile.px[0], tile.px[1]);
-                            cells.Add(new MapCell(TextureKey.FreestyleRanchTileset, pos, tile.src[0], tile.src[1])
+                            var pos = new Vector2(tile.Px[0], tile.Px[1]);
+                            cells.Add(new MapCell(TextureKey.FreestyleRanchTileset, pos, tile.Src[0], tile.Src[1])
                             {
                                 Key = identifier,
                             });
                         }
-                        foreach (var entityInstance in instance.entityInstances)
+                        foreach (var entityInstance in instance.EntityInstances)
                         {
-                            var pos = new Vector2(entityInstance.px[0], entityInstance.px[1]);
-                            if (entityInstance.__identifier == "Barn")
+                            var pos = new Vector2(entityInstance.Px[0], entityInstance.Px[1]);
+                            if (entityInstance.Identifier == "Barn")
                             {
-                                entities.Add(ArchetypeGenerator.GenerateBarn(pos * 3));
+                                entities.Add(ArchetypeGenerator.GenerateBarn(pos * scale));
                             }
-                            if (entityInstance.__identifier == "Silo")
+                            if (entityInstance.Identifier == "Silo")
                             {
-                                entities.Add(ArchetypeGenerator.GenerateSilo(pos * 3));
+                                entities.Add(ArchetypeGenerator.GenerateSilo(pos * scale));
                             }
-                            if (entityInstance.__identifier == "Player")
+                            if (entityInstance.Identifier == "Player")
                             {
                                 entities.Add(ArchetypeGenerator.GeneratePlayerMech(pos));
                             }
-                            if (entityInstance.__identifier == "Anchor")
+                            if (entityInstance.Identifier == "Anchor")
                             {
                                 entities.Add(ArchetypeGenerator.GenerateAnchor(pos, Vector2.Zero, ""));
                             }
@@ -67,18 +73,16 @@ namespace Stedders.Utilities
                     }
                 }
                 cells = cells.OrderBy(x => x.Key).ToList();
-                var canSpawnInstance = level.fieldInstances.FirstOrDefault(x => x.__identifier == "CanSpawnEnemies");
-                var canSpawn = false;
-                if (canSpawnInstance != null)
-                    canSpawn = bool.Parse(canSpawnInstance.__value.ToString());
 
-                MapStore.Add(level.identifier, new Map()
+                MapStore.Add(level.Identifier, new Map()
                 {
-                    Id = Guid.Parse(level.iid),
-                    Name = level.identifier,
+                    Id = level.Iid,
+                    Name = level.Identifier,
                     Cells = cells,
                     EntitiesToAdd = entities,
                     CanSpawnEnemies = canSpawn,
+                    MapEdges = new Vector2(level.PxWid * scale, level.PxHei * scale),
+                    Scale = scale,
                 });
             }
         }
